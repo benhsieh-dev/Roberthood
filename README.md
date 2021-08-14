@@ -6,21 +6,21 @@ Users can read up on latest business news, check stock quotes, add ticker to wat
 
 ## Technologies Used
 
-* React JS
-* Redux JS
-* React Router DOM
-* Ruby on Rails
-* Node JS
-* IEX API
-* News API
-* Recharts API
 * Ajax
 * Axios
-* React Tabs
-* HTML3
 * CSS5
-* Open graph tags
 * Firebase Database
+* HTML3
+* IEX API
+* News API
+* Node JS
+* Open graph tags
+* Redux JS
+* React JS
+* React Router DOM
+* Recharts API
+* Ruby on Rails
+* React Tabs
 
 One of the technical challenges I faced was providing login errors whe users login with incorrect credentials. The way I solved the issue was to set up states for error as well as mapping the state of current user into the login component. 
 
@@ -104,8 +104,8 @@ This issue was resolved by creating a custom function and passing it a ticker sy
 
 ## Future Considerations
 
-* More comprehensive portfolio view
 * Ability to convert virtual cash into and out of virtual stocks
+* More comprehensive portfolio view with additional graphical representations
 
   
 

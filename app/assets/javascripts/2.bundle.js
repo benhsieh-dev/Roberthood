@@ -95,7 +95,7 @@ function range(a, b, str) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2017 Jed Watson.
+  Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -106,7 +106,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var hasOwn = {}.hasOwnProperty;
 
-	function classNames () {
+	function classNames() {
 		var classes = [];
 
 		for (var i = 0; i < arguments.length; i++) {
@@ -117,16 +117,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
-				var inner = classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
+			} else if (Array.isArray(arg)) {
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
 				}
 			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
+				if (arg.toString === Object.prototype.toString) {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
 					}
+				} else {
+					classes.push(arg.toString());
 				}
 			}
 		}
@@ -29053,44 +29059,49 @@ exports.classNamesShape = classNamesShape;
 
 /***/ }),
 
-/***/ "./node_modules/recharts-scale/lib/getNiceTickValues.js":
+/***/ "./node_modules/recharts-scale/es6/getNiceTickValues.js":
 /*!**************************************************************!*\
-  !*** ./node_modules/recharts-scale/lib/getNiceTickValues.js ***!
+  !*** ./node_modules/recharts-scale/es6/getNiceTickValues.js ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: getNiceTickValues, getTickValues, getTickValuesFixedDomain */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNiceTickValues", function() { return getNiceTickValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTickValues", function() { return getTickValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTickValuesFixedDomain", function() { return getTickValuesFixedDomain; });
+/* harmony import */ var decimal_js_light__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decimal.js-light */ "./node_modules/decimal.js-light/decimal.js");
+/* harmony import */ var decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decimal_js_light__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util/utils */ "./node_modules/recharts-scale/es6/util/utils.js");
+/* harmony import */ var _util_arithmetic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util/arithmetic */ "./node_modules/recharts-scale/es6/util/arithmetic.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getTickValuesFixedDomain = exports.getTickValues = exports.getNiceTickValues = void 0;
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-var _decimal = _interopRequireDefault(__webpack_require__(/*! decimal.js-light */ "./node_modules/decimal.js-light/decimal.js"));
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-var _utils = __webpack_require__(/*! ./util/utils */ "./node_modules/recharts-scale/lib/util/utils.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-var _arithmetic = _interopRequireDefault(__webpack_require__(/*! ./util/arithmetic */ "./node_modules/recharts-scale/lib/util/arithmetic.js"));
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+/**
+ * @fileOverview calculate tick values of scale
+ * @author xile611, arcthur
+ * @date 2015-09-17
+ */
+
+
 
 /**
  * Calculate a interval of a minimum value and a maximum value
@@ -29099,6 +29110,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @param  {Number} max       The maximum value
  * @return {Array} An interval
  */
+
 function getValidInterval(_ref) {
   var _ref2 = _slicedToArray(_ref, 2),
       min = _ref2[0],
@@ -29127,20 +29139,19 @@ function getValidInterval(_ref) {
 
 function getFormatStep(roughStep, allowDecimals, correctionFactor) {
   if (roughStep.lte(0)) {
-    return new _decimal.default(0);
+    return new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0);
   }
 
-  var digitCount = _arithmetic.default.getDigitCount(roughStep.toNumber()); // The ratio between the rough step and the smallest number which has a bigger
+  var digitCount = _util_arithmetic__WEBPACK_IMPORTED_MODULE_2__["default"].getDigitCount(roughStep.toNumber()); // The ratio between the rough step and the smallest number which has a bigger
   // order of magnitudes than the rough step
 
-
-  var digitCountValue = new _decimal.default(10).pow(digitCount);
+  var digitCountValue = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(10).pow(digitCount);
   var stepRatio = roughStep.div(digitCountValue); // When an integer and a float multiplied, the accuracy of result may be wrong
 
   var stepRatioScale = digitCount !== 1 ? 0.05 : 0.1;
-  var amendStepRatio = new _decimal.default(Math.ceil(stepRatio.div(stepRatioScale).toNumber())).add(correctionFactor).mul(stepRatioScale);
+  var amendStepRatio = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.ceil(stepRatio.div(stepRatioScale).toNumber())).add(correctionFactor).mul(stepRatioScale);
   var formatStep = amendStepRatio.mul(digitCountValue);
-  return allowDecimals ? formatStep : new _decimal.default(Math.ceil(formatStep));
+  return allowDecimals ? formatStep : new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.ceil(formatStep));
 }
 /**
  * calculate the ticks when the minimum value equals to the maximum value
@@ -29155,29 +29166,29 @@ function getFormatStep(roughStep, allowDecimals, correctionFactor) {
 function getTickOfSingleValue(value, tickCount, allowDecimals) {
   var step = 1; // calculate the middle value of ticks
 
-  var middle = new _decimal.default(value);
+  var middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(value);
 
   if (!middle.isint() && allowDecimals) {
     var absVal = Math.abs(value);
 
     if (absVal < 1) {
       // The step should be a float number when the difference is smaller than 1
-      step = new _decimal.default(10).pow(_arithmetic.default.getDigitCount(value) - 1);
-      middle = new _decimal.default(Math.floor(middle.div(step).toNumber())).mul(step);
+      step = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(10).pow(_util_arithmetic__WEBPACK_IMPORTED_MODULE_2__["default"].getDigitCount(value) - 1);
+      middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.floor(middle.div(step).toNumber())).mul(step);
     } else if (absVal > 1) {
       // Return the maximum integer which is smaller than 'value' when 'value' is greater than 1
-      middle = new _decimal.default(Math.floor(value));
+      middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.floor(value));
     }
   } else if (value === 0) {
-    middle = new _decimal.default(Math.floor((tickCount - 1) / 2));
+    middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.floor((tickCount - 1) / 2));
   } else if (!allowDecimals) {
-    middle = new _decimal.default(Math.floor(value));
+    middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(Math.floor(value));
   }
 
   var middleIndex = Math.floor((tickCount - 1) / 2);
-  var fn = (0, _utils.compose)((0, _utils.map)(function (n) {
-    return middle.add(new _decimal.default(n - middleIndex).mul(step)).toNumber();
-  }), _utils.range);
+  var fn = Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["map"])(function (n) {
+    return middle.add(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(n - middleIndex).mul(step)).toNumber();
+  }), _util_utils__WEBPACK_IMPORTED_MODULE_1__["range"]);
   return fn(0, tickCount);
 }
 /**
@@ -29198,28 +29209,28 @@ function calculateStep(min, max, tickCount, allowDecimals) {
   // dirty hack (for recharts' test)
   if (!Number.isFinite((max - min) / (tickCount - 1))) {
     return {
-      step: new _decimal.default(0),
-      tickMin: new _decimal.default(0),
-      tickMax: new _decimal.default(0)
+      step: new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0),
+      tickMin: new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0),
+      tickMax: new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0)
     };
   } // The step which is easy to understand between two ticks
 
 
-  var step = getFormatStep(new _decimal.default(max).sub(min).div(tickCount - 1), allowDecimals, correctionFactor); // A medial value of ticks
+  var step = getFormatStep(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(max).sub(min).div(tickCount - 1), allowDecimals, correctionFactor); // A medial value of ticks
 
   var middle; // When 0 is inside the interval, 0 should be a tick
 
   if (min <= 0 && max >= 0) {
-    middle = new _decimal.default(0);
+    middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0);
   } else {
     // calculate the middle value
-    middle = new _decimal.default(min).add(max).div(2); // minus modulo value
+    middle = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(min).add(max).div(2); // minus modulo value
 
-    middle = middle.sub(new _decimal.default(middle).mod(step));
+    middle = middle.sub(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(middle).mod(step));
   }
 
   var belowCount = Math.ceil(middle.sub(min).div(step).toNumber());
-  var upCount = Math.ceil(new _decimal.default(max).sub(middle).div(step).toNumber());
+  var upCount = Math.ceil(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(max).sub(middle).div(step).toNumber());
   var scaleCount = belowCount + upCount + 1;
 
   if (scaleCount > tickCount) {
@@ -29235,8 +29246,8 @@ function calculateStep(min, max, tickCount, allowDecimals) {
 
   return {
     step: step,
-    tickMin: middle.sub(new _decimal.default(belowCount).mul(step)),
-    tickMax: middle.add(new _decimal.default(upCount).mul(step))
+    tickMin: middle.sub(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(belowCount).mul(step)),
+    tickMax: middle.add(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(upCount).mul(step))
   };
 }
 /**
@@ -29265,13 +29276,13 @@ function getNiceTickValuesFn(_ref3) {
       cormax = _getValidInterval2[1];
 
   if (cormin === -Infinity || cormax === Infinity) {
-    var _values = cormax === Infinity ? [cormin].concat(_toConsumableArray((0, _utils.range)(0, tickCount - 1).map(function () {
+    var _values = cormax === Infinity ? [cormin].concat(_toConsumableArray(Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["range"])(0, tickCount - 1).map(function () {
       return Infinity;
-    }))) : _toConsumableArray((0, _utils.range)(0, tickCount - 1).map(function () {
+    }))) : [].concat(_toConsumableArray(Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["range"])(0, tickCount - 1).map(function () {
       return -Infinity;
-    })).concat([cormax]);
+    })), [cormax]);
 
-    return min > max ? (0, _utils.reverse)(_values) : _values;
+    return min > max ? Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["reverse"])(_values) : _values;
   }
 
   if (cormin === cormax) {
@@ -29284,9 +29295,8 @@ function getNiceTickValuesFn(_ref3) {
       tickMin = _calculateStep.tickMin,
       tickMax = _calculateStep.tickMax;
 
-  var values = _arithmetic.default.rangeStep(tickMin, tickMax.add(new _decimal.default(0.1).mul(step)), step);
-
-  return min > max ? (0, _utils.reverse)(values) : values;
+  var values = _util_arithmetic__WEBPACK_IMPORTED_MODULE_2__["default"].rangeStep(tickMin, tickMax.add(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0.1).mul(step)), step);
+  return min > max ? Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["reverse"])(values) : values;
 }
 /**
  * Calculate the ticks of an interval, the count of ticks won't be guraranteed
@@ -29321,14 +29331,14 @@ function getTickValuesFn(_ref5) {
     return getTickOfSingleValue(cormin, tickCount, allowDecimals);
   }
 
-  var step = getFormatStep(new _decimal.default(cormax).sub(cormin).div(count - 1), allowDecimals, 0);
-  var fn = (0, _utils.compose)((0, _utils.map)(function (n) {
-    return new _decimal.default(cormin).add(new _decimal.default(n).mul(step)).toNumber();
-  }), _utils.range);
+  var step = getFormatStep(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(cormax).sub(cormin).div(count - 1), allowDecimals, 0);
+  var fn = Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["compose"])(Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["map"])(function (n) {
+    return new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(cormin).add(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(n).mul(step)).toNumber();
+  }), _util_utils__WEBPACK_IMPORTED_MODULE_1__["range"]);
   var values = fn(0, count).filter(function (entry) {
     return entry >= cormin && entry <= cormax;
   });
-  return min > max ? (0, _utils.reverse)(values) : values;
+  return min > max ? Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["reverse"])(values) : values;
 }
 /**
  * Calculate the ticks of an interval, the count of ticks won't be guraranteed,
@@ -29363,84 +29373,55 @@ function getTickValuesFixedDomainFn(_ref7, tickCount) {
   }
 
   var count = Math.max(tickCount, 2);
-  var step = getFormatStep(new _decimal.default(cormax).sub(cormin).div(count - 1), allowDecimals, 0);
-
-  var values = _toConsumableArray(_arithmetic.default.rangeStep(new _decimal.default(cormin), new _decimal.default(cormax).sub(new _decimal.default(0.99).mul(step)), step)).concat([cormax]);
-
-  return min > max ? (0, _utils.reverse)(values) : values;
+  var step = getFormatStep(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(cormax).sub(cormin).div(count - 1), allowDecimals, 0);
+  var values = [].concat(_toConsumableArray(_util_arithmetic__WEBPACK_IMPORTED_MODULE_2__["default"].rangeStep(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(cormin), new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(cormax).sub(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(0.99).mul(step)), step)), [cormax]);
+  return min > max ? Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["reverse"])(values) : values;
 }
 
-var getNiceTickValues = (0, _utils.memoize)(getNiceTickValuesFn);
-exports.getNiceTickValues = getNiceTickValues;
-var getTickValues = (0, _utils.memoize)(getTickValuesFn);
-exports.getTickValues = getTickValues;
-var getTickValuesFixedDomain = (0, _utils.memoize)(getTickValuesFixedDomainFn);
-exports.getTickValuesFixedDomain = getTickValuesFixedDomain;
+var getNiceTickValues = Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["memoize"])(getNiceTickValuesFn);
+var getTickValues = Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["memoize"])(getTickValuesFn);
+var getTickValuesFixedDomain = Object(_util_utils__WEBPACK_IMPORTED_MODULE_1__["memoize"])(getTickValuesFixedDomainFn);
 
 /***/ }),
 
-/***/ "./node_modules/recharts-scale/lib/index.js":
+/***/ "./node_modules/recharts-scale/es6/index.js":
 /*!**************************************************!*\
-  !*** ./node_modules/recharts-scale/lib/index.js ***!
+  !*** ./node_modules/recharts-scale/es6/index.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: getTickValues, getNiceTickValues, getTickValuesFixedDomain */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _getNiceTickValues__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNiceTickValues */ "./node_modules/recharts-scale/es6/getNiceTickValues.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTickValues", function() { return _getNiceTickValues__WEBPACK_IMPORTED_MODULE_0__["getTickValues"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getNiceTickValues", function() { return _getNiceTickValues__WEBPACK_IMPORTED_MODULE_0__["getNiceTickValues"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTickValuesFixedDomain", function() { return _getNiceTickValues__WEBPACK_IMPORTED_MODULE_0__["getTickValuesFixedDomain"]; });
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "getTickValues", {
-  enumerable: true,
-  get: function get() {
-    return _getNiceTickValues.getTickValues;
-  }
-});
-Object.defineProperty(exports, "getNiceTickValues", {
-  enumerable: true,
-  get: function get() {
-    return _getNiceTickValues.getNiceTickValues;
-  }
-});
-Object.defineProperty(exports, "getTickValuesFixedDomain", {
-  enumerable: true,
-  get: function get() {
-    return _getNiceTickValues.getTickValuesFixedDomain;
-  }
-});
-
-var _getNiceTickValues = __webpack_require__(/*! ./getNiceTickValues */ "./node_modules/recharts-scale/lib/getNiceTickValues.js");
 
 /***/ }),
 
-/***/ "./node_modules/recharts-scale/lib/util/arithmetic.js":
+/***/ "./node_modules/recharts-scale/es6/util/arithmetic.js":
 /*!************************************************************!*\
-  !*** ./node_modules/recharts-scale/lib/util/arithmetic.js ***!
+  !*** ./node_modules/recharts-scale/es6/util/arithmetic.js ***!
   \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _decimal = _interopRequireDefault(__webpack_require__(/*! decimal.js-light */ "./node_modules/decimal.js-light/decimal.js"));
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/recharts-scale/lib/util/utils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var decimal_js_light__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! decimal.js-light */ "./node_modules/decimal.js-light/decimal.js");
+/* harmony import */ var decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(decimal_js_light__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/recharts-scale/es6/util/utils.js");
 /**
  * @fileOverview 一些公用的运算方法
  * @author xile611
  * @date 2015-09-17
  */
+
 
 /**
  * 获取数值的位数
@@ -29451,13 +29432,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param  {Number} value 数值
  * @return {Integer} 位数
  */
+
 function getDigitCount(value) {
   var result;
 
   if (value === 0) {
     result = 1;
   } else {
-    result = Math.floor(new _decimal.default(value).abs().log(10).toNumber()) + 1;
+    result = Math.floor(new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(value).abs().log(10).toNumber()) + 1;
   }
 
   return result;
@@ -29474,7 +29456,7 @@ function getDigitCount(value) {
 
 
 function rangeStep(start, end, step) {
-  var num = new _decimal.default(start);
+  var num = new decimal_js_light__WEBPACK_IMPORTED_MODULE_0___default.a(start);
   var i = 0;
   var result = []; // magic number to prevent infinite loop
 
@@ -29496,7 +29478,7 @@ function rangeStep(start, end, step) {
  */
 
 
-var interpolateNumber = (0, _utils.curry)(function (a, b, t) {
+var interpolateNumber = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["curry"])(function (a, b, t) {
   var newA = +a;
   var newB = +b;
   return newA + t * (newB - newA);
@@ -29510,7 +29492,7 @@ var interpolateNumber = (0, _utils.curry)(function (a, b, t) {
  * @return {Number}   当x在 a ~ b这个范围内时，返回值属于[0, 1]
  */
 
-var uninterpolateNumber = (0, _utils.curry)(function (a, b, x) {
+var uninterpolateNumber = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["curry"])(function (a, b, x) {
   var diff = b - +a;
   diff = diff || Infinity;
   return (x - a) / diff;
@@ -29525,44 +29507,48 @@ var uninterpolateNumber = (0, _utils.curry)(function (a, b, x) {
  * 当x不在 a ~ b这个区间时，会截断到 a ~ b 这个区间
  */
 
-var uninterpolateTruncation = (0, _utils.curry)(function (a, b, x) {
+var uninterpolateTruncation = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["curry"])(function (a, b, x) {
   var diff = b - +a;
   diff = diff || Infinity;
   return Math.max(0, Math.min(1, (x - a) / diff));
 });
-var _default = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   rangeStep: rangeStep,
   getDigitCount: getDigitCount,
   interpolateNumber: interpolateNumber,
   uninterpolateNumber: uninterpolateNumber,
   uninterpolateTruncation: uninterpolateTruncation
-};
-exports.default = _default;
+});
 
 /***/ }),
 
-/***/ "./node_modules/recharts-scale/lib/util/utils.js":
+/***/ "./node_modules/recharts-scale/es6/util/utils.js":
 /*!*******************************************************!*\
-  !*** ./node_modules/recharts-scale/lib/util/utils.js ***!
+  !*** ./node_modules/recharts-scale/es6/util/utils.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: PLACE_HOLDER, curry, range, map, compose, reverse, memoize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLACE_HOLDER", function() { return PLACE_HOLDER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "curry", function() { return curry; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "range", function() { return range; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return compose; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reverse", function() { return reverse; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "memoize", function() { return memoize; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.memoize = exports.reverse = exports.compose = exports.map = exports.range = exports.curry = exports.PLACE_HOLDER = void 0;
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 var identity = function identity(i) {
   return i;
@@ -29571,7 +29557,6 @@ var identity = function identity(i) {
 var PLACE_HOLDER = {
   '@@functional/placeholder': true
 };
-exports.PLACE_HOLDER = PLACE_HOLDER;
 
 var isPlaceHolder = function isPlaceHolder(val) {
   return val === PLACE_HOLDER;
@@ -29621,9 +29606,6 @@ var curryN = function curryN(n, fn) {
 var curry = function curry(fn) {
   return curryN(fn.length, fn);
 };
-
-exports.curry = curry;
-
 var range = function range(begin, end) {
   var arr = [];
 
@@ -29633,8 +29615,6 @@ var range = function range(begin, end) {
 
   return arr;
 };
-
-exports.range = range;
 var map = curry(function (fn, arr) {
   if (Array.isArray(arr)) {
     return arr.map(fn);
@@ -29644,8 +29624,6 @@ var map = curry(function (fn, arr) {
     return arr[key];
   }).map(fn);
 });
-exports.map = map;
-
 var compose = function compose() {
   for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
     args[_key3] = arguments[_key3];
@@ -29665,9 +29643,6 @@ var compose = function compose() {
     }, firstFn.apply(void 0, arguments));
   };
 };
-
-exports.compose = compose;
-
 var reverse = function reverse(arr) {
   if (Array.isArray(arr)) {
     return arr.reverse();
@@ -29676,9 +29651,6 @@ var reverse = function reverse(arr) {
 
   return arr.split('').reverse.join('');
 };
-
-exports.reverse = reverse;
-
 var memoize = function memoize(fn) {
   var lastArgs = null;
   var lastResult = null;
@@ -29698,8 +29670,6 @@ var memoize = function memoize(fn) {
     return lastResult;
   };
 };
-
-exports.memoize = memoize;
 
 /***/ }),
 
@@ -46510,8 +46480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
 /* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var recharts_scale__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! recharts-scale */ "./node_modules/recharts-scale/lib/index.js");
-/* harmony import */ var recharts_scale__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(recharts_scale__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var recharts_scale__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! recharts-scale */ "./node_modules/recharts-scale/es6/index.js");
 /* harmony import */ var d3_scale__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! d3-scale */ "./node_modules/d3-scale/src/index.js");
 /* harmony import */ var d3_shape__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! d3-shape */ "./node_modules/d3-shape/src/index.js");
 /* harmony import */ var _DataUtils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./DataUtils */ "./node_modules/recharts/es6/util/DataUtils.js");
@@ -49297,6 +49266,9 @@ function range(a, b, str) {
   var i = ai;
 
   if (ai >= 0 && bi > 0) {
+    if(a===b) {
+      return [ai, bi];
+    }
     begs = [];
     left = str.length;
 

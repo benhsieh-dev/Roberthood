@@ -403,7 +403,7 @@ var Tabs = /*#__PURE__*/function (_Component) {
     }
 
     if ( true && state.mode !== undefined && state.mode !== Tabs.getModeFromProps(props)) {
-      throw new Error("Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.\nFor more information about controlled and uncontrolled mode of react-tabs see the README.");
+      throw new Error("Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.\nFor more information about controlled and uncontrolled mode of react-tabs see https://github.com/reactjs/react-tabs#controlled-vs-uncontrolled-mode.");
     }
 
     var newState = {
@@ -412,7 +412,7 @@ var Tabs = /*#__PURE__*/function (_Component) {
     };
 
     if (newState.mode === MODE_UNCONTROLLED) {
-      var maxTabIndex = Object(_helpers_count__WEBPACK_IMPORTED_MODULE_4__["getTabsCount"])(props.children) - 1;
+      var maxTabIndex = Math.max(0, Object(_helpers_count__WEBPACK_IMPORTED_MODULE_4__["getTabsCount"])(props.children) - 1);
       var selectedIndex = null;
 
       if (state.selectedIndex != null) {
