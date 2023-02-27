@@ -4,52 +4,13 @@
 /*!******************************************!*\
   !*** ./node_modules/clsx/dist/clsx.m.js ***!
   \******************************************/
-/*! exports provided: default */
+/*! exports provided: clsx, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function toVal(mix) {
-	var k, y, str='';
-
-	if (typeof mix === 'string' || typeof mix === 'number') {
-		str += mix;
-	} else if (typeof mix === 'object') {
-		if (Array.isArray(mix)) {
-			for (k=0; k < mix.length; k++) {
-				if (mix[k]) {
-					if (y = toVal(mix[k])) {
-						str && (str += ' ');
-						str += y;
-					}
-				}
-			}
-		} else {
-			for (k in mix) {
-				if (mix[k]) {
-					str && (str += ' ');
-					str += k;
-				}
-			}
-		}
-	}
-
-	return str;
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-	var i=0, tmp, x, str='';
-	while (i < arguments.length) {
-		if (tmp = arguments[i++]) {
-			if (x = toVal(tmp)) {
-				str && (str += ' ');
-				str += x
-			}
-		}
-	}
-	return str;
-});
-
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clsx", function() { return clsx; });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e))for(t=0;t<e.length;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);else for(t in e)e[t]&&(n&&(n+=" "),n+=t);return n}function clsx(){for(var e,t,f=0,n="";f<arguments.length;)(e=arguments[f++])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ __webpack_exports__["default"] = (clsx);
 
 /***/ }),
 
@@ -68,6 +29,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+var _excluded = ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"];
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -124,7 +87,7 @@ var Tab = /*#__PURE__*/function (_Component) {
         selectedClassName = _this$props2.selectedClassName,
         tabIndex = _this$props2.tabIndex,
         tabRef = _this$props2.tabRef,
-        attributes = _objectWithoutPropertiesLoose(_this$props2, ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"]);
+        attributes = _objectWithoutPropertiesLoose(_this$props2, _excluded);
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", _extends({}, attributes, {
       className: Object(clsx__WEBPACK_IMPORTED_MODULE_2__["default"])(className, (_cx = {}, _cx[selectedClassName] = selected, _cx[disabledClassName] = disabled, _cx)),
@@ -137,7 +100,8 @@ var Tab = /*#__PURE__*/function (_Component) {
       "aria-selected": selected ? 'true' : 'false',
       "aria-disabled": disabled ? 'true' : 'false',
       "aria-controls": panelId,
-      tabIndex: tabIndex || (selected ? '0' : null)
+      tabIndex: tabIndex || (selected ? '0' : null),
+      "data-rttab": true
     }), children);
   };
 
@@ -191,6 +155,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+var _excluded = ["children", "className"];
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -216,7 +182,7 @@ var TabList = /*#__PURE__*/function (_Component) {
     var _this$props = this.props,
         children = _this$props.children,
         className = _this$props.className,
-        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className"]);
+        attributes = _objectWithoutPropertiesLoose(_this$props, _excluded);
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", _extends({}, attributes, {
       className: Object(clsx__WEBPACK_IMPORTED_MODULE_2__["default"])(className),
@@ -254,6 +220,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+var _excluded = ["children", "className", "forceRender", "id", "selected", "selectedClassName", "tabId"];
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -287,7 +255,7 @@ var TabPanel = /*#__PURE__*/function (_Component) {
         selected = _this$props.selected,
         selectedClassName = _this$props.selectedClassName,
         tabId = _this$props.tabId,
-        attributes = _objectWithoutPropertiesLoose(_this$props, ["children", "className", "forceRender", "id", "selected", "selectedClassName", "tabId"]);
+        attributes = _objectWithoutPropertiesLoose(_this$props, _excluded);
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
       className: Object(clsx__WEBPACK_IMPORTED_MODULE_2__["default"])(className, (_cx = {}, _cx[selectedClassName] = selected, _cx)),
@@ -339,6 +307,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
 /* harmony import */ var _UncontrolledTabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UncontrolledTabs */ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js");
 /* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
+var _excluded = ["children", "defaultIndex", "defaultFocus"];
+
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
@@ -434,7 +404,7 @@ var Tabs = /*#__PURE__*/function (_Component) {
         children = _this$props.children,
         defaultIndex = _this$props.defaultIndex,
         defaultFocus = _this$props.defaultFocus,
-        props = _objectWithoutPropertiesLoose(_this$props, ["children", "defaultIndex", "defaultFocus"]);
+        props = _objectWithoutPropertiesLoose(_this$props, _excluded);
 
     var _this$state = this.state,
         focus = _this$state.focus,
@@ -501,6 +471,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
 /* harmony import */ var _helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
 /* harmony import */ var _helpers_elementTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../helpers/elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
+var _excluded = ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName", "environment", "disableUpDownKeys"];
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -524,7 +496,7 @@ function isNode(node) {
 
 
 function isTabNode(node) {
-  return isNode(node) && node.getAttribute('role') === 'tab';
+  return isNode(node) && node.getAttribute('data-rttab');
 } // Determine if a tab node is disabled
 
 
@@ -831,7 +803,7 @@ var UncontrolledTabs = /*#__PURE__*/function (_Component) {
 
     do {
       if (nodeAncestor === this.node) return true;
-      if (nodeAncestor.getAttribute('data-tabs')) break;
+      if (nodeAncestor.getAttribute('data-rttabs')) break;
       nodeAncestor = nodeAncestor.parentElement;
     } while (nodeAncestor);
 
@@ -855,7 +827,7 @@ var UncontrolledTabs = /*#__PURE__*/function (_Component) {
         selectedTabPanelClassName = _this$props4.selectedTabPanelClassName,
         environment = _this$props4.environment,
         disableUpDownKeys = _this$props4.disableUpDownKeys,
-        attributes = _objectWithoutPropertiesLoose(_this$props4, ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName", "environment", "disableUpDownKeys"]);
+        attributes = _objectWithoutPropertiesLoose(_this$props4, _excluded);
 
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", _extends({}, attributes, {
       className: Object(clsx__WEBPACK_IMPORTED_MODULE_2__["default"])(className),
@@ -865,7 +837,7 @@ var UncontrolledTabs = /*#__PURE__*/function (_Component) {
         _this3.node = node;
         if (domRef) domRef(node);
       },
-      "data-tabs": true
+      "data-rttabs": true
     }), this.getChildren());
   };
 

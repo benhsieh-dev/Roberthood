@@ -14,70 +14,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _axios_quotes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../axios-quotes */ "./frontend/components/axios-quotes.js");
 /* harmony import */ var _public_tickers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../public/tickers */ "./public/tickers.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var currentUser = _ref.currentUser,
-      logout = _ref.logout;
-
+    logout = _ref.logout;
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
-      _useState2 = _slicedToArray(_useState, 2),
-      searchValue = _useState2[0],
-      setSearchValue = _useState2[1];
-
+    _useState2 = _slicedToArray(_useState, 2),
+    searchValue = _useState2[0],
+    setSearchValue = _useState2[1];
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
-      _useState4 = _slicedToArray(_useState3, 2),
-      quote = _useState4[0],
-      setQuote = _useState4[1]; // console.log("currentUser", currentUser); 
-
-
+    _useState4 = _slicedToArray(_useState3, 2),
+    quote = _useState4[0],
+    setQuote = _useState4[1];
+  // console.log("currentUser", currentUser); 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      show = _useState6[0],
-      setShow = _useState6[1];
-
+    _useState6 = _slicedToArray(_useState5, 2),
+    show = _useState6[0],
+    setShow = _useState6[1];
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState8 = _slicedToArray(_useState7, 2),
-      portfolioValue = _useState8[0],
-      setPortfolioValue = _useState8[1];
-
+    _useState8 = _slicedToArray(_useState7, 2),
+    portfolioValue = _useState8[0],
+    setPortfolioValue = _useState8[1];
   var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState10 = _slicedToArray(_useState9, 2),
-      stock = _useState10[0],
-      setStock = _useState10[1];
-
+    _useState10 = _slicedToArray(_useState9, 2),
+    stock = _useState10[0],
+    setStock = _useState10[1];
   var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
-      _useState12 = _slicedToArray(_useState11, 2),
-      shares = _useState12[0],
-      setShares = _useState12[1];
-
+    _useState12 = _slicedToArray(_useState11, 2),
+    shares = _useState12[0],
+    setShares = _useState12[1];
   var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState14 = _slicedToArray(_useState13, 2),
-      sharesError = _useState14[0],
-      setSharesError = _useState14[1];
-
+    _useState14 = _slicedToArray(_useState13, 2),
+    sharesError = _useState14[0],
+    setSharesError = _useState14[1];
   var ticker = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useParams"])();
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     document.title = 'Account | Robinhood';
@@ -88,14 +73,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       url: "https://roberthood-edcdd.firebaseio.com/portfolios/".concat(currentUser.username, ".json")
     }).then(function (res) {
       var total = [];
-
       for (var _stock in res.data) {
         total.push(_objectSpread(_objectSpread({}, res.data[_stock]), {}, {
           firebaseID: _stock
         }));
       }
-
-      setPortfolioValue(total); // console.log(res.data);
+      setPortfolioValue(total);
+      // console.log(res.data);
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -106,19 +90,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       url: "https://roberthood-edcdd.firebaseio.com/".concat(currentUser.username, ".json")
     }).then(function (res) {
       var watchlist = [];
-
       for (var _stock2 in res.data) {
         watchlist.push(_objectSpread(_objectSpread({}, res.data[_stock2]), {}, {
           firebaseID: _stock2
         }));
       }
-
-      setStock(watchlist); // console.log(res.data);
+      setStock(watchlist);
+      // console.log(res.data);
     })["catch"](function (error) {
       return console.log(error);
     });
   });
-
   var accountSearch = function accountSearch() {
     $.ajax("/api/stocks/quote/".concat(searchValue)).done(function (res) {
       console.log(res);
@@ -130,44 +112,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     });
     routeChangeAccountStocksPage("/stocks/".concat(searchValue));
   };
-
   var handleOnChange = function handleOnChange(event) {
     setSearchValue(event.target.value);
   };
-
   var handleKeyPress = function handleKeyPress(event) {
     if (event.key === "Enter") {
       accountSearch();
     }
   };
-
   var operation = function operation() {
     setShow(!show);
   };
-
   var postDataHandler = function postDataHandler() {
     _axios_quotes__WEBPACK_IMPORTED_MODULE_2__["default"].post("./".concat(currentUser.username, ".json"), quote).then(document.querySelector(".watchlist_btn").textContent = "Added to Watchlist")["catch"](function (error) {
       return console.log(error);
     });
   };
-
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
-
   var routeChangeAccountStocksPage = function routeChangeAccountStocksPage(ticker) {
     var path = ticker;
     history.push(path);
   };
-
   var buyStockHandler = function buyStockHandler() {
     var total = shares * quote.latest_price;
-
     var _iterator = _createForOfIteratorHelper(portfolioValue),
-        _step;
-
+      _step;
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var _stock3 = _step.value;
-
         if (_stock3.Company.symbol === quote.symbol) {
           _axios_quotes__WEBPACK_IMPORTED_MODULE_2__["default"].patch("./portfolios/".concat(currentUser.username, "/").concat(_stock3.firebaseID, ".json"), {
             Quantity: parseInt(_stock3.Quantity) + parseInt(shares)
@@ -180,14 +152,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     } finally {
       _iterator.f();
     }
-
     if (shares >= 1) {
       _axios_quotes__WEBPACK_IMPORTED_MODULE_2__["default"].post("./portfolios/".concat(currentUser.username, ".json"), {
         Company: quote,
         Quantity: shares,
         Total: total
-      }) // .then(response => console.log(response))
-      .then(document.querySelector(".buy-stock").textContent = "Bought").then(setSharesError(null)).then(document.querySelector(".buy-stock").disabled = true) // .then(routeChange())
+      })
+      // .then(response => console.log(response))
+      .then(document.querySelector(".buy-stock").textContent = "Bought").then(setSharesError(null)).then(document.querySelector(".buy-stock").disabled = true)
+      // .then(routeChange())
       ["catch"](function (error) {
         return console.log(error);
       });
@@ -195,7 +168,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       setSharesError("Please enter valid number of shares.");
     }
   };
-
   var sellStockHandler = function sellStockHandler(stock) {
     return function (event) {
       event.preventDefault();
@@ -204,15 +176,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     };
   };
-
   var watchlistChecker = function watchlistChecker() {
     var _iterator2 = _createForOfIteratorHelper(stock),
-        _step2;
-
+      _step2;
     try {
       for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
         var watchlistItem = _step2.value;
-
         if (watchlistItem.symbol === quote.symbol) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             className: "watchlist_btn",
@@ -225,13 +194,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     } finally {
       _iterator2.f();
     }
-
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "watchlist_btn",
       onClick: postDataHandler
     }, "+ Add to Lists");
   };
-
   var deleteWatchlistItemHandler = function deleteWatchlistItemHandler(watchlistItem) {
     return function (event) {
       event.preventDefault();
@@ -240,14 +207,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       });
     };
   };
-
   var predictiveSearch = function predictiveSearch(item) {
     setSearchValue(item.symbol);
     accountSearch();
     ;
     setSearchValue('');
   };
-
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -455,13 +420,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var msp = function msp(state) {
   return {
     currentUser: state.session.currentUser
   };
 };
-
 var mdp = function mdp(dispatch) {
   return {
     logout: function logout() {
@@ -469,7 +432,6 @@ var mdp = function mdp(dispatch) {
     }
   };
 };
-
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(_account__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ })
