@@ -274,6 +274,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.1)
   sass-rails (~> 5.0)
+  sassc
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
