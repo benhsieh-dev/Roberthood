@@ -10,9 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var instance = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+var instance = axios__WEBPACK_IMPORTED_MODULE_0__["default"].create({
   baseURL: "https://roberthood-edcdd.firebaseio.com/"
 });
 /* harmony default export */ __webpack_exports__["default"] = (instance);
