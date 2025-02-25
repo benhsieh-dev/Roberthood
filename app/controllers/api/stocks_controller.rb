@@ -1,6 +1,3 @@
-# load "IEX"
-
-# require 'iex-ruby-client'
 
 class Api::StocksController < ApplicationController
 
