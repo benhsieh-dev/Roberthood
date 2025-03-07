@@ -11,7 +11,7 @@ Users can read up on latest business news, check stock quotes, add ticker to wat
 * CSS5
 * Firebase Database
 * HTML3
-* IEX API
+* Financial Modeling Prep API
 * News API
 * Node JS
 * Open graph tags

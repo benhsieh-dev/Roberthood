@@ -50,6 +50,7 @@
   "homepage": "https://github.com/bqh5026/Roberthood#readme",
   "devDependencies": {
     "chokidar": "^3.5.3",
+    "source-map-loader": "^1.0.0",
     "webpack-dev-server": "^3"
   }
 }
