@@ -1,2 +1,210 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{499:function(e,a,t){"use strict";t.r(a);var n=t(0),l=t.n(n),r=t(11);function c(e,a){return function(e){if(Array.isArray(e))return e}(e)||function(e,a){var t=null==e?null:"undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(null!=t){var n,l,r,c,s=[],i=!0,m=!1;try{if(r=(t=t.call(e)).next,0===a){if(Object(t)!==t)return;i=!1}else for(;!(i=(n=r.call(t)).done)&&(s.push(n.value),s.length!==a);i=!0);}catch(e){m=!0,l=e}finally{try{if(!i&&null!=t.return&&(c=t.return(),Object(c)!==c))return}finally{if(m)throw l}}return s}}(e,a)||function(e,a){if(!e)return;if("string"==typeof e)return s(e,a);var t=Object.prototype.toString.call(e).slice(8,-1);"Object"===t&&e.constructor&&(t=e.constructor.name);if("Map"===t||"Set"===t)return Array.from(e);if("Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t))return s(e,a)}(e,a)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function s(e,a){(null==a||a>e.length)&&(a=e.length);for(var t=0,n=new Array(a);t<a;t++)n[t]=e[t];return n}a.default=function(){var e=c(Object(n.useState)(!1),2),a=e[0],t=e[1];return Object(n.useEffect)((function(){document.title="Commission-free Stock Trading & Investing App | Roberthood"})),l.a.createElement("div",null,l.a.createElement("nav",{className:"landing-page-nav-bar"},l.a.createElement("div",{className:"navbar-container-1"},l.a.createElement("div",{className:"landing-page-logo"},l.a.createElement("h3",{className:"roberthood"},"Roberthood"),l.a.createElement(r.b,{to:"/"},l.a.createElement("img",{className:"roberthood-hat",src:roberthoodHatURL}))),l.a.createElement("div",{className:"landing-page-menu-items"},l.a.createElement("a",{href:"https://angel.co/u/ben-hsieh-6"},l.a.createElement("span",{className:"landing-page-menu-item"},"AngelList")),l.a.createElement("a",{href:"https://github.com/benhsieh-dev"},l.a.createElement("span",{className:"landing-page-menu-item"},"GitHub")),l.a.createElement("a",{href:"https://www.linkedin.com/in/ben-hsieh-05522542/"},l.a.createElement("span",{className:"landing-page-menu-item"},"Linkedin")))),l.a.createElement("div",{className:"navbar-container-2"},l.a.createElement("div",null,l.a.createElement(r.b,{className:"nav-bar-signin",to:"/login"},l.a.createElement("button",{className:"signin-btn"},"Sign In"))),l.a.createElement("div",null,l.a.createElement(r.b,{className:"nav-bar-signup",to:"/signup"},l.a.createElement("button",{className:"splash-signup-btn"},"Sign Up")))),l.a.createElement("div",{className:"menu-btn"},l.a.createElement("i",{className:"fas fa-bars fa-2x",onClick:function(){t(!a)}}),a&&l.a.createElement("ul",{className:"burger-menu-dropdown"},l.a.createElement("li",null,l.a.createElement(r.b,{to:"/login"},l.a.createElement("h4",{className:"burger-menu-items"},"Sign In"))),l.a.createElement("li",null,l.a.createElement(r.b,{to:"/signup"},l.a.createElement("h4",{className:"burger-menu-items"},"Sign Up")))))),l.a.createElement("div",{className:"container-1"},l.a.createElement("div",{className:"content-1"},l.a.createElement("div",null,l.a.createElement("h1",{className:"signup-message"},"Investing for Everyone"),l.a.createElement("p",{className:"paragraph-1"},"Roberthood, a pioneer of commission-free investing, gives you more ways to make your money work harder."),l.a.createElement(r.b,{to:"/signup"},l.a.createElement("button",{className:"content-signup-btn"},"Sign Up"))),l.a.createElement("div",{className:"cash-management"},l.a.createElement("img",{className:"cash-management-photo",src:cashManagementURL})))),l.a.createElement("div",{className:"container-2"},l.a.createElement("br",null),l.a.createElement("br",null),l.a.createElement("br",null),l.a.createElement("div",{className:"content-2"},l.a.createElement("div",{className:"content-2-full"},l.a.createElement("h2",{className:"content-2-header"},"Break Free from Commission Fees"),l.a.createElement("p",{className:"content-2-body"},"Make unlimited commission-free trades in stocks, ETFs, and options with Robinhood Financial, as well as buy and sell cryptocurrencies with Robinhood Crypto."," ")),l.a.createElement("div",{className:"content-2-footer"}))),l.a.createElement("div",{className:"container-3"},l.a.createElement("div",{className:"container-3-full"},l.a.createElement("div",{className:"container-3-left"},l.a.createElement("div",{className:"content-3"},l.a.createElement("div",{className:"content-3-box1"},l.a.createElement("h2",{className:"content-3-header"},"Introducing Fractional Shares"),l.a.createElement("p",null,"Invest in thousands of stocks with as little as $1.")),l.a.createElement("div",{className:"content-3-box2"},l.a.createElement("div",{className:"content-3-box2A"},l.a.createElement("h3",null,"Invest Any Amount"),l.a.createElement("p",null,"Choose how much you want to invest, and we’ll convert from dollars to parts of a whole share.")),l.a.createElement("div",{className:"content-3-box2B"},l.a.createElement("h3",null,"Build a Balanced Portfolio"),l.a.createElement("p",null,"Customize your portfolio with pieces of different companies and funds to help reduce risk.")),l.a.createElement("div",{className:"content-3-box2C"},l.a.createElement("h3",null,"Trade in Real Time"),l.a.createElement("p",null,"Trades placed during market hours are executed at that time, so you’ll always know the share price."))),l.a.createElement("div",{className:"content-3-search"}))),l.a.createElement("div",{className:"container-3-right"},l.a.createElement("img",{className:"abstract_image",src:abstractURL,alt:"abstract image"})))),l.a.createElement("div",{className:"container-4"},l.a.createElement("div",{className:"social-media"},l.a.createElement("a",{class:"sm-icon",href:"https://angel.co/u/ben-hsieh-6",target:"_blank"},l.a.createElement("i",{class:"fab fa-angellist fa-5x"})),l.a.createElement("a",{class:"sm-icon",href:"https://github.com/benhsieh-dev",target:"_blank"},l.a.createElement("i",{class:"fab fa-github fa-5x"})),l.a.createElement("a",{class:"sm-icon",href:"https://www.linkedin.com/in/ben-hsieh-05522542/",target:"_blank"},l.a.createElement("i",{class:"fab fa-linkedin-in fa-5x"})))))}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
+
+/***/ "./frontend/components/session/login.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/session/login.jsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+const initialState = {
+  username: "",
+  password: "",
+  usernameError: "",
+  passwordError: "",
+  credentialsError: ""
+};
+class Login extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
+  }
+  componentDidMount() {
+    document.title = "Log In | Roberthood";
+  }
+  handleInput(type) {
+    return e => {
+      this.setState({
+        [type]: e.target.value
+      });
+    };
+  }
+  validate() {
+    let usernameError = "";
+    let passwordError = "";
+    let credentialsError = "";
+    if (!this.state.username) {
+      usernameError = "Username cannot be blank";
+    }
+    if (this.state.password.length < 6) {
+      passwordError = "Password must have minimim of 6 characters";
+    }
+    if (!this.state.currentUser) {
+      credentialsError = "Unable to login with provided credentials";
+    }
+    if (usernameError || passwordError || credentialsError) {
+      this.setState({
+        usernameError,
+        passwordError,
+        credentialsError
+      });
+      return false;
+    }
+    return true;
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const isValid = this.validate();
+    if (isValid) {
+      this.props.login(this.state).then(() => this.props.history.push('/dashboard'));
+    }
+  }
+  handleDemo(e) {
+    e.preventDefault();
+    this.props.login(this.state = {
+      username: "bqh5026",
+      password: 'password'
+    }).then(() => this.props.history.push("/dashboard"));
+  }
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "sign-in-container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "image-container"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "sign-in-form"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      className: "break"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      className: "login-form"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      className: "sign-in-header"
+    }, "Welcome to Roberthood"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "label"
+    }, "Username"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      name: "username",
+      className: "input",
+      type: "text",
+      value: this.state.username,
+      onChange: this.handleInput("username")
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: "red"
+      }
+    }, this.state.usernameError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-exclamation-circle fa-fw"
+    }) : "", this.state.usernameError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "label"
+    }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      name: "password",
+      className: "input",
+      type: "password",
+      value: this.state.password,
+      onChange: this.handleInput("password")
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: "red"
+      }
+    }, this.state.passwordError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-exclamation-circle fa-fw"
+    }) : "", this.state.passwordError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/signup"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "signup_link"
+    }, "Sign up for a new account if not already have one")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: "red"
+      }
+    }, this.state.credentialsError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-exclamation-circle fa-fw"
+    }) : "", this.state.credentialsError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "sign-in-btn",
+      onClick: this.handleSubmit
+    }, "Sign In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "demo-user"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "hidden",
+      value: ""
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "hidden",
+      value: ""
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "demo-user-btn",
+      onClick: this.handleDemo
+    }, "Demo User"))))));
+  }
+}
+/* harmony default export */ __webpack_exports__["default"] = (Login);
+
+/***/ }),
+
+/***/ "./frontend/components/session/login_container.js":
+/*!********************************************************!*\
+  !*** ./frontend/components/session/login_container.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session */ "./frontend/actions/session.js");
+/* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login */ "./frontend/components/session/login.jsx");
+
+
+
+
+const msp = state => ({
+  currentUser: state.session.currentUser
+});
+const mdp = dispatch => ({
+  login: formUser => dispatch(Object(_actions_session__WEBPACK_IMPORTED_MODULE_2__["login"])(formUser))
+});
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(_login__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ })
+
+}]);
 //# sourceMappingURL=7.bundle.js.map

@@ -49,6 +49,8 @@
   },
   "homepage": "https://github.com/bqh5026/Roberthood#readme",
   "devDependencies": {
+    "@babel/plugin-proposal-private-methods": "^7.18.6",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "chokidar": "^3.5.3",
     "source-map-loader": "^1.0.0",
     "webpack-dev-server": "^3"

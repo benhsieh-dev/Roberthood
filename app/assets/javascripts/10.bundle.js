@@ -1,2 +1,181 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{507:function(e,t,a){"use strict";a.r(t);var n=a(0),r=a.n(n),l=a(8),c=a(2),o=a(11),s=a(501),u=a(498),i=a(493),m=a(494),b=a(496),f=a(492),d=a(495),E=a(72),h=a(74);function p(e){return(p="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function y(e,t){var a="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!a){if(Array.isArray(e)||(a=w(e))||t&&e&&"number"==typeof e.length){a&&(e=a);var n=0,r=function(){};return{s:r,n:function(){return n>=e.length?{done:!0}:{done:!1,value:e[n++]}},e:function(e){throw e},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var l,c=!0,o=!1;return{s:function(){a=a.call(e)},n:function(){var e=a.next();return c=e.done,e},e:function(e){o=!0,l=e},f:function(){try{c||null==a.return||a.return()}finally{if(o)throw l}}}}function v(e,t){var a=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),a.push.apply(a,n)}return a}function g(e){for(var t=1;t<arguments.length;t++){var a=null!=arguments[t]?arguments[t]:{};t%2?v(Object(a),!0).forEach((function(t){N(e,t,a[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(a)):v(Object(a)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(a,t))}))}return e}function N(e,t,a){return(t=function(e){var t=function(e,t){if("object"!==p(e)||null===e)return e;var a=e[Symbol.toPrimitive];if(void 0!==a){var n=a.call(e,t||"default");if("object"!==p(n))return n;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"===p(t)?t:String(t)}(t))in e?Object.defineProperty(e,t,{value:a,enumerable:!0,configurable:!0,writable:!0}):e[t]=a,e}function k(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var a=null==e?null:"undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(null!=a){var n,r,l,c,o=[],s=!0,u=!1;try{if(l=(a=a.call(e)).next,0===t){if(Object(a)!==a)return;s=!1}else for(;!(s=(n=l.call(a)).done)&&(o.push(n.value),o.length!==t);s=!0);}catch(e){u=!0,r=e}finally{try{if(!s&&null!=a.return&&(c=a.return(),Object(c)!==c))return}finally{if(u)throw r}}return o}}(e,t)||w(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function w(e,t){if(e){if("string"==typeof e)return j(e,t);var a=Object.prototype.toString.call(e).slice(8,-1);return"Object"===a&&e.constructor&&(a=e.constructor.name),"Map"===a||"Set"===a?Array.from(e):"Arguments"===a||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(a)?j(e,t):void 0}}function j(e,t){(null==t||t>e.length)&&(t=e.length);for(var a=0,n=new Array(t);a<t;a++)n[a]=e[a];return n}var S=a(12);t.default=Object(l.b)((function(e){return{currentUser:e.session.currentUser}}),(function(e){return{logout:function(){return e(Object(S.e)())}}}))((function(e){var t=e.currentUser,a=e.logout,l=Object(c.g)().ticker,v=k(Object(n.useState)(l),2),N=v[0],w=v[1],j=k(Object(n.useState)(""),2),S=j[0],O=j[1],C=k(Object(n.useState)([]),2),_=C[0],I=C[1],A=k(Object(n.useState)([]),2),P=A[0],x=A[1],D=k(Object(n.useState)(!1),2),L=D[0],q=D[1],T=k(Object(n.useState)([]),2),B=T[0],Q=T[1],U=k(Object(n.useState)([]),2),J=U[0],G=U[1],H=k(Object(n.useState)(0),2),M=H[0],R=H[1],K=k(Object(n.useState)(0),2),W=K[0],F=K[1],z=k(Object(n.useState)(null),2),V=z[0],X=z[1],Y=Object(c.f)(),Z=function(){Y.push("/account")};Object(n.useEffect)((function(){document.title="".concat(l.toUpperCase()," - $").concat(parseInt(S.latest_price).toFixed(2)," | Roberthood")})),Object(n.useEffect)((function(){P.length<1&&(ee(),$.ajax("/api/news/new").done((function(e){x(P.concat(e.articles))})))})),Object(n.useEffect)((function(){Object(E.a)({method:"GET",url:"https://roberthood-edcdd.firebaseio.com/portfolios/".concat(t.username,".json")}).then((function(e){var t=[];for(var a in e.data)t.push(g(g({},e.data[a]),{},{firebaseID:a}));Q(t)})).catch((function(e){return console.log(e)}))}),[B]),Object(n.useEffect)((function(){Object(E.a)({method:"GET",url:"https://roberthood-edcdd.firebaseio.com/".concat(t.username,".json")}).then((function(e){var t=[];for(var a in e.data)t.push(g(g({},e.data[a]),{},{firebaseID:a}));G(t)})).catch((function(e){return console.log(e)}))}));var ee=function(){$.ajax("/api/stocks/quote/".concat(N)).done((function(e){O(e)})),$.ajax("/api/stocks/chart/".concat(N)).done((function(e){I(e)})),function(e){var t=e;Y.push(t)}("/stocks/".concat(N))},te=function(){E.a.post("./".concat(t.username,".json"),S).then(document.querySelector(".watchlist_btn").textContent="Added to Watchlist").catch((function(e){return console.log(e)}))},ae=function(){var e,a=M*S.latest_price,n=y(B);try{for(n.s();!(e=n.n()).done;){var r=e.value;if(r.Company.symbol===S.symbol)return void E.a.patch("./portfolios/".concat(t.username,"/").concat(r.firebaseID,".json"),{Quantity:parseInt(r.Quantity)+parseInt(M)}).then(document.querySelector(".buy-stock").textContent="Bought").then(document.querySelector(".buy-stock").disabled=!0)}}catch(e){n.e(e)}finally{n.f()}M>=1?E.a.post("./portfolios/".concat(t.username,".json"),{Company:S,Quantity:M,Total:a}).then(document.querySelector(".buy-stock").textContent="Bought").then(X(null)).then(document.querySelector(".buy-stock").disabled=!0).catch((function(e){return console.log(e)})):X("Please enter valid number of shares.")};Object(n.useEffect)((function(){ne()}));var ne=function(){B.forEach((function(e){e.Company.symbol===S.symbol&&F(e.Quantity)}))},re=function(){var e,t=y(J);try{for(t.s();!(e=t.n()).done;){var a=e.value;if(a.symbol===S.symbol)return r.a.createElement("button",{className:"watchlist_btn",onClick:le(a)},"Remove from Watchlist")}}catch(e){t.e(e)}finally{t.f()}return r.a.createElement("button",{className:"watchlist_btn",onClick:te},"+ Add to Lists")},le=function(e){return function(a){a.preventDefault(),E.a.delete("./".concat(t.username,"/").concat(e.firebaseID,".json")).catch((function(e){return console.log(e)}))}},ce=function(e){return function(a){a.preventDefault(),E.a.delete("./portfolios/".concat(t.username,"/").concat(e.firebaseID,".json")).then(Z()).catch((function(e){return console.log(e)}))}},oe=function(){var e,t=y(B);try{for(t.s();!(e=t.n()).done;){var a=e.value;if(console.log(a.Company.symbol),a.Company.symbol===S.symbol)return r.a.createElement("button",{className:"sell-all-shares-btn",onClick:ce(a)},"Sell All")}}catch(e){t.e(e)}finally{t.f()}};return r.a.createElement("div",null,r.a.createElement("div",{className:"header"},r.a.createElement("div",{className:"navbar-left"},r.a.createElement("div",null,r.a.createElement(o.b,{to:"/dashboard"},r.a.createElement("img",{className:"dashboard-roberthood-hat",src:roberthoodHatURL}))),r.a.createElement("div",{className:"predictive-search"},r.a.createElement("div",{className:"search-box"},r.a.createElement("form",null,r.a.createElement("button",{onClick:ee,className:"search-btn"},r.a.createElement("i",{className:"fas fa-search"})),r.a.createElement("input",{className:"search-txt",type:"text",name:"",placeholder:"Search",onChange:function(e){!function(e){w(e.target.value)}(e)},value:N,onKeyPress:function(e){"Enter"===e.key&&ee()},alt:"search"}))),r.a.createElement("div",{className:"auto-suggestions"},r.a.createElement("ul",null,h.a.map((function(e){if(0!==N.length)return e.symbol.toLowerCase().startsWith(N.toLowerCase())?r.a.createElement("li",{key:e.symbol,onClick:function(){return w(e.symbol),ee(),void w("")}},r.a.createElement("strong",{style:{paddingRight:"3rem"}},e.symbol),e.name):null})))))),r.a.createElement("div",null,r.a.createElement("nav",{className:"nav-bar"},r.a.createElement("a",{href:"https://angel.co/u/ben-hsieh-6",target:"_blank"},r.a.createElement("span",{className:"nav-menu-item"},"AngelList")),r.a.createElement("a",{href:"https://github.com/benhsieh-dev",target:"_blank"},r.a.createElement("span",{className:"nav-menu-item"},"GitHub")),r.a.createElement("a",{href:"https://www.linkedin.com/in/ben-hsieh-05522542/",target:"_blank"},r.a.createElement("span",{className:"nav-menu-item"},"Linkedin")," "),r.a.createElement(o.b,{to:"/dashboard"},r.a.createElement("span",{className:"nav-menu-item"},"Portfolio")),r.a.createElement("div",{className:"dropdown"},r.a.createElement("button",{className:"nav-menu-item dropdown",onClick:function(){q(!L)}},"Account"),L&&r.a.createElement("ul",{className:"dropdown-menu"},r.a.createElement("li",null,r.a.createElement("div",null,"Ben Hsieh"),r.a.createElement("hr",{className:"horizontal-bar"})),r.a.createElement("li",{className:"dropdown-list"},r.a.createElement("i",{class:"fab fa-angellist menu-icon"}),r.a.createElement("a",{href:"https://angel.co/u/ben-hsieh-6",target:"_blank"},r.a.createElement("span",{className:"dropdown-menu-item"},"AngelList"))),r.a.createElement("li",{className:"dropdown-list"},r.a.createElement("i",{class:"fab fa-github menu-icon"}),r.a.createElement("a",{href:"https://github.com/benhsieh-dev",target:"_blank"},r.a.createElement("span",{className:"dropdown-menu-item"},"GitHub"))),r.a.createElement("li",{className:"dropdown-list"},r.a.createElement("i",{class:"fab fa-linkedin-in menu-icon"}),r.a.createElement("a",{href:"https://www.linkedin.com/in/ben-hsieh-05522542/",target:"_blank"},r.a.createElement("span",{className:"dropdown-menu-item"},"Linkedin"))),r.a.createElement("li",{className:"dropdown-list"},r.a.createElement("i",{className:"fas fa-briefcase menu-icon"}),r.a.createElement(o.b,{to:"/account"},r.a.createElement("span",{className:"dropdown-menu-item"},"Account"))),r.a.createElement("li",{className:"dropdown-list"},r.a.createElement("i",{className:"fas fa-sign-out-alt menu-icon"}),r.a.createElement("span",{className:"dropdown-menu-item logout",onClick:a},"Log Out"))))))),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("div",{className:"stocks-page"},r.a.createElement("div",{className:"stocks-left"},r.a.createElement("div",null,r.a.createElement("h2",null,S.company_name),r.a.createElement("p",null,"$",JSON.stringify(S.latest_price),r.a.createElement("br",null),"$",JSON.stringify(S.change),"(",JSON.stringify(S.change_percent_s),") Today")),r.a.createElement("div",{className:"Chart"},r.a.createElement(s.a,{width:800,height:400,data:_},r.a.createElement(u.a,{strokeDasharray:"3 3"}),r.a.createElement(i.a,{dataKey:"minute"}),r.a.createElement(m.a,{type:"number",domain:["auto","auto"]}),r.a.createElement(b.a,null),r.a.createElement(f.a,{type:"monotone",dataKey:"close",stroke:"#8884d8"}))),r.a.createElement("div",{className:"news"},r.a.createElement("ul",null,P.map((function(e,t){return r.a.createElement("li",{key:t,className:"news-item"},r.a.createElement("div",null,r.a.createElement("i",{className:"fas fa-bolt"})," "," ",r.a.createElement("strong",null,e.source.name)," "," ",e.publishedAt),r.a.createElement("div",{className:"news-title"},r.a.createElement("div",null,r.a.createElement("a",{className:"news-title-header",href:e.url,target:"_blank"},e.title)),r.a.createElement("div",null,r.a.createElement("img",{className:"news-image",src:e.urlToImage}))),r.a.createElement("hr",null))}))))),r.a.createElement("div",{className:"stocks-right"},0===W?r.a.createElement("div",{className:"stocks-trade"},r.a.createElement("strong",null,"Buy ",S.symbol),r.a.createElement("div",{className:"account-stock-purchase"},"Shares"," ",r.a.createElement("input",{value:M,className:"account-purchase-shares",type:"number",min:"0",step:"1",onChange:function(e){return R(e.target.value)}})),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("div",null,"Market Price:"),r.a.createElement("br",null),r.a.createElement("div",{className:"market-price"},"$",parseInt(S.latest_price).toFixed(2)),console.log(p(S.latest_price)),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("button",{className:"buy-stock",onClick:ae},"Buy"),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("div",{className:"available-shares"},W," ",W<=1?"Share":"Shares"," Available"," ",oe()),r.a.createElement("br",null),r.a.createElement("div",{className:"account-purchase-shares-error"},V),r.a.createElement("br",null),re()):r.a.createElement(d.d,{defaultIndex:1},r.a.createElement(d.b,{className:"tabs-list"},r.a.createElement(d.a,{className:"buy-stock-tab"},r.a.createElement("strong",null,"Buy ",S.symbol)),r.a.createElement(d.a,{className:"sell-stock-tab"},r.a.createElement("strong",null,"Sell ",S.symbol))),r.a.createElement(d.c,null,r.a.createElement("div",{className:"stocks-trade"},r.a.createElement("div",{className:"account-stock-purchase"},"Shares"," ",r.a.createElement("input",{value:M,className:"account-purchase-shares",type:"number",min:"0",step:"1",onChange:function(e){return R(e.target.value)}})),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("div",null,"Market Price:"),r.a.createElement("br",null),r.a.createElement("div",{className:"market-price"},"$",S.latest_price),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("button",{className:"buy-stock",onClick:ae},"Buy"),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("div",{className:"account-purchase-shares-error"},V),r.a.createElement("br",null),re())),r.a.createElement(d.c,null,r.a.createElement("div",{className:"stocks-trade"},r.a.createElement("div",{className:"account-stock-purchase"},"Shares"," ",r.a.createElement("input",{value:M,className:"account-purchase-shares",type:"number",min:"0",step:"1",onChange:function(e){return R(e.target.value)}})),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("div",null,"Market Price:"),r.a.createElement("br",null),r.a.createElement("div",{className:"market-price"},"$",S.latest_price),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("button",{className:"stocks-sell-stock",onClick:function(){S.latest_price;var e,a=y(B);try{for(a.s();!(e=a.n()).done;){var n=e.value;if(n.Company.symbol===S.symbol&&M<=n.Quantity)return void E.a.patch("./portfolios/".concat(t.username,"/").concat(n.firebaseID,".json"),{Quantity:parseInt(n.Quantity)-parseInt(M)}).then(document.querySelector(".stocks-sell-stock").textContent="Sold").then(document.querySelector(".stocks-sell-stock").disabled=!0).then(Z())}}catch(e){a.e(e)}finally{a.f()}}},"Sell"),r.a.createElement("br",null),r.a.createElement("hr",null),r.a.createElement("br",null),r.a.createElement("br",null),r.a.createElement("div",{className:"available-shares"},W," ",W<=1?"Share":"Shares"," Available - "," ",oe()),r.a.createElement("br",null),r.a.createElement("div",{className:"account-purchase-shares-error"},V),r.a.createElement("br",null),re()))),r.a.createElement("br",null))))}))}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
+
+/***/ "./frontend/components/home/home.jsx":
+/*!*******************************************!*\
+  !*** ./frontend/components/home/home.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = (() => {
+  const _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    show = _useState2[0],
+    setShow = _useState2[1];
+  const operation = () => {
+    setShow(!show);
+  };
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    document.title = 'Commission-free Stock Trading & Investing App | Roberthood';
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "landing-page-nav-bar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "navbar-container-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "landing-page-logo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "roberthood"
+  }, "Roberthood"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "roberthood-hat",
+    src: roberthoodHatURL
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "landing-page-menu-items"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://angel.co/u/ben-hsieh-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "landing-page-menu-item"
+  }, "AngelList")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://github.com/benhsieh-dev"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "landing-page-menu-item"
+  }, "GitHub")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://www.linkedin.com/in/ben-hsieh-05522542/"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "landing-page-menu-item"
+  }, "Linkedin")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "navbar-container-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    className: "nav-bar-signin",
+    to: "/login"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "signin-btn"
+  }, "Sign In"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    className: "nav-bar-signup",
+    to: "/signup"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "splash-signup-btn"
+  }, "Sign Up")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "menu-btn"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-bars fa-2x",
+    onClick: operation
+  }), show && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "burger-menu-dropdown"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/login"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "burger-menu-items"
+  }, "Sign In"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/signup"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "burger-menu-items"
+  }, "Sign Up")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    className: "signup-message"
+  }, "Investing for Everyone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "paragraph-1"
+  }, "Roberthood, a pioneer of commission-free investing, gives you more ways to make your money work harder."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/signup"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "content-signup-btn"
+  }, "Sign Up"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "cash-management"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "cash-management-photo",
+    src: cashManagementURL
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-2-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "content-2-header"
+  }, "Break Free from Commission Fees"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "content-2-body"
+  }, "Make unlimited commission-free trades in stocks, ETFs, and options with Robinhood Financial, as well as buy and sell cryptocurrencies with Robinhood Crypto.", " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-2-footer"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-3-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-3-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-box1"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "content-3-header"
+  }, "Introducing Fractional Shares"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Invest in thousands of stocks with as little as $1.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-box2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-box2A"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Invest Any Amount"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Choose how much you want to invest, and we\u2019ll convert from dollars to parts of a whole share.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-box2B"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Build a Balanced Portfolio"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Customize your portfolio with pieces of different companies and funds to help reduce risk.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-box2C"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Trade in Real Time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Trades placed during market hours are executed at that time, so you\u2019ll always know the share price."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content-3-search"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-3-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "abstract_image",
+    src: abstractURL,
+    alt: "abstract image"
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "social-media"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    class: "sm-icon",
+    href: "https://angel.co/u/ben-hsieh-6",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-angellist fa-5x"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    class: "sm-icon",
+    href: "https://github.com/benhsieh-dev",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-github fa-5x"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    class: "sm-icon",
+    href: "https://www.linkedin.com/in/ben-hsieh-05522542/",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-linkedin-in fa-5x"
+  })))));
+});
+
+// <div className="container-5">
+//     <img className="our-products-image" src={ourProductsURL} />
+//   </div>
+
+//   <div className="container-6">
+//     <img className="landing-page-footer" src={landingPageFooterURL} />
+//   </div>
+
+/***/ })
+
+}]);
 //# sourceMappingURL=10.bundle.js.map

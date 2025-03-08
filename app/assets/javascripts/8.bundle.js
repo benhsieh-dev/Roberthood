@@ -1,2 +1,168 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{502:function(e,t,r){"use strict";r.r(t);var a=r(0),n=r.n(a),l=r(8),o=r(12),s=r(11);function c(e){return(c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,u(a.key),a)}}function u(e){var t=function(e,t){if("object"!==c(e)||null===e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var a=r.call(e,t||"default");if("object"!==c(a))return a;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"===c(t)?t:String(t)}function m(e,t){return(m=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e})(e,t)}function b(e){var t=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(e){return!1}}();return function(){var r,a=d(e);if(t){var n=d(this).constructor;r=Reflect.construct(a,arguments,n)}else r=a.apply(this,arguments);return f(this,r)}}function f(e,t){if(t&&("object"===c(t)||"function"==typeof t))return t;if(void 0!==t)throw new TypeError("Derived constructors may only return object or undefined");return p(e)}function p(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function d(e){return(d=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}var E={username:"",password:"",usernameError:"",passwordError:"",credentialsError:""},h=function(e){!function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),t&&m(e,t)}(o,e);var t,r,a,l=b(o);function o(e){var t;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,o),(t=l.call(this,e)).state=E,t.handleSubmit=t.handleSubmit.bind(p(t)),t.handleDemo=t.handleDemo.bind(p(t)),t}return t=o,(r=[{key:"componentDidMount",value:function(){document.title="Log In | Roberthood"}},{key:"handleInput",value:function(e){var t=this;return function(r){var a,n,l;t.setState((a={},n=e,l=r.target.value,(n=u(n))in a?Object.defineProperty(a,n,{value:l,enumerable:!0,configurable:!0,writable:!0}):a[n]=l,a))}}},{key:"validate",value:function(){var e="",t="",r="";return this.state.username||(e="Username cannot be blank"),this.state.password.length<6&&(t="Password must have minimim of 6 characters"),this.state.currentUser||(r="Unable to login with provided credentials"),!(e||t||r)||(this.setState({usernameError:e,passwordError:t,credentialsError:r}),!1)}},{key:"handleSubmit",value:function(e){var t=this;e.preventDefault(),this.validate()&&this.props.login(this.state).then((function(){return t.props.history.push("/dashboard")}))}},{key:"handleDemo",value:function(e){var t=this;e.preventDefault(),this.props.login(this.state={username:"bqh5026",password:"password"}).then((function(){return t.props.history.push("/dashboard")}))}},{key:"render",value:function(){return n.a.createElement("div",null,n.a.createElement("div",{className:"sign-in-container"},n.a.createElement("div",{className:"image-container"}),n.a.createElement("div",{className:"sign-in-form"},n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",{className:"break"}),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("form",{className:"login-form"},n.a.createElement("h1",{className:"sign-in-header"},"Welcome to Roberthood"),n.a.createElement("span",{className:"label"},"Username"),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("input",{name:"username",className:"input",type:"text",value:this.state.username,onChange:this.handleInput("username")}),n.a.createElement("div",{style:{fontSize:12,color:"red"}},this.state.usernameError?n.a.createElement("i",{className:"fas fa-exclamation-circle fa-fw"}):"",this.state.usernameError),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("span",{className:"label"},"Password"),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("input",{name:"password",className:"input",type:"password",value:this.state.password,onChange:this.handleInput("password")}),n.a.createElement("div",{style:{fontSize:12,color:"red"}},this.state.passwordError?n.a.createElement("i",{className:"fas fa-exclamation-circle fa-fw"}):"",this.state.passwordError),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement(s.b,{to:"/signup"},n.a.createElement("span",{className:"signup_link"},"Sign up for a new account if not already have one")),n.a.createElement("div",{style:{fontSize:12,color:"red"}},this.state.credentialsError?n.a.createElement("i",{className:"fas fa-exclamation-circle fa-fw"}):"",this.state.credentialsError),n.a.createElement("br",null),n.a.createElement("br",null),n.a.createElement("button",{className:"sign-in-btn",onClick:this.handleSubmit},"Sign In"),n.a.createElement("br",null),n.a.createElement("br",null)),n.a.createElement("div",{className:"demo-user"},n.a.createElement("form",null,n.a.createElement("input",{type:"hidden",value:""}),n.a.createElement("input",{type:"hidden",value:""}),n.a.createElement("button",{className:"demo-user-btn",onClick:this.handleDemo},"Demo User"))))))}}])&&i(t.prototype,r),a&&i(t,a),Object.defineProperty(t,"prototype",{writable:!1}),o}(n.a.Component);t.default=Object(l.b)((function(e){return{currentUser:e.session.currentUser}}),(function(e){return{login:function(t){return e(Object(o.d)(t))}}}))(h)}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
+
+/***/ "./frontend/components/session/signup.jsx":
+/*!************************************************!*\
+  !*** ./frontend/components/session/signup.jsx ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+const initialState = {
+  first_name: "",
+  last_name: "",
+  username: "",
+  password: "",
+  first_nameError: "",
+  last_nameError: "",
+  usernameError: "",
+  passwordError: ""
+};
+class Signup extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleInput(type) {
+    return e => this.setState({
+      [type]: e.target.value
+    });
+  }
+  validate() {
+    let first_nameError = "";
+    let last_nameError = "";
+    let usernameError = "";
+    let passwordError = "";
+    if (!this.state.first_name) {
+      first_nameError = "Please enter your first name";
+    }
+    if (!this.state.last_name) {
+      last_nameError = "Please enter your last name";
+    }
+    if (!this.state.username) {
+      usernameError = "Please enter your username";
+    }
+    if (this.state.password.length < 6) {
+      passwordError = "Your password must have be at least 6 characters";
+    }
+    if (first_nameError || last_nameError || usernameError || passwordError) {
+      this.setState({
+        first_nameError,
+        last_nameError,
+        usernameError,
+        passwordError
+      });
+      return false;
+    }
+    return true;
+  }
+
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   this.props
+  //     .createNewUser(this.state)
+  //     .then(() => this.props.history.push("/dashboard"));
+  // }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const isValid = this.validate();
+    if (isValid) {
+      this.props.createNewUser(this.state).then(() => this.props.history.push("/dashboard"));
+    }
+  }
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      className: "signup-form"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "signup-navbar"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "signup-title"
+    }, ' ', "Roberthood"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: "signup-logo",
+      src: roberthoodHatURL
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+      className: "signup-header"
+    }, "Make Your Money Move"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+      className: "signup-subheader"
+    }, "Roberthood lets you invest in companies you love, commission-free.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "firstname-lastname"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "signup-input1",
+      type: "text",
+      value: this.state.first_name,
+      onChange: this.handleInput("first_name"),
+      placeholder: "First name"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "signup-input1",
+      type: "text",
+      value: this.state.last_name,
+      onChange: this.handleInput("last_name"),
+      placeholder: "Last name"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "signup-input2",
+      type: "text",
+      value: this.state.username,
+      onChange: this.handleInput("username"),
+      placeholder: "Username"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "signup-input2",
+      type: "password",
+      value: this.state.password,
+      onChange: this.handleInput("password"),
+      placeholder: "Password"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "signup-btn",
+      onClick: this.handleSubmit
+    }, "Continue"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/login"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "application"
+    }, "Already an user?", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "application-continue"
+    }, "Proceed to login page.")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      className: "signup-error-messages"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.state.first_nameError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.state.last_nameError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.state.usernameError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.state.passwordError))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)));
+  }
+}
+/* harmony default export */ __webpack_exports__["default"] = (Signup);
+
+//  <div>
+//    <img className="signup-form-footer-image" src={signupFormFooterURL} />
+//  </div>;
+
+/***/ }),
+
+/***/ "./frontend/components/session/signup_container.js":
+/*!*********************************************************!*\
+  !*** ./frontend/components/session/signup_container.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session */ "./frontend/actions/session.js");
+/* harmony import */ var _signup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./signup */ "./frontend/components/session/signup.jsx");
+
+
+
+const mdp = dispatch => ({
+  createNewUser: formUser => dispatch(Object(_actions_session__WEBPACK_IMPORTED_MODULE_1__["createNewUser"])(formUser))
+});
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdp)(_signup__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ })
+
+}]);
 //# sourceMappingURL=8.bundle.js.map

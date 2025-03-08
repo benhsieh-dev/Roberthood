@@ -1,2 +1,495 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{503:function(e,t,r){"use strict";r.r(t);var n=r(8),a=r(12),l=r(0),o=r.n(l),s=r(11);function u(e){return(u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,c(n.key),n)}}function c(e){var t=function(e,t){if("object"!==u(e)||null===e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!==u(n))return n;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"===u(t)?t:String(t)}function m(e,t){return(m=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e})(e,t)}function p(e){var t=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(e){return!1}}();return function(){var r,n=h(e);if(t){var a=h(this).constructor;r=Reflect.construct(n,arguments,a)}else r=n.apply(this,arguments);return f(this,r)}}function f(e,t){if(t&&("object"===u(t)||"function"==typeof t))return t;if(void 0!==t)throw new TypeError("Derived constructors may only return object or undefined");return b(e)}function b(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function h(e){return(h=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}var d={first_name:"",last_name:"",username:"",password:"",first_nameError:"",last_nameError:"",usernameError:"",passwordError:""},y=function(e){!function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),t&&m(e,t)}(l,e);var t,r,n,a=p(l);function l(e){var t;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,l),(t=a.call(this,e)).state=d,t.handleSubmit=t.handleSubmit.bind(b(t)),t}return t=l,(r=[{key:"handleInput",value:function(e){var t=this;return function(r){return t.setState((n={},a=e,l=r.target.value,(a=c(a))in n?Object.defineProperty(n,a,{value:l,enumerable:!0,configurable:!0,writable:!0}):n[a]=l,n));var n,a,l}}},{key:"validate",value:function(){var e="",t="",r="",n="";return this.state.first_name||(e="Please enter your first name"),this.state.last_name||(t="Please enter your last name"),this.state.username||(r="Please enter your username"),this.state.password.length<6&&(n="Your password must have be at least 6 characters"),!(e||t||r||n)||(this.setState({first_nameError:e,last_nameError:t,usernameError:r,passwordError:n}),!1)}},{key:"handleSubmit",value:function(e){var t=this;e.preventDefault(),this.validate()&&this.props.createNewUser(this.state).then((function(){return t.props.history.push("/dashboard")}))}},{key:"render",value:function(){return o.a.createElement("div",null,o.a.createElement("form",{className:"signup-form"},o.a.createElement("div",{className:"signup-navbar"},o.a.createElement(s.b,{to:"/"},o.a.createElement("span",{className:"signup-title"}," ","Roberthood"),o.a.createElement("img",{className:"signup-logo",src:roberthoodHatURL}))),o.a.createElement("hr",null),o.a.createElement("div",null,o.a.createElement("h1",{className:"signup-header"},"Make Your Money Move"),o.a.createElement("h3",{className:"signup-subheader"},"Roberthood lets you invest in companies you love, commission-free.")),o.a.createElement("div",{className:"firstname-lastname"},o.a.createElement("input",{className:"signup-input1",type:"text",value:this.state.first_name,onChange:this.handleInput("first_name"),placeholder:"First name"}),o.a.createElement("input",{className:"signup-input1",type:"text",value:this.state.last_name,onChange:this.handleInput("last_name"),placeholder:"Last name"})),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("input",{className:"signup-input2",type:"text",value:this.state.username,onChange:this.handleInput("username"),placeholder:"Username"}),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("input",{className:"signup-input2",type:"password",value:this.state.password,onChange:this.handleInput("password"),placeholder:"Password"}),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("button",{className:"signup-btn",onClick:this.handleSubmit},"Continue"),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("div",null,o.a.createElement(s.b,{to:"/login"},o.a.createElement("p",{className:"application"},"Already an user?"," ",o.a.createElement("span",{className:"application-continue"},"Proceed to login page.")))),o.a.createElement("div",null,o.a.createElement("ul",{className:"signup-error-messages"},o.a.createElement("li",null,this.state.first_nameError),o.a.createElement("li",null,this.state.last_nameError),o.a.createElement("li",null,this.state.usernameError),o.a.createElement("li",null,this.state.passwordError))),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null),o.a.createElement("br",null)))}}])&&i(t.prototype,r),n&&i(t,n),Object.defineProperty(t,"prototype",{writable:!1}),l}(o.a.Component);t.default=Object(n.b)(null,(function(e){return{createNewUser:function(t){return e(Object(a.c)(t))}}}))(y)}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
+
+/***/ "./frontend/components/stocks/stocks.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/stocks/stocks.jsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var _axios_quotes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../axios-quotes */ "./frontend/components/axios-quotes.js");
+/* harmony import */ var _public_tickers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../public/tickers */ "./public/tickers.js");
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == typeof i ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != typeof i) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_ref => {
+  let currentUser = _ref.currentUser,
+    logout = _ref.logout;
+  const _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useParams"])(),
+    ticker = _useParams.ticker;
+  const _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(ticker),
+    _useState2 = _slicedToArray(_useState, 2),
+    searchValue = _useState2[0],
+    setSearchValue = _useState2[1];
+  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+    _useState4 = _slicedToArray(_useState3, 2),
+    quote = _useState4[0],
+    setQuote = _useState4[1];
+  const _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    chartData = _useState6[0],
+    setChartData = _useState6[1];
+  const _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    news = _useState8[0],
+    setNews = _useState8[1];
+  const _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+    _useState10 = _slicedToArray(_useState9, 2),
+    show = _useState10[0],
+    setShow = _useState10[1];
+  const _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+    _useState12 = _slicedToArray(_useState11, 2),
+    portfolioValue = _useState12[0],
+    setPortfolioValue = _useState12[1];
+  const _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+    _useState14 = _slicedToArray(_useState13, 2),
+    stock = _useState14[0],
+    setStock = _useState14[1];
+  const _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+    _useState16 = _slicedToArray(_useState15, 2),
+    shares = _useState16[0],
+    setShares = _useState16[1];
+  const _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+    _useState18 = _slicedToArray(_useState17, 2),
+    availableShares = _useState18[0],
+    setAvailableShares = _useState18[1];
+  const _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    sharesError = _useState20[0],
+    setSharesError = _useState20[1];
+  const history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
+  const routeChange = () => {
+    let path = `/account`;
+    history.push(path);
+  };
+  const routeChangeStocksPage = ticker => {
+    let path = ticker;
+    history.push(path);
+  };
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (news.length < 1) {
+      stocksSearch();
+      $.ajax("/api/news/new").done(res => {
+        setNews(news.concat(res.articles));
+      });
+    }
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"])({
+      method: "GET",
+      url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`
+    }).then(res => {
+      const total = [];
+      for (let stock in res.data) {
+        total.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
+          firebaseID: stock
+        }));
+      }
+      setPortfolioValue(total);
+    }).catch(error => console.log(error));
+  }, [portfolioValue]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"])({
+      method: "GET",
+      url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`
+    }).then(res => {
+      const watchlist = [];
+      for (let stock in res.data) {
+        watchlist.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
+          firebaseID: stock
+        }));
+      }
+      setStock(watchlist);
+    }).catch(error => console.log(error));
+  });
+  const stocksSearch = () => {
+    $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
+      setQuote(res);
+    });
+    $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
+      setChartData(res);
+    });
+    routeChangeStocksPage(`/stocks/${searchValue}`);
+  };
+  const handleOnChange = event => {
+    setSearchValue(event.target.value);
+  };
+  const handleKeyPress = event => {
+    if (event.key === "Enter") {
+      stocksSearch();
+    }
+  };
+  const operation = () => {
+    setShow(!show);
+  };
+  const postDataHandler = () => {
+    _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].post(`./${currentUser.username}.json`, quote).then(document.querySelector(".watchlist_btn").textContent = "Added to Watchlist").catch(error => console.log(error));
+  };
+  const buyStockHandler = () => {
+    const total = shares * quote.latest_price;
+    for (const stock of portfolioValue) {
+      if (stock.Company.symbol === quote.symbol) {
+        _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].patch(`./portfolios/${currentUser.username}/${stock.firebaseID}.json`, {
+          Quantity: parseInt(stock.Quantity) + parseInt(shares)
+        }).then(document.querySelector(".buy-stock").textContent = "Bought").then(document.querySelector(".buy-stock").disabled = true);
+        return;
+      }
+    }
+    if (shares >= 1) {
+      _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].post(`./portfolios/${currentUser.username}.json`, {
+        Company: quote,
+        Quantity: shares,
+        Total: total
+      }).then(document.querySelector(".buy-stock").textContent = "Bought").then(setSharesError(null)).then(document.querySelector(".buy-stock").disabled = true).catch(error => console.log(error));
+    } else {
+      setSharesError("Please enter valid number of shares.");
+    }
+  };
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    checkAvailableShares();
+  });
+  const checkAvailableShares = () => {
+    portfolioValue.forEach(stock => {
+      if (stock.Company.symbol === quote.symbol) setAvailableShares(stock.Quantity);
+    });
+  };
+  const sellStockHandler = () => {
+    const total = shares * quote.latest_price;
+    for (const stock of portfolioValue) {
+      if (stock.Company.symbol === quote.symbol && shares <= stock.Quantity) {
+        _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].patch(`./portfolios/${currentUser.username}/${stock.firebaseID}.json`, {
+          Quantity: parseInt(stock.Quantity) - parseInt(shares)
+        }).then(document.querySelector(".stocks-sell-stock").textContent = "Sold").then(document.querySelector(".stocks-sell-stock").disabled = true).then(routeChange());
+        return;
+      }
+    }
+  };
+  const watchlistChecker = () => {
+    for (let watchlistItem of stock) {
+      if (watchlistItem.symbol === quote.symbol) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "watchlist_btn",
+          onClick: deleteWatchlistItemHandler(watchlistItem)
+        }, "Remove from Watchlist");
+      }
+    }
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "watchlist_btn",
+      onClick: postDataHandler
+    }, "+ Add to Lists");
+  };
+  const deleteWatchlistItemHandler = watchlistItem => {
+    return event => {
+      event.preventDefault();
+      _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].delete(`./${currentUser.username}/${watchlistItem.firebaseID}.json`).catch(error => console.log(error));
+    };
+  };
+  const sellAllHandler = stock => {
+    return event => {
+      event.preventDefault();
+      _axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"].delete(`./portfolios/${currentUser.username}/${stock.firebaseID}.json`).then(routeChange()).catch(error => console.log(error));
+    };
+  };
+  const stocksPredictiveSearch = item => {
+    setSearchValue(item.symbol);
+    stocksSearch();
+    setSearchValue("");
+  };
+  const sellAllStocksHandler = () => {
+    for (let stock of portfolioValue) {
+      console.log(stock.Company.symbol);
+      if (stock.Company.symbol === quote.symbol) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "sell-all-shares-btn",
+          onClick: sellAllHandler(stock)
+        }, "Sell All");
+      }
+    }
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "navbar-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/dashboard"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "dashboard-roberthood-hat",
+    src: roberthoodHatURL
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "predictive-search"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "search-box"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: stocksSearch,
+    className: "search-btn"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-search"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    className: "search-txt",
+    type: "text",
+    name: "",
+    placeholder: "Search",
+    onChange: event => {
+      handleOnChange(event);
+    },
+    value: searchValue,
+    onKeyPress: handleKeyPress,
+    alt: "search"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "auto-suggestions"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, _public_tickers__WEBPACK_IMPORTED_MODULE_5__["TickerSymbols"].map(name => {
+    if (searchValue.length !== 0) {
+      if (name.symbol.toLowerCase().startsWith(searchValue.toLowerCase())) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: name.symbol,
+          onClick: () => stocksPredictiveSearch(name)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", {
+          style: {
+            paddingRight: "3rem"
+          }
+        }, name.symbol), name.name);
+      } else {
+        return null;
+      }
+    }
+  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "nav-bar"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://angel.co/u/ben-hsieh-6",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "nav-menu-item"
+  }, "AngelList")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://github.com/benhsieh-dev",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "nav-menu-item"
+  }, "GitHub")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://www.linkedin.com/in/ben-hsieh-05522542/",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "nav-menu-item"
+  }, "Linkedin"), " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/dashboard"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "nav-menu-item"
+  }, "Portfolio")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "dropdown"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "nav-menu-item dropdown",
+    onClick: operation
+  }, "Account"), show && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "dropdown-menu"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Ben Hsieh"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+    className: "horizontal-bar"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "dropdown-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-angellist menu-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://angel.co/u/ben-hsieh-6",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "dropdown-menu-item"
+  }, "AngelList"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "dropdown-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-github menu-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://github.com/benhsieh-dev",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "dropdown-menu-item"
+  }, "GitHub"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "dropdown-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    class: "fab fa-linkedin-in menu-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://www.linkedin.com/in/ben-hsieh-05522542/",
+    target: "_blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "dropdown-menu-item"
+  }, "Linkedin"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "dropdown-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-briefcase menu-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/account"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "dropdown-menu-item"
+  }, "Account"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "dropdown-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-sign-out-alt menu-icon"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "dropdown-menu-item logout",
+    onClick: logout
+  }, "Log Out"))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-page"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, quote.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "$", JSON.stringify(quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "$", JSON.stringify(quote.change), "(", JSON.stringify(quote.change_percent_s), ") Today")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Chart"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["LineChart"], {
+    width: 800,
+    height: 400,
+    data: chartData
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["CartesianGrid"], {
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["XAxis"], {
+    dataKey: "minute"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["YAxis"], {
+    type: "number",
+    domain: ["auto", "auto"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["Tooltip"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["Line"], {
+    type: "monotone",
+    dataKey: "close",
+    stroke: "#8884d8"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "news"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, news.map((item, idx) => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: idx,
+      className: "news-item"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-bolt"
+    }), "\u00A0", "\u00A0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, item.source.name), "\u00A0", "\u00A0", item.publishedAt), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "news-title"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      className: "news-title-header",
+      href: item.url,
+      target: "_blank"
+    }, item.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: "news-image",
+      src: item.urlToImage
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-right"
+  }, availableShares === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-trade"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Buy ", quote.symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-stock-purchase"
+  }, "Shares", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: shares,
+    className: "account-purchase-shares",
+    type: "number",
+    min: "0",
+    step: "1",
+    onChange: e => setShares(e.target.value)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "market-price"
+  }, "$", parseInt(quote.latest_price).toFixed(2)), console.log(typeof quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "buy-stock",
+    onClick: buyStockHandler
+  }, "Buy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "available-shares"
+  }, availableShares, " ", availableShares <= 1 ? "Share" : "Shares", " Available", "\xa0", sellAllStocksHandler()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-purchase-shares-error"
+  }, sharesError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), watchlistChecker()) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tabs"], {
+    defaultIndex: 1
+    // onSelect={(index) => console.log(index)}
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabList"], {
+    className: "tabs-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
+    className: "buy-stock-tab"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Buy ", quote.symbol)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["Tab"], {
+    className: "sell-stock-tab"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "Sell ", quote.symbol))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-trade"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-stock-purchase"
+  }, "Shares", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: shares,
+    className: "account-purchase-shares",
+    type: "number",
+    min: "0",
+    step: "1",
+    onChange: e => setShares(e.target.value)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "market-price"
+  }, "$", quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "buy-stock",
+    onClick: buyStockHandler
+  }, "Buy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-purchase-shares-error"
+  }, sharesError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), watchlistChecker())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_3__["TabPanel"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "stocks-trade"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-stock-purchase"
+  }, "Shares", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: shares,
+    className: "account-purchase-shares",
+    type: "number",
+    min: "0",
+    step: "1",
+    onChange: e => setShares(e.target.value)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "market-price"
+  }, "$", quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "stocks-sell-stock",
+    onClick: sellStockHandler
+  }, "Sell"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "available-shares"
+  }, availableShares, " ", availableShares <= 1 ? "Share" : "Shares", " Available - ", "\xa0", sellAllStocksHandler()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "account-purchase-shares-error"
+  }, sharesError), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), watchlistChecker()))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null))));
+});
+
+/***/ }),
+
+/***/ "./frontend/components/stocks/stocks_container.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/stocks/stocks_container.jsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _stocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stocks */ "./frontend/components/stocks/stocks.jsx");
+/* harmony import */ var _actions_session_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session.js */ "./frontend/actions/session.js");
+
+
+
+
+const msp = state => {
+  return {
+    currentUser: state.session.currentUser
+  };
+};
+const mdp = dispatch => ({
+  logout: () => dispatch(Object(_actions_session_js__WEBPACK_IMPORTED_MODULE_3__["logout"])())
+});
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(_stocks__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ })
+
+}]);
 //# sourceMappingURL=9.bundle.js.map

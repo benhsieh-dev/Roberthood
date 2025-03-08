@@ -20,6 +20,7 @@ module.exports = function(api) {
       isTestEnv && [
         '@babel/preset-env',
         {
+          loose: true, 
           targets: {
             node: 'current'
           }
@@ -80,3 +81,4 @@ module.exports = function(api) {
     ].filter(Boolean)
   }
 }
+
