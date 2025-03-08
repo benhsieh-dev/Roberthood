@@ -73,3 +73,6 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.12.0'
 
 gem 'iex-ruby-client'
+
+gem 'dotenv-rails', groups: [:development, :test]
+

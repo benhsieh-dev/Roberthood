@@ -9,7 +9,7 @@ import { TickerSymbols } from '../../../public/tickers.js';
 export default ({ currentUser, logout }) => {
   const [searchValue, setSearchValue] = useState('')
   const [quote, setQuote] = useState('qqq')
-  // console.log("currentUser", currentUser); 
+  console.log("currentUser username", currentUser.username); 
   const [chartData, setChartData] = useState([]);
   const [news, setNews] = useState([]);
   const [show, setShow] = useState(false); 
@@ -20,56 +20,77 @@ export default ({ currentUser, logout }) => {
 
   useEffect(() => {
     document.title = 'Portfolio | Roberthood'; 
-  })
+  }, [])
 
   useEffect(() => {
+    let isMounted = true; // Track if the component is still mounted
+
     if (news.length < 1) {
-      // search(); 
-      $.ajax('/api/news/new').done(res => {
-        setNews(news.concat(res.articles));
+      $.ajax("/api/news/new").done((res) => {
+        if (isMounted) { // Only update state if the component is still mounted
+          setNews(news.concat(res.articles));
+        }     
       });
     }
-      $.ajax(`/api/stocks/chart/${quote}`).done((res) => {
-        // console.log(res);
-        setChartData(res);
-      });
-      $.ajax(`/api/stocks/quote/${quote}`).done((res) => {
-          // console.log(res);
-          setQuote(res);
-        });
-  }, []);
+
+    $.ajax(`/api/stocks/chart/${quote}`).done((res) => {
+       if (isMounted) setChartData(res);
+    });
+
+    $.ajax(`/api/stocks/quote/${quote}`).done((res) => {
+       if (isMounted) setQuote(res);
+    });
+
+    return () => {
+      isMounted = false;
+    }
+  }, [quote, news]);
 
     useEffect(() => {
+      let isMounted = true;
+
       axios({
         method: "GET",
         url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
       })
         .then((res) => {
-          const total = [];
-          for (let stock in res.data) {
-            total.push({ ...res.data[stock], firebaseID: stock });
+          if (isMounted) {
+            const total = [];
+            for (let stock in res.data) {
+              total.push({ ...res.data[stock], firebaseID: stock });
+            }
+            setPortfolioValue(total);
           }
-          setPortfolioValue(total);
-          // console.log(res.data);
         })
         .catch((error) => console.log(error));
-    }, []);
+        return () => {
+          isMounted = false; 
+        }
+    }, []); // should change when portfolio changes
 
 
   useEffect(() => {
+    let isMounted = true;
+
     axios({
       method: 'GET',
       url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`})
     .then(res => { 
-      const watchlist = [];
-      for(let stock in res.data) {
-        watchlist.push({...res.data[stock], firebaseID: stock})
+      // console.log(res); 
+      if (isMounted) {
+          const watchlist = [];
+          for (let stock in res.data) {
+            watchlist.push({ ...res.data[stock], firebaseID: stock });
+          }
+          setStock(watchlist);
       }
-      setStock(watchlist);
-      // console.log(res.data); 
     }) 
     .catch(error => console.log(error));  
-  });
+
+    return () => {
+      isMounted = false; 
+    }
+  }, []); // should change when watchlist changes
 
   const dashboardSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
@@ -78,7 +99,6 @@ export default ({ currentUser, logout }) => {
     });
 
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
-      // console.log(res);
       setChartData(res);
     });
     routeChangeDashboardStocksPage(`/stocks/${searchValue}`);
@@ -99,12 +119,6 @@ export default ({ currentUser, logout }) => {
        !show
     )
   }
-    
-
-// const reload = () => {
-//   window.location.reload(true);
-// };
-
 
 const postDataHandler = () => {
   axios.post(`./${currentUser.username}.json`, quote)

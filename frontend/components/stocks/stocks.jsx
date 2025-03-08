@@ -488,7 +488,7 @@ export default ({currentUser, logout}) => {
                     <div className="market-price">
                       ${parseInt(quote.latest_price).toFixed(2)}
                     </div>
-                    {console.log(typeof quote.latest_price)}
+                    {/* {console.log(typeof quote.latest_price)} */}
                     <br />
                     <br />
                     <br />
