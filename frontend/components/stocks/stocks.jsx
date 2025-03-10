@@ -20,7 +20,7 @@ export default ({currentUser, logout}) => {
    const { ticker } = useParams(); 
 
    const [searchValue, setSearchValue] = useState(ticker);
-   const [quote, setQuote] = useState("");
+   const [quote, setQuote] = useState(null);
    const [chartData, setChartData] = useState([]);
    const [news, setNews] = useState([]);
    const [show, setShow] = useState(false);
@@ -29,7 +29,7 @@ export default ({currentUser, logout}) => {
    const [shares, setShares] = useState(0);
    const [availableShares, setAvailableShares] = useState(0);
    const [sharesError, setSharesError] = useState(null);
-
+   const [errorMessage, setErrorMessage] = useState("");
 
   const history = useHistory();
   const routeChange = () => {
@@ -43,31 +43,32 @@ export default ({currentUser, logout}) => {
   };
 
   useEffect(() => {
-    document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`
-  })
-   useEffect(() => {
-       if (news.length < 1) {
-         stocksSearch();
-         $.ajax("/api/news/new").done((res) => {
-           setNews(news.concat(res.articles));
-         });
-       }
-     });
+    if (quote) document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`
+  }, [quote])
 
-    useEffect(() => {
-       axios({
-         method: "GET",
-         url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
-       })
-         .then((res) => {
-           const total = [];
-           for (let stock in res.data) {
-             total.push({ ...res.data[stock], firebaseID: stock });
-           }
-           setPortfolioValue(total);
-         })
-         .catch((error) => console.log(error));
-     }, [portfolioValue]);
+  useEffect(() => {
+      if (news.length < 1) {
+        stocksSearch();
+        $.ajax("/api/news/new").done((res) => {
+          setNews(news.concat(res.articles));
+        });
+      }
+  });
+
+  useEffect(() => {
+      axios({
+        method: "GET",
+        url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
+      })
+        .then((res) => {
+          const total = [];
+          for (let stock in res.data) {
+            total.push({ ...res.data[stock], firebaseID: stock });
+          }
+          setPortfolioValue(total);
+        })
+        .catch((error) => console.log(error));
+    }, [portfolioValue]);
 
      useEffect(() => {
        axios({
@@ -86,7 +87,14 @@ export default ({currentUser, logout}) => {
 
      const stocksSearch = () => {
        $.ajax(`/api/stocks/quote/${searchValue}`).done((res) => {
-         setQuote(res);
+          console.log("stock quote search: " + res);
+          if (res && res.latest_price) {
+            setQuote(res);
+            setErrorMessage(""); // Clear error message if quote is found
+          } else {
+            setQuote(null); // set quote to null if not found
+            setErrorMessage("Stock data not found. Please try again."); // show error message
+          }  
        });
 
        $.ajax(`/api/stocks/chart/${searchValue}`).done((res) => {
@@ -406,6 +414,12 @@ export default ({currentUser, logout}) => {
             </div>
             <br />
             <br />
+
+            {/* Display an error message if no quote is found */}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
+            
             <div className="stocks-page">
               <div className="stocks-left">
                 <div>
