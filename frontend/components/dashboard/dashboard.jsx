@@ -314,7 +314,7 @@ const predictiveSearch = (item) => {
                      </Link>
                    </li>
                    <li className="dropdown-list">
-                     <i class="fas fa-university menu-icon"></i>
+                     <i className="fas fa-university menu-icon"></i>
                      <Link to="/account/banking">
                        <span className="dropdown-menu-item">Banking</span>
                      </Link>
