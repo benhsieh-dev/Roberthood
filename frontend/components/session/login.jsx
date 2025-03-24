@@ -66,11 +66,19 @@ class Login extends React.Component {
     e.preventDefault();
     this.props
       .login(
-        this.state = {
+        (this.state = {
           username: "bqh5026",
-          password: 'password',
+          password: "password",
         })
-      .then(() => this.props.history.push("/dashboard"));
+      )
+      .then(() =>
+        // this.props.history.push("/dashboard"));
+        {
+          // Check if the current path is already "/dashboard"
+          if (this.props.history.location.pathname !== "/dashboard") {
+            this.props.history.push("/dashboard");
+          }
+        });
   }
 
   render() {

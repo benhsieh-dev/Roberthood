@@ -147,23 +147,23 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "social-media"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "sm-icon",
+    className: "sm-icon",
     href: "https://angel.co/u/ben-hsieh-6",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-angellist fa-5x"
+    className: "fab fa-angellist fa-5x"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "sm-icon",
+    className: "sm-icon",
     href: "https://github.com/benhsieh-dev",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-github fa-5x"
+    className: "fab fa-github fa-5x"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "sm-icon",
+    className: "sm-icon",
     href: "https://www.linkedin.com/in/ben-hsieh-05522542/",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-linkedin-in fa-5x"
+    className: "fab fa-linkedin-in fa-5x"
   })))));
 });
 

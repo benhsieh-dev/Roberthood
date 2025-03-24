@@ -260,7 +260,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "dropdown-list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-angellist menu-icon"
+    className: "fab fa-angellist menu-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://angel.co/u/ben-hsieh-6",
     target: "_blank"
@@ -269,7 +269,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }, "AngelList"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "dropdown-list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-github menu-icon"
+    className: "fab fa-github menu-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://github.com/benhsieh-dev",
     target: "_blank"
@@ -278,7 +278,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }, "GitHub"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "dropdown-list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fab fa-linkedin-in menu-icon"
+    className: "fab fa-linkedin-in menu-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://www.linkedin.com/in/ben-hsieh-05522542/",
     target: "_blank"
@@ -295,7 +295,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }, "Account"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "dropdown-list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fas fa-university menu-icon"
+    className: "fas fa-university menu-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/account/banking"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

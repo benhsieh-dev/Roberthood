@@ -4,7 +4,7 @@ require 'json'
 class Api::StocksController < ApplicationController
     BASE_URL = "https://financialmodelingprep.com/api/v3"
     API_KEY = ENV['FINANCIAL_MODELING_API_KEY'] 
-
+    
     def quote
       symbol = params[:symbol]
       url = "#{BASE_URL}/quote/#{symbol}?apikey=#{API_KEY}"
