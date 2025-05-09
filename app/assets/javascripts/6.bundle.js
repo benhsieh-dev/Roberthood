@@ -42,7 +42,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     _useState4 = _slicedToArray(_useState3, 2),
     quote = _useState4[0],
     setQuote = _useState4[1];
-  // console.log("currentUser", currentUser); 
+  console.log("currentUser username", currentUser.username);
   const _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
     _useState6 = _slicedToArray(_useState5, 2),
     chartData = _useState6[0],
@@ -73,60 +73,77 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     setSharesError = _useState18[1];
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     document.title = 'Portfolio | Roberthood';
-  });
+  }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    let isMounted = true; // Track if the component is still mounted
+
     if (news.length < 1) {
-      // search(); 
-      $.ajax('/api/news/new').done(res => {
-        setNews(news.concat(res.articles));
+      $.ajax("/api/news/new").done(res => {
+        if (isMounted) {
+          // Only update state if the component is still mounted
+          setNews(news.concat(res.articles));
+        }
       });
     }
     $.ajax(`/api/stocks/chart/${quote}`).done(res => {
-      // console.log(res);
-      setChartData(res);
+      if (isMounted) setChartData(res);
     });
     $.ajax(`/api/stocks/quote/${quote}`).done(res => {
-      // console.log(res);
-      setQuote(res);
+      if (isMounted) setQuote(res);
     });
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, [quote, news]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    let isMounted = true;
     Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_3__["default"])({
       method: "GET",
       url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`
     }).then(res => {
-      const total = [];
-      for (let stock in res.data) {
-        total.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
-          firebaseID: stock
-        }));
+      if (isMounted) {
+        const total = [];
+        for (let stock in res.data) {
+          total.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
+            firebaseID: stock
+          }));
+        }
+        setPortfolioValue(total);
       }
-      setPortfolioValue(total);
-      // console.log(res.data);
     }).catch(error => console.log(error));
-  }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, []); // should change when portfolio changes
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    let isMounted = true;
     Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_3__["default"])({
       method: 'GET',
       url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`
     }).then(res => {
-      const watchlist = [];
-      for (let stock in res.data) {
-        watchlist.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
-          firebaseID: stock
-        }));
+      // console.log(res); 
+      if (isMounted) {
+        const watchlist = [];
+        for (let stock in res.data) {
+          watchlist.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
+            firebaseID: stock
+          }));
+        }
+        setStock(watchlist);
       }
-      setStock(watchlist);
-      // console.log(res.data); 
     }).catch(error => console.log(error));
-  });
+    return () => {
+      isMounted = false;
+    };
+  }, []); // should change when watchlist changes
+
   const dashboardSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
       console.log(res);
       setQuote(res);
     });
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
-      // console.log(res);
       setChartData(res);
     });
     routeChangeDashboardStocksPage(`/stocks/${searchValue}`);
@@ -142,11 +159,6 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   const operation = () => {
     setShow(!show);
   };
-
-  // const reload = () => {
-  //   window.location.reload(true);
-  // };
-
   const postDataHandler = () => {
     _axios_quotes__WEBPACK_IMPORTED_MODULE_3__["default"].post(`./${currentUser.username}.json`, quote).then(document.querySelector('.watchlist_btn').textContent = "Added to Watchlist").catch(error => console.log(error));
   };

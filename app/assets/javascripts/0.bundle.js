@@ -1763,7 +1763,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
   let isRelativeUrl = !Object(_helpers_isAbsoluteURL_js__WEBPACK_IMPORTED_MODULE_0__["default"])(requestedURL);
-  if (baseURL && isRelativeUrl || allowAbsoluteUrls == false) {
+  if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
     return Object(_helpers_combineURLs_js__WEBPACK_IMPORTED_MODULE_1__["default"])(baseURL, requestedURL);
   }
   return requestedURL;
@@ -2293,7 +2293,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
-const VERSION = "1.8.2";
+const VERSION = "1.8.4";
 
 /***/ }),
 
@@ -3104,7 +3104,7 @@ __webpack_require__.r(__webpack_exports__);
 
   newConfig.headers = headers = _core_AxiosHeaders_js__WEBPACK_IMPORTED_MODULE_6__["default"].from(headers);
 
-  newConfig.url = Object(_buildURL_js__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_core_buildFullPath_js__WEBPACK_IMPORTED_MODULE_4__["default"])(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+  newConfig.url = Object(_buildURL_js__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_core_buildFullPath_js__WEBPACK_IMPORTED_MODULE_4__["default"])(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
 
   // HTTP basic authentication
   if (auth) {
@@ -4903,7 +4903,7 @@ function fromByteArray (uint8) {
 
 var base64 = __webpack_require__(/*! base64-js */ "./node_modules/base64-js/index.js")
 var ieee754 = __webpack_require__(/*! ieee754 */ "./node_modules/ieee754/index.js")
-var isArray = __webpack_require__(/*! isarray */ "./node_modules/buffer/node_modules/isarray/index.js")
+var isArray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js")
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -6685,22 +6685,6 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ "./node_modules/buffer/node_modules/isarray/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/buffer/node_modules/isarray/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/ieee754/index.js":
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
@@ -6793,6 +6777,22 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
   buffer[offset + i - d] |= s * 128
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/isarray/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),

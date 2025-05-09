@@ -56,6 +56,7 @@ export default ({ currentUser, logout }) => {
         .then((res) => {
           if (isMounted) {
             const total = [];
+            // fetches portfolio information from firebase 
             for (let stock in res.data) {
               total.push({ ...res.data[stock], firebaseID: stock });
             }

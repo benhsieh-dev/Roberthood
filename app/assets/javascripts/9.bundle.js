@@ -42,7 +42,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     _useState2 = _slicedToArray(_useState, 2),
     searchValue = _useState2[0],
     setSearchValue = _useState2[1];
-  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
     _useState4 = _slicedToArray(_useState3, 2),
     quote = _useState4[0],
     setQuote = _useState4[1];
@@ -78,6 +78,10 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     _useState20 = _slicedToArray(_useState19, 2),
     sharesError = _useState20[0],
     setSharesError = _useState20[1];
+  const _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+    _useState22 = _slicedToArray(_useState21, 2),
+    errorMessage = _useState22[0],
+    setErrorMessage = _useState22[1];
   const history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
   const routeChange = () => {
     let path = `/account`;
@@ -88,8 +92,8 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     history.push(path);
   };
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
-  });
+    if (quote) document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
+  }, [quote]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (news.length < 1) {
       stocksSearch();
@@ -128,7 +132,14 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   });
   const stocksSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
-      setQuote(res);
+      console.log("stock quote search: " + res);
+      if (res && res.latest_price) {
+        setQuote(res);
+        setErrorMessage(""); // Clear error message if quote is found
+      } else {
+        setQuote(null); // set quote to null if not found
+        setErrorMessage("Stock data not found. Please try again."); // show error message
+      }
     });
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
       setChartData(res);
@@ -348,7 +359,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "dropdown-menu-item logout",
     onClick: logout
-  }, "Log Out"))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Log Out"))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), errorMessage && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "error-message"
+  }, errorMessage), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "stocks-page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "stocks-left"
@@ -402,7 +415,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     onChange: e => setShares(e.target.value)
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Market Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "market-price"
-  }, "$", parseInt(quote.latest_price).toFixed(2)), console.log(typeof quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, "$", parseInt(quote.latest_price).toFixed(2)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "buy-stock",
     onClick: buyStockHandler
   }, "Buy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
