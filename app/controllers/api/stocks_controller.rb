@@ -6,7 +6,7 @@ class Api::StocksController < ApplicationController
     API_KEY = ENV['FINANCIAL_MODELING_API_KEY'] 
 
     def quote
-      binding.pry
+      # binding.pry
       symbol = params[:symbol]
       url = "#{BASE_URL}/quote/#{symbol}?apikey=#{API_KEY}"
       

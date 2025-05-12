@@ -42,10 +42,6 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
 
-  # ❌ chromedriver-helper is deprecated and incompatible with modern Ruby
-  # gem 'chromedriver-helper'
-
-  # ✅ Use webdrivers gem instead
   gem 'webdrivers'
 end
 
