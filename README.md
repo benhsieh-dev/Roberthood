@@ -1,3 +1,5 @@
+Depending on the environment setup, may use bundle exec rails s to run the application
+
 # Roberthood
 
 Users can read up on latest business news, check stock quotes, add ticker to watchlist, and buy and sell stocks in a portfolio.

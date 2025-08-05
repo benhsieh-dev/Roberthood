@@ -31,6 +31,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
 /* harmony default export */ __webpack_exports__["default"] = (_ref => {
   let currentUser = _ref.currentUser,
     logout = _ref.logout;
@@ -38,11 +41,10 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     _useState2 = _slicedToArray(_useState, 2),
     searchValue = _useState2[0],
     setSearchValue = _useState2[1];
-  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('qqq'),
+  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
     _useState4 = _slicedToArray(_useState3, 2),
     quote = _useState4[0],
     setQuote = _useState4[1];
-  console.log("currentUser username", currentUser.username);
   const _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
     _useState6 = _slicedToArray(_useState5, 2),
     chartData = _useState6[0],
@@ -81,28 +83,39 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
       $.ajax("/api/news/new").done(res => {
         if (isMounted) {
           // Only update state if the component is still mounted
-          setNews(news.concat(res.articles));
+          setNews(prevNews => prevNews.concat(res.articles));
         }
       });
     }
-    $.ajax(`/api/stocks/chart/${quote}`).done(res => {
+    return () => {
+      isMounted = false;
+    };
+  }, []); // Empty dependency array - only run once on mount
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    let isMounted = true;
+
+    // Load default 'qqq' quote data on mount
+    $.ajax(`/api/stocks/chart/qqq`).done(res => {
       if (isMounted) setChartData(res);
     });
-    $.ajax(`/api/stocks/quote/${quote}`).done(res => {
+    $.ajax(`/api/stocks/quote/qqq`).done(res => {
       if (isMounted) setQuote(res);
     });
     return () => {
       isMounted = false;
     };
-  }, [quote, news]);
+  }, []); // Empty dependency array - only run once on mount
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     let isMounted = true;
     Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_3__["default"])({
       method: "GET",
       url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`
     }).then(res => {
-      if (isMounted) {
+      if (isMounted && res.data) {
         const total = [];
+        // fetches portfolio information from firebase 
         for (let stock in res.data) {
           total.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
             firebaseID: stock
@@ -123,7 +136,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
       url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`
     }).then(res => {
       // console.log(res); 
-      if (isMounted) {
+      if (isMounted && res.data) {
         const watchlist = [];
         for (let stock in res.data) {
           watchlist.push(_objectSpread(_objectSpread({}, res.data[stock]), {}, {
@@ -172,6 +185,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     history.push(path);
   };
   const watchlistChecker = () => {
+    if (!quote.symbol) return null;
     for (let watchlistItem of stock) {
       if (watchlistItem.symbol === quote.symbol) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -316,7 +330,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   }, "Account"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: "dropdown-list"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    class: "fas fa-university menu-icon"
+    className: "fas fa-university menu-icon"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/account/banking"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -336,9 +350,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     className: "Quote"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "ticker-results"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, quote.company_name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Ticker:"), " ", quote.symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Latest Price:"), "$", JSON.stringify(quote.latest_price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "$", JSON.stringify(quote.change), "(", quote.change_percent_s, ")", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, quote.company_name ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, quote.company_name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Ticker:"), " ", quote.symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Latest Price:"), "$", JSON.stringify(quote.latest_price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "$", JSON.stringify(quote.change), "(", quote.change_percent_s, ")", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "today"
-  }, "Today ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "YTD change:"), " ", (quote.ytd_change * 100).toFixed(2), "%")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Today ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "YTD change:"), " ", (quote.ytd_change * 100).toFixed(2), "%")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Loading...")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "Chart"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["LineChart"], {
     width: 800,

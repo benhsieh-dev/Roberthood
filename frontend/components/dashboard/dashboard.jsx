@@ -6,10 +6,12 @@ import axios from '../axios-quotes';
 
 import { TickerSymbols } from '../../../public/tickers.js';
 
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
+
 export default ({ currentUser, logout }) => {
   const [searchValue, setSearchValue] = useState('')
-  const [quote, setQuote] = useState('qqq')
-  console.log("currentUser username", currentUser.username); 
+  const [quote, setQuote] = useState({})
   const [chartData, setChartData] = useState([]);
   const [news, setNews] = useState([]);
   const [show, setShow] = useState(false); 
@@ -22,29 +24,39 @@ export default ({ currentUser, logout }) => {
     document.title = 'Portfolio | Roberthood'; 
   }, [])
 
+
   useEffect(() => {
     let isMounted = true; // Track if the component is still mounted
 
     if (news.length < 1) {
       $.ajax("/api/news/new").done((res) => {
         if (isMounted) { // Only update state if the component is still mounted
-          setNews(news.concat(res.articles));
+          setNews(prevNews => prevNews.concat(res.articles));
         }     
       });
     }
 
-    $.ajax(`/api/stocks/chart/${quote}`).done((res) => {
+    return () => {
+      isMounted = false;
+    }
+  }, []); // Empty dependency array - only run once on mount
+
+  useEffect(() => {
+    let isMounted = true;
+
+    // Load default 'qqq' quote data on mount
+    $.ajax(`/api/stocks/chart/qqq`).done((res) => {
        if (isMounted) setChartData(res);
     });
 
-    $.ajax(`/api/stocks/quote/${quote}`).done((res) => {
+    $.ajax(`/api/stocks/quote/qqq`).done((res) => {
        if (isMounted) setQuote(res);
     });
 
     return () => {
       isMounted = false;
     }
-  }, [quote, news]);
+  }, []); // Empty dependency array - only run once on mount
 
     useEffect(() => {
       let isMounted = true;
@@ -54,7 +66,7 @@ export default ({ currentUser, logout }) => {
         url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
       })
         .then((res) => {
-          if (isMounted) {
+          if (isMounted && res.data) {
             const total = [];
             // fetches portfolio information from firebase 
             for (let stock in res.data) {
@@ -78,7 +90,7 @@ export default ({ currentUser, logout }) => {
       url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`})
     .then(res => { 
       // console.log(res); 
-      if (isMounted) {
+      if (isMounted && res.data) {
           const watchlist = [];
           for (let stock in res.data) {
             watchlist.push({ ...res.data[stock], firebaseID: stock });
@@ -140,6 +152,8 @@ const routeChangeDashboardStocksPage = (ticker) => {
 }
 
 const watchlistChecker = () => {
+  if (!quote.symbol) return null;
+  
   for(let watchlistItem of stock){
     if (watchlistItem.symbol === quote.symbol) {
       return (
@@ -315,7 +329,7 @@ const predictiveSearch = (item) => {
                      </Link>
                    </li>
                    <li className="dropdown-list">
-                     <i class="fas fa-university menu-icon"></i>
+                     <i className="fas fa-university menu-icon"></i>
                      <Link to="/account/banking">
                        <span className="dropdown-menu-item">Banking</span>
                      </Link>
@@ -344,33 +358,32 @@ const predictiveSearch = (item) => {
            <div className="Quote">
              <div>
                <ul className="ticker-results">
-                 <li>
-                   <h1>
-                     {/* console.log(quote) */}
-                     {quote.company_name}
-                   </h1>
-                 </li>
-                 <li>
-                   <span>Ticker:</span> {quote.symbol}
-                 </li>
-                 <li>
-                   <span>Latest Price:</span>$
-                   {JSON.stringify(quote.latest_price)}
-                 </li>
-                 <li>
-                   ${JSON.stringify(quote.change)}({quote.change_percent_s}){" "}
-                   <span className="today">Today </span>
-                 </li>
-                 {/* 
-                 <li>
-                   <span>PE ratio:</span>
-                   {quote.pe_ration ? JSON.stringify(quote.pe_ratio) : "N/A"}
-                 </li>
-                 */}
-                 <li>
-                   <span>YTD change:</span>{" "}
-                   {(quote.ytd_change * 100).toFixed(2)}%
-                 </li>
+                 {quote.company_name ? (
+                   <>
+                     <li>
+                       <h1>
+                         {quote.company_name}
+                       </h1>
+                     </li>
+                     <li>
+                       <span>Ticker:</span> {quote.symbol}
+                     </li>
+                     <li>
+                       <span>Latest Price:</span>$
+                       {JSON.stringify(quote.latest_price)}
+                     </li>
+                     <li>
+                       ${JSON.stringify(quote.change)}({quote.change_percent_s}){" "}
+                       <span className="today">Today </span>
+                     </li>
+                     <li>
+                       <span>YTD change:</span>{" "}
+                       {(quote.ytd_change * 100).toFixed(2)}%
+                     </li>
+                   </>
+                 ) : (
+                   <li>Loading...</li>
+                 )}
                </ul>
              </div>
            </div>
