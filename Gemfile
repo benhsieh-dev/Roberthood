@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.7' # ✅ Updated from 2.7.6 to a Render-compatible Ruby version
+ruby '3.2.2'
 
-# gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 gem 'rails', '~> 6.1.7'  # Current stable 6.x version
 
 gem 'pg', '>= 0.18', '< 2.0'
@@ -11,8 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # ✅ Updated Puma to be compatible with Ruby 3.x
 gem 'puma', '~> 5.6'
 
-gem 'sass-rails', '~> 5.0'
-gem 'sassc'
+gem 'sassc-rails'
 
 gem 'uglifier', '>= 1.3.0'
 
@@ -22,7 +20,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# ✅ Still works, but Webpacker 5.4 is the last stable version for Rails 5
+#Still works with Rails 6.1; 5.4 is the last stable version
 gem 'webpacker', '~> 5.4'
 
 group :development, :test do
@@ -39,13 +37,13 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
+  gem 'capybara', '~> 3.39'
   gem 'selenium-webdriver'
 
   gem 'webdrivers'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.12.0'
 gem 'iex-ruby-client'
