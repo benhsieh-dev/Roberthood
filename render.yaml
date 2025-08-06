@@ -2,7 +2,7 @@ services:
   - type: web
     name: roberthood
     env: ruby
-    region: oregon
+    region: illinois
     plan: free
     buildCommand: "./build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
