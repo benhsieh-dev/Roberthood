@@ -15,12 +15,15 @@ import axios from "../axios-quotes";
 
 import { TickerSymbols } from "../../../public/tickers";
 
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
+
 export default ({currentUser, logout}) => {
 
    const { ticker } = useParams(); 
 
    const [searchValue, setSearchValue] = useState(ticker);
-   const [quote, setQuote] = useState(null);
+   const [quote, setQuote] = useState({});
    const [chartData, setChartData] = useState([]);
    const [news, setNews] = useState([]);
    const [show, setShow] = useState(false);
@@ -43,17 +46,19 @@ export default ({currentUser, logout}) => {
   };
 
   useEffect(() => {
-    if (quote) document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`
+    if (quote && quote.latest_price) {
+      document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
+    }
   }, [quote])
 
   useEffect(() => {
       if (news.length < 1) {
         stocksSearch();
         $.ajax("/api/news/new").done((res) => {
-          setNews(news.concat(res.articles));
+          setNews(prevNews => prevNews.concat(res.articles));
         });
       }
-  });
+  }, []); // Add empty dependency array to run only once
 
   useEffect(() => {
       axios({
@@ -87,12 +92,20 @@ export default ({currentUser, logout}) => {
 
      const stocksSearch = () => {
        $.ajax(`/api/stocks/quote/${searchValue}`).done((res) => {
-          console.log("stock quote search: " + res);
-          if (res && res.latest_price) {
-            setQuote(res);
+          console.log("stock quote search: ", res);
+          // API returns an array, get the first element and map to expected format
+          const data = Array.isArray(res) ? res[0] : res;
+          if (data && data.price) {
+            const mappedQuote = {
+              ...data,
+              company_name: data.name,
+              latest_price: data.price,
+              change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+            };
+            setQuote(mappedQuote);
             setErrorMessage(""); // Clear error message if quote is found
           } else {
-            setQuote(null); // set quote to null if not found
+            setQuote({}); // set quote to empty object if not found
             setErrorMessage("Stock data not found. Please try again."); // show error message
           }  
        });
@@ -100,7 +113,12 @@ export default ({currentUser, logout}) => {
        $.ajax(`/api/stocks/chart/${searchValue}`).done((res) => {
          setChartData(res);
        });
-       routeChangeStocksPage(`/stocks/${searchValue}`);
+       
+       // Only navigate if we're not already on the target route
+       const targetPath = `/stocks/${searchValue}`;
+       if (window.location.hash !== `#${targetPath}`) {
+         routeChangeStocksPage(targetPath);
+       }
      };
 
      const handleOnChange = (event) => {
@@ -166,11 +184,13 @@ export default ({currentUser, logout}) => {
 
       useEffect(() => {
         checkAvailableShares();
-      })
+      }, [portfolioValue, quote])
 
       const checkAvailableShares = () => {
         portfolioValue.forEach(stock => {
-          if (stock.Company.symbol === quote.symbol) setAvailableShares(stock.Quantity); 
+          if (stock && stock.Company && stock.Company.symbol && quote && quote.symbol && stock.Company.symbol === quote.symbol) {
+            setAvailableShares(stock.Quantity); 
+          }
         })
       }
 
@@ -254,23 +274,25 @@ export default ({currentUser, logout}) => {
 
       const sellAllStocksHandler = () => {
          for (let stock of portfolioValue) {
-           console.log(stock.Company.symbol); 
-           if (stock.Company.symbol === quote.symbol) {
-             return (
-               <button
-                 className="sell-all-shares-btn"
-                 onClick={sellAllHandler(stock)}
-               >
-                 Sell All
-               </button>
-             );
+           if (stock && stock.Company && stock.Company.symbol && quote && quote.symbol) {
+             console.log(stock.Company.symbol); 
+             if (stock.Company.symbol === quote.symbol) {
+               return (
+                 <button
+                   className="sell-all-shares-btn"
+                   onClick={sellAllHandler(stock)}
+                 >
+                   Sell All
+                 </button>
+               );
+             }
            }
          }
+         
+         return null; // Return null if no matching stock found
+      };
 
-      }
-    
-
-        return (
+  return (
           <div>
             <div className="header">
               <div className="navbar-left">
@@ -423,12 +445,18 @@ export default ({currentUser, logout}) => {
             <div className="stocks-page">
               <div className="stocks-left">
                 <div>
-                  <h2>{quote.company_name}</h2>
-                  <p>
-                    ${JSON.stringify(quote.latest_price)}
-                    <br />${JSON.stringify(quote.change)}(
-                    {JSON.stringify(quote.change_percent_s)}) Today
-                  </p>
+                  {quote && quote.company_name ? (
+                    <>
+                      <h2>{quote.company_name}</h2>
+                      <p>
+                        ${JSON.stringify(quote.latest_price)}
+                        <br />${JSON.stringify(quote.change)}(
+                        {JSON.stringify(quote.change_percent_s)}) Today
+                      </p>
+                    </>
+                  ) : (
+                    <div>Loading stock data...</div>
+                  )}
                 </div>
                 <div className="Chart">
                   <LineChart width={800} height={400} data={chartData}>

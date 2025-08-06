@@ -33,6 +33,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
 /* harmony default export */ __webpack_exports__["default"] = (_ref => {
   let currentUser = _ref.currentUser,
     logout = _ref.logout;
@@ -42,7 +45,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     _useState2 = _slicedToArray(_useState, 2),
     searchValue = _useState2[0],
     setSearchValue = _useState2[1];
-  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+  const _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
     _useState4 = _slicedToArray(_useState3, 2),
     quote = _useState4[0],
     setQuote = _useState4[1];
@@ -92,16 +95,19 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     history.push(path);
   };
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    if (quote) document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
+    if (quote && quote.latest_price) {
+      document.title = `${ticker.toUpperCase()} - $${parseInt(quote.latest_price).toFixed(2)} | Roberthood`;
+    }
   }, [quote]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (news.length < 1) {
       stocksSearch();
       $.ajax("/api/news/new").done(res => {
-        setNews(news.concat(res.articles));
+        setNews(prevNews => prevNews.concat(res.articles));
       });
     }
-  });
+  }, []); // Add empty dependency array to run only once
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     Object(_axios_quotes__WEBPACK_IMPORTED_MODULE_4__["default"])({
       method: "GET",
@@ -132,19 +138,31 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   });
   const stocksSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
-      console.log("stock quote search: " + res);
-      if (res && res.latest_price) {
-        setQuote(res);
+      console.log("stock quote search: ", res);
+      // API returns an array, get the first element and map to expected format
+      const data = Array.isArray(res) ? res[0] : res;
+      if (data && data.price) {
+        const mappedQuote = _objectSpread(_objectSpread({}, data), {}, {
+          company_name: data.name,
+          latest_price: data.price,
+          change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+        });
+        setQuote(mappedQuote);
         setErrorMessage(""); // Clear error message if quote is found
       } else {
-        setQuote(null); // set quote to null if not found
+        setQuote({}); // set quote to empty object if not found
         setErrorMessage("Stock data not found. Please try again."); // show error message
       }
     });
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
       setChartData(res);
     });
-    routeChangeStocksPage(`/stocks/${searchValue}`);
+
+    // Only navigate if we're not already on the target route
+    const targetPath = `/stocks/${searchValue}`;
+    if (window.location.hash !== `#${targetPath}`) {
+      routeChangeStocksPage(targetPath);
+    }
   };
   const handleOnChange = event => {
     setSearchValue(event.target.value);
@@ -182,10 +200,12 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   };
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     checkAvailableShares();
-  });
+  }, [portfolioValue, quote]);
   const checkAvailableShares = () => {
     portfolioValue.forEach(stock => {
-      if (stock.Company.symbol === quote.symbol) setAvailableShares(stock.Quantity);
+      if (stock && stock.Company && stock.Company.symbol && quote && quote.symbol && stock.Company.symbol === quote.symbol) {
+        setAvailableShares(stock.Quantity);
+      }
     });
   };
   const sellStockHandler = () => {
@@ -232,14 +252,17 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
   };
   const sellAllStocksHandler = () => {
     for (let stock of portfolioValue) {
-      console.log(stock.Company.symbol);
-      if (stock.Company.symbol === quote.symbol) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "sell-all-shares-btn",
-          onClick: sellAllHandler(stock)
-        }, "Sell All");
+      if (stock && stock.Company && stock.Company.symbol && quote && quote.symbol) {
+        console.log(stock.Company.symbol);
+        if (stock.Company.symbol === quote.symbol) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "sell-all-shares-btn",
+            onClick: sellAllHandler(stock)
+          }, "Sell All");
+        }
       }
     }
+    return null; // Return null if no matching stock found
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "header"
@@ -365,7 +388,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     className: "stocks-page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "stocks-left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, quote.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "$", JSON.stringify(quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "$", JSON.stringify(quote.change), "(", JSON.stringify(quote.change_percent_s), ") Today")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, quote && quote.company_name ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, quote.company_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "$", JSON.stringify(quote.latest_price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "$", JSON.stringify(quote.change), "(", JSON.stringify(quote.change_percent_s), ") Today")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Loading stock data...")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "Chart"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_2__["LineChart"], {
     width: 800,

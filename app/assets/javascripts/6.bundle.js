@@ -73,8 +73,16 @@ const roberthoodHatURL = '/assets/roberthood_hat.png';
     _useState18 = _slicedToArray(_useState17, 2),
     sharesError = _useState18[0],
     setSharesError = _useState18[1];
+
+  // Track if component is mounted to prevent memory leaks
+  const isMountedRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(true);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     document.title = 'Portfolio | Roberthood';
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     let isMounted = true; // Track if the component is still mounted
@@ -100,7 +108,16 @@ const roberthoodHatURL = '/assets/roberthood_hat.png';
       if (isMounted) setChartData(res);
     });
     $.ajax(`/api/stocks/quote/qqq`).done(res => {
-      if (isMounted) setQuote(res);
+      if (isMounted) {
+        // API returns an array, get the first element and map to expected format
+        const data = Array.isArray(res) ? res[0] : res;
+        const mappedQuote = _objectSpread(_objectSpread({}, data), {}, {
+          company_name: data.name,
+          latest_price: data.price,
+          change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+        });
+        setQuote(mappedQuote);
+      }
     });
     return () => {
       isMounted = false;
@@ -153,13 +170,34 @@ const roberthoodHatURL = '/assets/roberthood_hat.png';
 
   const dashboardSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
+      if (!isMountedRef.current) return; // Prevent state update on unmounted component
+
       console.log(res);
-      setQuote(res);
+      // API returns an array, get the first element and map to expected format
+      const data = Array.isArray(res) ? res[0] : res;
+      const mappedQuote = _objectSpread(_objectSpread({}, data), {}, {
+        company_name: data.name,
+        latest_price: data.price,
+        change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+      });
+      setQuote(mappedQuote);
+    }).fail(() => {
+      if (!isMountedRef.current) return;
+      console.error('Failed to fetch quote data');
     });
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
+      if (!isMountedRef.current) return; // Prevent state update on unmounted component
       setChartData(res);
+    }).fail(() => {
+      if (!isMountedRef.current) return;
+      console.error('Failed to fetch chart data');
     });
-    routeChangeDashboardStocksPage(`/stocks/${searchValue}`);
+
+    // Only navigate if we're not already on the target route
+    const targetPath = `/stocks/${searchValue}`;
+    if (window.location.hash !== `#${targetPath}`) {
+      routeChangeDashboardStocksPage(targetPath);
+    }
   };
   const handleOnChange = event => {
     setSearchValue(event.target.value);
@@ -350,7 +388,7 @@ const roberthoodHatURL = '/assets/roberthood_hat.png';
     className: "Quote"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "ticker-results"
-  }, quote.company_name ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, quote.company_name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Ticker:"), " ", quote.symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Latest Price:"), "$", JSON.stringify(quote.latest_price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "$", JSON.stringify(quote.change), "(", quote.change_percent_s, ")", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, quote && quote.company_name ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, quote.company_name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Ticker:"), " ", quote.symbol), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Latest Price:"), "$", JSON.stringify(quote.latest_price)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "$", JSON.stringify(quote.change), "(", quote.change_percent_s, ")", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "today"
   }, "Today ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "YTD change:"), " ", (quote.ytd_change * 100).toFixed(2), "%")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Loading...")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "Chart"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, useRef } from 'react'; 
 import { Link, useHistory } from 'react-router-dom';
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, YAxis } from "recharts";
 
@@ -19,9 +19,17 @@ export default ({ currentUser, logout }) => {
   const [stock, setStock] = useState([]); 
   const [shares, setShares] = useState(0);
   const [sharesError, setSharesError] = useState(null);
+  
+  // Track if component is mounted to prevent memory leaks
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
     document.title = 'Portfolio | Roberthood'; 
+    
+    // Cleanup function to prevent memory leaks
+    return () => {
+      isMountedRef.current = false;
+    };
   }, [])
 
 
@@ -50,7 +58,17 @@ export default ({ currentUser, logout }) => {
     });
 
     $.ajax(`/api/stocks/quote/qqq`).done((res) => {
-       if (isMounted) setQuote(res);
+       if (isMounted) {
+         // API returns an array, get the first element and map to expected format
+         const data = Array.isArray(res) ? res[0] : res;
+         const mappedQuote = {
+           ...data,
+           company_name: data.name,
+           latest_price: data.price,
+           change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+         };
+         setQuote(mappedQuote);
+       }
     });
 
     return () => {
@@ -107,14 +125,36 @@ export default ({ currentUser, logout }) => {
 
   const dashboardSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
+      if (!isMountedRef.current) return; // Prevent state update on unmounted component
+      
       console.log(res); 
-      setQuote(res); 
+      // API returns an array, get the first element and map to expected format
+      const data = Array.isArray(res) ? res[0] : res;
+      const mappedQuote = {
+        ...data,
+        company_name: data.name,
+        latest_price: data.price,
+        change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+      };
+      setQuote(mappedQuote); 
+    }).fail(() => {
+      if (!isMountedRef.current) return;
+      console.error('Failed to fetch quote data');
     });
 
     $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
+      if (!isMountedRef.current) return; // Prevent state update on unmounted component
       setChartData(res);
+    }).fail(() => {
+      if (!isMountedRef.current) return;
+      console.error('Failed to fetch chart data');
     });
-    routeChangeDashboardStocksPage(`/stocks/${searchValue}`);
+    
+    // Only navigate if we're not already on the target route
+    const targetPath = `/stocks/${searchValue}`;
+    if (window.location.hash !== `#${targetPath}`) {
+      routeChangeDashboardStocksPage(targetPath);
+    }
   };
 
   const handleOnChange = event => {
@@ -358,7 +398,7 @@ const predictiveSearch = (item) => {
            <div className="Quote">
              <div>
                <ul className="ticker-results">
-                 {quote.company_name ? (
+                 {quote && quote.company_name ? (
                    <>
                      <li>
                        <h1>
