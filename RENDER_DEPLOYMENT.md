@@ -66,29 +66,47 @@ If not using Blueprint:
 
 ### Common Issues:
 
-1. **Asset Compilation Fails**:
-   - Ensure Node.js version is specified
-   - Check webpack configuration
+1. **Build Command Failed (npm error)**:
+   - **Symptom**: `==> Running build command 'npm'...` shows npm help instead of running build
+   - **Solution**: The render.yaml has been updated with `chmod +x ./bin/render-build.sh && ./bin/render-build.sh`
+   - **Cause**: Render wasn't finding/executing the build script properly
 
-2. **Database Connection Issues**:
+2. **Asset Compilation Fails**:
+   - Ensure Node.js version is specified
+   - Check webpack configuration respects NODE_ENV
+   - Verify production build script exists
+
+3. **Development Assets in Production**:
+   - **Symptom**: Large bundle sizes, source maps in production  
+   - **Solution**: Set NODE_ENV=production in build process
+   - **Fix**: Updated webpack.config.js and package.json
+
+4. **Database Connection Issues**:
    - Verify `DATABASE_URL` is set
    - Check database migrations ran successfully
 
-3. **Missing API Keys**:
+5. **Missing API Keys**:
    - Add all required environment variables
    - Restart service after adding variables
 
-4. **SSL/TLS Issues**:
+6. **SSL/TLS Issues**:
    - `force_ssl` is disabled in production.rb for Render
    - Render handles SSL termination
 
 ### Build Process:
 The `bin/render-build.sh` script runs:
 1. `bundle install` - Install Ruby gems
-2. `npm install` - Install Node.js dependencies  
-3. `rails assets:precompile` - Compile assets
-4. `rails assets:clean` - Clean old assets
-5. `rails db:migrate` - Run database migrations
+2. `npm install` - Install Node.js dependencies (production mode) 
+3. `NODE_ENV=production npm run build` - Build webpack assets for production
+4. `rails assets:precompile` - Compile Rails assets
+5. `rails assets:clean` - Clean old assets
+6. `rails db:migrate` - Run database migrations
+
+### Updated Files for Render:
+- `render.yaml` - Fixed build command with proper permissions
+- `bin/render-build.sh` - Updated to use production environment variables
+- `package.json` - Conditional postinstall to avoid development builds
+- `webpack.config.js` - Respects NODE_ENV for production builds
 
 ### Logs:
 Monitor deployment at: Render Dashboard → Your Service → Logs

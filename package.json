@@ -27,7 +27,7 @@
     "npm": ">=6.9.0"
   },
   "scripts": {
-    "postinstall": "webpack",
+    "postinstall": "if [ \"$NODE_ENV\" != \"production\" ]; then webpack; fi",
     "start": "webpack --watch --mode=development",
     "build": "webpack --mode=production",
     "heroku-postbuild": "webpack --mode=production"

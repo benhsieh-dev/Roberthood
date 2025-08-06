@@ -1,7 +1,7 @@
 var path = require("path");
 
 module.exports = {
-  mode: "development", // or 'production' or 'none',
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   entry: "./frontend/roberthood.jsx",
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
@@ -30,7 +30,7 @@ module.exports = {
       },
     ],
   },
-  devtool: "source-map", // Enable separate source map files for debugging
+  devtool: process.env.NODE_ENV === "production" ? false : "source-map", // Disable source maps in production
   resolve: {
     extensions: [".js", ".jsx", "*"],
   },

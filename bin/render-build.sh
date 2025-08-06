@@ -2,17 +2,20 @@
 # exit on error
 set -o errexit
 
-# Install dependencies
+# Install Ruby dependencies
 bundle install
 
 # Install Node.js dependencies
 npm install
 
-# Precompile assets
-bundle exec rails assets:precompile
+# Build production assets with webpack
+NODE_ENV=production npm run build
 
-# Clean assets
-bundle exec rails assets:clean
+# Precompile Rails assets
+RAILS_ENV=production bundle exec rails assets:precompile
+
+# Clean old assets
+RAILS_ENV=production bundle exec rails assets:clean
 
 # Migrate database
-bundle exec rails db:migrate
+RAILS_ENV=production bundle exec rails db:migrate
