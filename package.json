@@ -28,7 +28,9 @@
   },
   "scripts": {
     "postinstall": "webpack",
-    "start": "webpack --watch --mode=development"
+    "start": "webpack --watch --mode=development",
+    "build": "webpack --mode=production",
+    "heroku-postbuild": "webpack --mode=production"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
