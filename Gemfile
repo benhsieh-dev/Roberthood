@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '3.4.4'
 
 gem 'rails', '~> 6.1.7'  # Current stable 6.x version
 
@@ -17,6 +17,12 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
+
+# Ruby 3.4 compatibility gems
+gem 'bigdecimal'
+gem 'mutex_m'  
+gem 'logger'
+gem 'ostruct'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
