@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigdecimal'
 gem 'mutex_m'
+gem 'logger'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
