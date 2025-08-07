@@ -18,5 +18,12 @@ RAILS_ENV=production bundle exec rails assets:precompile
 # Clean old assets
 RAILS_ENV=production bundle exec rails assets:clean
 
+# Debug environment variables
+echo "=== BUILD PHASE DEBUG INFO ==="
+echo "DATABASE_URL: ${DATABASE_URL:-"NOT SET"}"
+echo "RAILS_ENV: ${RAILS_ENV:-"NOT SET"}"
+echo "RENDER: ${RENDER:-"NOT SET"}"
+echo "==============================="
+
 # Skip migrations during build - they will run in preDeployCommand when database is available
 echo "Build complete - migrations will run in preDeployCommand phase"

@@ -6,8 +6,7 @@ services:
     region: illinois
     plan: free
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
-    preDeployCommand: "RAILS_ENV=production bundle exec rails db:migrate"
+    startCommand: "./bin/release.sh && bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
