@@ -18,15 +18,5 @@ RAILS_ENV=production bundle exec rails assets:precompile
 # Clean old assets
 RAILS_ENV=production bundle exec rails assets:clean
 
-# Check if database is available and run migrations if it is
-echo "Checking database availability..."
-echo "DATABASE_URL: ${DATABASE_URL:-"NOT SET"}"
-
-if [ -z "$DATABASE_URL" ]; then
-  echo "DATABASE_URL not set during build phase - skipping migrations"
-elif RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
-  echo "Database is available, running migrations..."
-  RAILS_ENV=production bundle exec rails db:migrate
-else
-  echo "Database URL is set but connection failed - migrations will be handled by Render deployment"
-fi
+# Skip migrations during build - they will run in preDeployCommand when database is available
+echo "Build complete - migrations will run in preDeployCommand phase"
