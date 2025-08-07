@@ -2,6 +2,7 @@ services:
   - type: web
     name: roberthood
     env: ruby
+    runtime: ruby-3.2.2
     region: illinois
     plan: free
     buildCommand: "./build.sh"
