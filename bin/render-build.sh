@@ -8,8 +8,8 @@ bundle install
 # Install Node.js dependencies
 npm install
 
-# Build production assets with webpack
-NODE_ENV=production npm run build
+# Build production assets with webpack (use legacy OpenSSL for Node.js 18 compatibility)
+NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider npm run build
 
 # Precompile Rails assets
 RAILS_ENV=production bundle exec rails assets:precompile
