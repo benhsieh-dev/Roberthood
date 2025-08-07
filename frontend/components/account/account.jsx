@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useParams, useHistory, NavLink } from 'react-router-dom';
 
-import axios from '../axios-quotes';
+import { firebaseApi } from '../../utils/api';
 
 import { TickerSymbols } from '../../../public/tickers';
 
@@ -22,9 +22,7 @@ export default ({ currentUser, logout }) => {
   })
 
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`})
+    firebaseApi.get(`/portfolios/${currentUser.username}.json`)
       .then((res) => {
         const total = [];
         for (let stock in res.data) {
@@ -37,10 +35,7 @@ export default ({ currentUser, logout }) => {
   }, [portfolioValue]);
 
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`,
-    })
+    firebaseApi.get(`/${currentUser.username}.json`)
       .then((res) => {
         const watchlist = [];
         for (let stock in res.data) {
@@ -80,10 +75,12 @@ export default ({ currentUser, logout }) => {
     };
 
   const postDataHandler = () => {
-    axios
+    firebaseApi
       .post(`./${currentUser.username}.json`, quote)
-      .then(document.querySelector(".watchlist_btn")
-      .textContent = "Added to Watchlist")
+      .then(response => {
+        document.querySelector(".watchlist_btn")
+          .textContent = "Added to Watchlist";
+      })
       .catch((error) => console.log(error));
   };
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, YAxis } from "recharts";
 
-import axios from '../axios-quotes'; 
+import { api, firebaseApi } from '../../utils/api'; 
 
 import { TickerSymbols } from '../../../public/tickers.js';
 
@@ -37,11 +37,13 @@ export default ({ currentUser, logout }) => {
     let isMounted = true; // Track if the component is still mounted
 
     if (news.length < 1) {
-      $.ajax("/api/news/new").done((res) => {
-        if (isMounted) { // Only update state if the component is still mounted
-          setNews(prevNews => prevNews.concat(res.articles));
-        }     
-      });
+      api.get("/api/news/new")
+        .then((response) => {
+          if (isMounted) { // Only update state if the component is still mounted
+            setNews(prevNews => prevNews.concat(response.data.articles));
+          }     
+        })
+        .catch(error => console.log(error));
     }
 
     return () => {
@@ -53,23 +55,27 @@ export default ({ currentUser, logout }) => {
     let isMounted = true;
 
     // Load default 'qqq' quote data on mount
-    $.ajax(`/api/stocks/chart/qqq`).done((res) => {
-       if (isMounted) setChartData(res);
-    });
+    api.get(`/api/stocks/chart/qqq`)
+      .then((response) => {
+        if (isMounted) setChartData(response.data);
+      })
+      .catch(error => console.log(error));
 
-    $.ajax(`/api/stocks/quote/qqq`).done((res) => {
-       if (isMounted) {
-         // API returns an array, get the first element and map to expected format
-         const data = Array.isArray(res) ? res[0] : res;
-         const mappedQuote = {
-           ...data,
-           company_name: data.name,
-           latest_price: data.price,
-           change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
-         };
-         setQuote(mappedQuote);
-       }
-    });
+    api.get(`/api/stocks/quote/qqq`)
+      .then((response) => {
+        if (isMounted) {
+          // API returns an array, get the first element and map to expected format
+          const data = Array.isArray(response.data) ? response.data[0] : response.data;
+          const mappedQuote = {
+            ...data,
+            company_name: data.name,
+            latest_price: data.price,
+            change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+          };
+          setQuote(mappedQuote);
+        }
+      })
+      .catch(error => console.log(error));
 
     return () => {
       isMounted = false;
@@ -79,10 +85,7 @@ export default ({ currentUser, logout }) => {
     useEffect(() => {
       let isMounted = true;
 
-      axios({
-        method: "GET",
-        url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
-      })
+      firebaseApi.get(`/portfolios/${currentUser.username}.json`)
         .then((res) => {
           if (isMounted && res.data) {
             const total = [];
@@ -124,31 +127,35 @@ export default ({ currentUser, logout }) => {
   }, []); // should change when watchlist changes
 
   const dashboardSearch = () => {
-    $.ajax(`/api/stocks/quote/${searchValue}`).done(res => {
-      if (!isMountedRef.current) return; // Prevent state update on unmounted component
-      
-      console.log(res); 
-      // API returns an array, get the first element and map to expected format
-      const data = Array.isArray(res) ? res[0] : res;
-      const mappedQuote = {
-        ...data,
-        company_name: data.name,
-        latest_price: data.price,
-        change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
-      };
-      setQuote(mappedQuote); 
-    }).fail(() => {
-      if (!isMountedRef.current) return;
-      console.error('Failed to fetch quote data');
-    });
+    api.get(`/api/stocks/quote/${searchValue}`)
+      .then(response => {
+        if (!isMountedRef.current) return; // Prevent state update on unmounted component
+        
+        console.log(response.data); 
+        // API returns an array, get the first element and map to expected format
+        const data = Array.isArray(response.data) ? response.data[0] : response.data;
+        const mappedQuote = {
+          ...data,
+          company_name: data.name,
+          latest_price: data.price,
+          change_percent_s: `${data.changesPercentage ? data.changesPercentage.toFixed(2) : '0.00'}%`
+        };
+        setQuote(mappedQuote); 
+      })
+      .catch(error => {
+        if (!isMountedRef.current) return;
+        console.error('Failed to fetch quote data', error);
+      });
 
-    $.ajax(`/api/stocks/chart/${searchValue}`).done(res => {
-      if (!isMountedRef.current) return; // Prevent state update on unmounted component
-      setChartData(res);
-    }).fail(() => {
-      if (!isMountedRef.current) return;
-      console.error('Failed to fetch chart data');
-    });
+    api.get(`/api/stocks/chart/${searchValue}`)
+      .then(response => {
+        if (!isMountedRef.current) return; // Prevent state update on unmounted component
+        setChartData(response.data);
+      })
+      .catch(error => {
+        if (!isMountedRef.current) return;
+        console.error('Failed to fetch chart data', error);
+      });
     
     // Only navigate if we're not already on the target route
     const targetPath = `/stocks/${searchValue}`;
@@ -174,9 +181,11 @@ export default ({ currentUser, logout }) => {
   }
 
 const postDataHandler = () => {
-  axios.post(`./${currentUser.username}.json`, quote)
-    .then(document.querySelector('.watchlist_btn')
-    .textContent = "Added to Watchlist")
+  firebaseApi.post(`./${currentUser.username}.json`, quote)
+    .then(response => {
+      document.querySelector('.watchlist_btn')
+        .textContent = "Added to Watchlist";
+    })
     .catch(error => console.log(error)); 
 }
 
@@ -215,7 +224,7 @@ const deleteWatchlistItemHandler = (watchlistItem) => {
   return (
     (event) => {
       event.preventDefault();
-      axios
+      firebaseApi
         .delete(`./${currentUser.username}/${watchlistItem.firebaseID}.json`)
         .catch((error) => console.log(error)); 
     } 

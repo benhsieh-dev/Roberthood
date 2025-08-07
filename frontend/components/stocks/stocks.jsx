@@ -11,7 +11,7 @@ import {
 
 import { Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 
-import axios from "../axios-quotes";
+import { api, firebaseApi } from '../../utils/api';
 
 import { TickerSymbols } from "../../../public/tickers";
 
@@ -76,10 +76,7 @@ export default ({currentUser, logout}) => {
     }, [portfolioValue]);
 
      useEffect(() => {
-       axios({
-         method: "GET",
-         url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`,
-       })
+       firebaseAxios.get(`/${currentUser.username}.json`)
          .then((res) => {
            const watchlist = [];
            for (let stock in res.data) {
@@ -91,10 +88,11 @@ export default ({currentUser, logout}) => {
      });
 
      const stocksSearch = () => {
-       $.ajax(`/api/stocks/quote/${searchValue}`).done((res) => {
-          console.log("stock quote search: ", res);
+       api.get(`/api/stocks/quote/${searchValue}`)
+         .then((response) => {
+          console.log("stock quote search: ", response.data);
           // API returns an array, get the first element and map to expected format
-          const data = Array.isArray(res) ? res[0] : res;
+          const data = Array.isArray(response.data) ? response.data[0] : response.data;
           if (data && data.price) {
             const mappedQuote = {
               ...data,
@@ -108,11 +106,18 @@ export default ({currentUser, logout}) => {
             setQuote({}); // set quote to empty object if not found
             setErrorMessage("Stock data not found. Please try again."); // show error message
           }  
-       });
+         })
+         .catch(error => {
+           console.log(error);
+           setQuote({});
+           setErrorMessage("Error fetching stock data. Please try again.");
+         });
 
-       $.ajax(`/api/stocks/chart/${searchValue}`).done((res) => {
-         setChartData(res);
-       });
+       api.get(`/api/stocks/chart/${searchValue}`)
+         .then((response) => {
+           setChartData(response.data);
+         })
+         .catch(error => console.log(error));
        
        // Only navigate if we're not already on the target route
        const targetPath = `/stocks/${searchValue}`;
@@ -136,12 +141,11 @@ export default ({currentUser, logout}) => {
      };
 
        const postDataHandler = () => {
-         axios
+         firebaseApi
            .post(`./${currentUser.username}.json`, quote)
-           .then(
-             (document.querySelector(".watchlist_btn").textContent =
-               "Added to Watchlist")
-           )
+           .then(response => {
+             document.querySelector(".watchlist_btn").textContent = "Added to Watchlist";
+           })
            .catch((error) => console.log(error));
        };
 

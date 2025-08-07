@@ -1,30 +1,21 @@
-export const postUser = user => (
-    $.ajax({
-    url: `/api/users`,
-    method: 'POST',
-    data: {user}
-})); 
+import { api } from './api';
 
-export const postSession = user => (
-    $.ajax({
-    url: `/api/session`,
-    method: 'POST',
-    data: {user}
-})
-);
+export const postUser = user => 
+    api.post('/api/users', {user});
 
-export const deleteSession = () => (
-    $.ajax({
-        url: `/api/session`,
-        method: 'DELETE',
-        success: function (data, text) {
-            console.log(data);
-        },
-        error: function (request, status, error) {
-            console.log(request.responseText);
-        }
-    })
-);
+export const postSession = user => 
+    api.post('/api/session', {user});
+
+export const deleteSession = () => 
+    api.delete('/api/session')
+        .then(response => {
+            console.log(response.data);
+            return response;
+        })
+        .catch(error => {
+            console.log(error.response?.data || error.message);
+            throw error;
+        });
 
 
 //testing
