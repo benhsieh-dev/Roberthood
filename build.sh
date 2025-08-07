@@ -3,6 +3,7 @@
 set -o errexit
 
 echo "==> Starting custom build process"
+echo "==> Ruby version: $(ruby -v)"
 
 # Install Ruby dependencies
 echo "==> Installing Ruby gems"
