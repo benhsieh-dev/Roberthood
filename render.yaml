@@ -2,10 +2,10 @@ services:
   - type: web
     name: roberthood
     env: ruby
-    runtime: ruby-3.2.2
+    runtime: ruby-3.4.4
     region: illinois
     plan: free
-    buildCommand: "./build.sh"
+    buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
@@ -23,7 +23,7 @@ services:
       - key: NODE_VERSION
         value: "18.17.0"
       - key: RUBY_VERSION
-        value: "3.2.2"
+        value: "3.4.4"
 
 databases:
   - name: roberthood
