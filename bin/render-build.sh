@@ -18,5 +18,4 @@ RAILS_ENV=production bundle exec rails assets:precompile
 # Clean old assets
 RAILS_ENV=production bundle exec rails assets:clean
 
-# Migrate database
-RAILS_ENV=production bundle exec rails db:migrate
+# Note: Database migrations are handled separately by Render during deployment
