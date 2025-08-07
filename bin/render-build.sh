@@ -18,4 +18,11 @@ RAILS_ENV=production bundle exec rails assets:precompile
 # Clean old assets
 RAILS_ENV=production bundle exec rails assets:clean
 
-# Note: Database migrations are handled separately by Render during deployment
+# Check if database is available and run migrations if it is
+echo "Checking database availability..."
+if RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
+  echo "Database is available, running migrations..."
+  RAILS_ENV=production bundle exec rails db:migrate
+else
+  echo "Database not available during build phase - migrations will be handled by Render deployment"
+fi
