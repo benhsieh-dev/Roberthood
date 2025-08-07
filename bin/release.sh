@@ -6,12 +6,17 @@ echo "Running release script..."
 # Wait a moment for database to be fully available
 sleep 5
 
-# Check if database is available before running migrations
+# Check if database is available before running migrations and seeds
 if RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
   echo "Database is available, running migrations..."
   RAILS_ENV=production bundle exec rails db:migrate
+  
+  echo "Running database seeds..."
+  RAILS_ENV=production bundle exec rails db:seed
+  
+  echo "Database setup completed"
 else
-  echo "Database is not yet available - skipping migrations"
+  echo "Database is not yet available - skipping migrations and seeds"
   exit 0
 fi
 
