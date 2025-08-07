@@ -23,7 +23,7 @@ const firebaseApi = axios.create({
 // Request interceptors
 api.interceptors.request.use(
   config => {
-    console.log(`Making ${config.method?.toUpperCase()} request to ${config.url}`);
+    console.log(`Making ${config.method ? config.method.toUpperCase() : 'UNKNOWN'} request to ${config.url}`);
     return config;
   },
   error => Promise.reject(error)
@@ -31,7 +31,7 @@ api.interceptors.request.use(
 
 firebaseApi.interceptors.request.use(
   config => {
-    console.log(`Making Firebase ${config.method?.toUpperCase()} request to ${config.url}`);
+    console.log(`Making Firebase ${config.method ? config.method.toUpperCase() : 'UNKNOWN'} request to ${config.url}`);
     return config;
   },
   error => Promise.reject(error)
@@ -41,7 +41,7 @@ firebaseApi.interceptors.request.use(
 api.interceptors.response.use(
   response => response,
   error => {
-    console.error('API Error:', error.response?.data || error.message);
+    console.error('API Error:', (error.response && error.response.data) || error.message);
     return Promise.reject(error);
   }
 );
@@ -49,7 +49,7 @@ api.interceptors.response.use(
 firebaseApi.interceptors.response.use(
   response => response,
   error => {
-    console.error('Firebase API Error:', error.response?.data || error.message);
+    console.error('Firebase API Error:', (error.response && error.response.data) || error.message);
     return Promise.reject(error);
   }
 );

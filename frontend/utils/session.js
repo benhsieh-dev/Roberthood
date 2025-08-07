@@ -13,7 +13,7 @@ export const deleteSession = () =>
             return response;
         })
         .catch(error => {
-            console.log(error.response?.data || error.message);
+            console.log((error.response && error.response.data) || error.message);
             throw error;
         });
 
