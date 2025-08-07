@@ -6,6 +6,7 @@ echo "==> Starting custom build process"
 
 # Install Ruby dependencies
 echo "==> Installing Ruby gems"
+bundle config set frozen false
 bundle install
 
 # Install Node.js dependencies  
