@@ -26,18 +26,16 @@ RAILS_ENV=production bundle exec rails assets:precompile
 echo "==> Cleaning old assets"
 RAILS_ENV=production bundle exec rails assets:clean
 
-# Migrate database
-echo "==> Running database migrations"
-RAILS_ENV=production bundle exec rails db:migrate
-
-# Seed database (skip if database not available during build phase)
-echo "==> Running database seeds"
+# Setup database (migrate and seed)
+echo "==> Setting up database"
 if RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
-  echo "Database is available, running seeds..."
+  echo "Database is available, running migrations..."
+  RAILS_ENV=production bundle exec rails db:migrate
+  echo "Running database seeds..."
   RAILS_ENV=production bundle exec rails db:seed
-  echo "Seeds completed successfully"
+  echo "Database setup completed successfully"
 else
-  echo "Database not available during build phase - seeds will need to be run manually"
+  echo "Database not available during build phase - will try to set up at runtime"
   echo "This is normal for some deployment platforms"
 fi
 

@@ -5,8 +5,9 @@ services:
     runtime: ruby-3.4.4
     region: illinois
     plan: free
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "./bin/release.sh && bundle exec puma -C config/puma.rb"
+    buildCommand: "./build.sh"
+    preDeployCommand: "./release.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
