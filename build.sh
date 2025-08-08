@@ -30,8 +30,14 @@ RAILS_ENV=production bundle exec rails assets:clean
 echo "==> Setting up database"
 if RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
   echo "Database is available, running setup..."
+  
+  echo "Creating database (if needed)..."
   RAILS_ENV=production bundle exec rails db:create
+  
+  echo "Running database migrations..."
   RAILS_ENV=production bundle exec rails db:migrate
+  echo "Migrations completed successfully"
+  
   echo "Running database seeds..."
   RAILS_ENV=production bundle exec rails db:seed
   echo "Database setup completed successfully"
