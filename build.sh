@@ -30,4 +30,8 @@ RAILS_ENV=production bundle exec rails assets:clean
 echo "==> Running database migrations"
 RAILS_ENV=production bundle exec rails db:migrate
 
+# Seed database
+echo "==> Running database seeds"
+RAILS_ENV=production bundle exec rails db:seed
+
 echo "==> Build process completed successfully"
