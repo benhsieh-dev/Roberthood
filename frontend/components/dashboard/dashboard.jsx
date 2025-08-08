@@ -106,9 +106,7 @@ export default ({ currentUser, logout }) => {
   useEffect(() => {
     let isMounted = true;
 
-    axios({
-      method: 'GET',
-      url: `https://roberthood-edcdd.firebaseio.com/${currentUser.username}.json`})
+    firebaseApi.get(`/${currentUser.username}.json`)
     .then(res => { 
       // console.log(res); 
       if (isMounted && res.data) {
