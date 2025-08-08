@@ -10,23 +10,24 @@ import { TickerSymbols } from '../../../public/tickers.js';
 const roberthoodHatURL = '/assets/roberthood_hat.png';
 
 export default ({ currentUser, logout }) => {
-  const [searchValue, setSearchValue] = useState('')
-  const [quote, setQuote] = useState({})
-  const [chartData, setChartData] = useState([]);
-  const [news, setNews] = useState([]);
-  const [show, setShow] = useState(false); 
-  const [portfolioValue, setPortfolioValue] = useState([]);
-  const [stock, setStock] = useState([]); 
-  const [shares, setShares] = useState(0);
-  const [sharesError, setSharesError] = useState(null);
-  
-  // Track if component is mounted to prevent memory leaks
-  const isMountedRef = useRef(true);
+  try {
+    const [searchValue, setSearchValue] = useState('')
+    const [quote, setQuote] = useState({})
+    const [chartData, setChartData] = useState([]);
+    const [news, setNews] = useState([]);
+    const [show, setShow] = useState(false); 
+    const [portfolioValue, setPortfolioValue] = useState([]);
+    const [stock, setStock] = useState([]); 
+    const [shares, setShares] = useState(0);
+    const [sharesError, setSharesError] = useState(null);
+    
+    // Track if component is mounted to prevent memory leaks
+    const isMountedRef = useRef(true);
 
-  // Don't render if currentUser is not available
-  if (!currentUser) {
-    return <div>Loading...</div>;
-  }
+    // Don't render if currentUser is not available
+    if (!currentUser) {
+      return <div>Loading...</div>;
+    }
 
   useEffect(() => {
     document.title = 'Portfolio | Roberthood'; 
@@ -288,12 +289,13 @@ const predictiveSearch = (item) => {
              <div className="dashboard-search-suggestions">
                {/* {searchValue ? <strong>Stocks</strong> : ""} */}
                <ul>
-                 {TickerSymbols.map((name) => {
+                 {(TickerSymbols || []).map((name) => {
                    {
                      /* if (searchValue.length !== 0 && searchValue !== "qqq") { */
                    }
                    if (searchValue.length !== 0) {
                      if (
+                       name && name.symbol &&
                        name.symbol
                          .toLowerCase()
                          .startsWith(searchValue.toLowerCase())
@@ -531,6 +533,10 @@ const predictiveSearch = (item) => {
        </div>
      </div>
    );
+  } catch (error) {
+    console.error('Dashboard component error:', error);
+    return <div>Error loading dashboard. Please refresh the page.</div>;
+  }
 }
      
  
