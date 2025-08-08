@@ -9,6 +9,9 @@ namespace :api, defaults: {format: :json} do
     get "/stocks/chart/:symbol" => "stocks#chart"
 end
 
+  # Temporary route to create demo user (remove after use)
+  get "/setup_demo" => "static_pages#setup_demo"
+
   root "static_pages#root"
     # get "/us/en" => "static_pages#root"
 end
