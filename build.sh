@@ -29,10 +29,14 @@ RAILS_ENV=production bundle exec rails assets:clean
 # Setup database (migrate and seed)
 echo "==> Setting up database"
 if RAILS_ENV=production bundle exec rails runner "ActiveRecord::Base.connection.execute('SELECT 1')" 2>/dev/null; then
-  echo "Database is available, running full setup..."
+  echo "Database is available, running migrations and seeds..."
   
-  # Use db:setup which creates, loads schema, and seeds in one command
-  RAILS_ENV=production bundle exec rails db:setup
+  # Run migrations (safe for existing database)
+  RAILS_ENV=production bundle exec rails db:migrate
+  
+  # Run seeds (safe to run multiple times)
+  RAILS_ENV=production bundle exec rails db:seed
+  
   echo "Database setup completed successfully"
 else
   echo "Database not available during build phase - will try to set up at runtime"
