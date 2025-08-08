@@ -23,6 +23,11 @@ export default ({ currentUser, logout }) => {
   // Track if component is mounted to prevent memory leaks
   const isMountedRef = useRef(true);
 
+  // Don't render if currentUser is not available
+  if (!currentUser) {
+    return <div>Loading...</div>;
+  }
+
   useEffect(() => {
     document.title = 'Portfolio | Roberthood'; 
     
@@ -85,6 +90,10 @@ export default ({ currentUser, logout }) => {
     useEffect(() => {
       let isMounted = true;
 
+      if (!currentUser || !currentUser.username) {
+        return;
+      }
+
       firebaseApi.get(`/portfolios/${currentUser.username}.json`)
         .then((res) => {
           if (isMounted && res.data) {
@@ -100,11 +109,15 @@ export default ({ currentUser, logout }) => {
         return () => {
           isMounted = false; 
         }
-    }, []); // should change when portfolio changes
+    }, [currentUser]); // should change when currentUser changes
 
 
   useEffect(() => {
     let isMounted = true;
+
+    if (!currentUser || !currentUser.username) {
+      return;
+    }
 
     firebaseApi.get(`/${currentUser.username}.json`)
     .then(res => { 
@@ -122,7 +135,7 @@ export default ({ currentUser, logout }) => {
     return () => {
       isMounted = false; 
     }
-  }, []); // should change when watchlist changes
+  }, [currentUser]); // should change when currentUser changes
 
   const dashboardSearch = () => {
     api.get(`/api/stocks/quote/${searchValue}`)
@@ -179,6 +192,8 @@ export default ({ currentUser, logout }) => {
   }
 
 const postDataHandler = () => {
+  if (!currentUser || !currentUser.username) return;
+  
   firebaseApi.post(`./${currentUser.username}.json`, quote)
     .then(response => {
       document.querySelector('.watchlist_btn')
@@ -222,6 +237,8 @@ const deleteWatchlistItemHandler = (watchlistItem) => {
   return (
     (event) => {
       event.preventDefault();
+      if (!currentUser || !currentUser.username) return;
+      
       firebaseApi
         .delete(`./${currentUser.username}/${watchlistItem.firebaseID}.json`)
         .catch((error) => console.log(error)); 
