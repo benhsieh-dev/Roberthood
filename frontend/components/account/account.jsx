@@ -80,7 +80,7 @@ export default ({ currentUser, logout }) => {
     const total = shares * quote.latest_price; 
     
     // Check if stock already exists in portfolio
-    const existingStock = portfolioValue.find(stock => stock.Company?.symbol === quote.symbol);
+    const existingStock = portfolioValue.find(stock => stock.Company && stock.Company.symbol === quote.symbol);
     
     if (existingStock) {
       // Update existing stock quantity

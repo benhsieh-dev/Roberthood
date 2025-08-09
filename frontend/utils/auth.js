@@ -58,9 +58,9 @@ export const loginUser = async (username, password) => {
     
     return {
       id: user.uid,
-      username: userData?.username || username,
-      first_name: userData?.firstName || '',
-      last_name: userData?.lastName || '',
+      username: userData && userData.username ? userData.username : username,
+      first_name: userData && userData.firstName ? userData.firstName : '',
+      last_name: userData && userData.lastName ? userData.lastName : '',
       email: user.email
     };
   } catch (error) {
@@ -88,9 +88,9 @@ export const onAuthChange = (callback) => {
       
       const currentUser = {
         id: user.uid,
-        username: userData?.username || user.email.split('@')[0],
-        first_name: userData?.firstName || '',
-        last_name: userData?.lastName || '',
+        username: userData && userData.username ? userData.username : user.email.split('@')[0],
+        first_name: userData && userData.firstName ? userData.firstName : '',
+        last_name: userData && userData.lastName ? userData.lastName : '',
         email: user.email
       };
       
