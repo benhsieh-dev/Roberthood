@@ -94,8 +94,8 @@ export default ({ currentUser, logout }) => {
     const total = shares * quote.latest_price; 
     for (const stock of portfolioValue) {
         if (stock.Company.symbol === quote.symbol) {
-          axios
-            .patch(`./portfolios/${currentUser.username}/${stock.firebaseID}.json`, {
+          firebaseApi
+            .patch(`/portfolios/${currentUser.username}/${stock.firebaseID}.json`, {
               Quantity: parseInt(stock.Quantity) + parseInt(shares),
             })
             .then((document.querySelector(".buy-stock").textContent = "Bought"))
@@ -105,8 +105,8 @@ export default ({ currentUser, logout }) => {
     }
 
     if (shares >= 1) {
-      axios
-        .post(`./portfolios/${currentUser.username}.json`, {Company: quote, Quantity: shares, Total: total})
+      firebaseApi
+        .post(`/portfolios/${currentUser.username}.json`, {Company: quote, Quantity: shares, Total: total})
         // .then(response => console.log(response))
         .then(document.querySelector(".buy-stock").textContent = "Bought")
         .then(setSharesError(null))
@@ -122,8 +122,8 @@ export default ({ currentUser, logout }) => {
     return (
       (event) => {
       event.preventDefault();
-      axios
-        .delete(`./portfolios/${currentUser.username}/${stock.firebaseID}.json`)
+      firebaseApi
+        .delete(`/portfolios/${currentUser.username}/${stock.firebaseID}.json`)
         .catch((error) => console.log(error));
       }
     )
@@ -153,7 +153,7 @@ export default ({ currentUser, logout }) => {
   const deleteWatchlistItemHandler = (watchlistItem) => {
     return (event) => {
       event.preventDefault();
-      axios
+      firebaseApi
         .delete(`./${currentUser.username}/${watchlistItem.firebaseID}.json`)
         .catch((error) => console.log(error));
     };

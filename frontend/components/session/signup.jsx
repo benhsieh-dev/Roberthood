@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
+
 const initialState = {
   first_name: "",
   last_name: "",

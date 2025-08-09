@@ -61,10 +61,7 @@ export default ({currentUser, logout}) => {
   }, []); // Add empty dependency array to run only once
 
   useEffect(() => {
-      axios({
-        method: "GET",
-        url: `https://roberthood-edcdd.firebaseio.com/portfolios/${currentUser.username}.json`,
-      })
+      firebaseApi.get(`/portfolios/${currentUser.username}.json`)
         .then((res) => {
           const total = [];
           for (let stock in res.data) {
@@ -76,7 +73,7 @@ export default ({currentUser, logout}) => {
     }, [portfolioValue]);
 
      useEffect(() => {
-       firebaseAxios.get(`/${currentUser.username}.json`)
+       firebaseApi.get(`/${currentUser.username}.json`)
          .then((res) => {
            const watchlist = [];
            for (let stock in res.data) {
@@ -153,9 +150,9 @@ export default ({currentUser, logout}) => {
          const total = shares * quote.latest_price;
          for (const stock of portfolioValue) {
            if (stock.Company.symbol === quote.symbol) {
-             axios
+             firebaseApi
                .patch(
-                 `./portfolios/${currentUser.username}/${stock.firebaseID}.json`,
+                 `/portfolios/${currentUser.username}/${stock.firebaseID}.json`,
                  {
                    Quantity: parseInt(stock.Quantity) + parseInt(shares),
                  }
@@ -169,8 +166,8 @@ export default ({currentUser, logout}) => {
          }
 
          if (shares >= 1) {
-           axios
-             .post(`./portfolios/${currentUser.username}.json`, {
+           firebaseApi
+             .post(`/portfolios/${currentUser.username}.json`, {
                Company: quote,
                Quantity: shares,
                Total: total,
@@ -205,9 +202,9 @@ export default ({currentUser, logout}) => {
               stock.Company.symbol === quote.symbol &&
               shares <= stock.Quantity
             ) {
-              axios
+              firebaseApi
                 .patch(
-                  `./portfolios/${currentUser.username}/${stock.firebaseID}.json`,
+                  `/portfolios/${currentUser.username}/${stock.firebaseID}.json`,
                   {
                     Quantity: parseInt(stock.Quantity) - parseInt(shares),
                   }
@@ -249,9 +246,9 @@ export default ({currentUser, logout}) => {
       const deleteWatchlistItemHandler = (watchlistItem) => {
         return (event) => {
           event.preventDefault();
-          axios
+          firebaseApi
             .delete(
-              `./${currentUser.username}/${watchlistItem.firebaseID}.json`
+              `/${currentUser.username}/${watchlistItem.firebaseID}.json`
             )
             .catch((error) => console.log(error));
         };
@@ -260,9 +257,9 @@ export default ({currentUser, logout}) => {
       const sellAllHandler = (stock) => {
           return (event) => {
             event.preventDefault();
-            axios
+            firebaseApi
               .delete(
-                `./portfolios/${currentUser.username}/${stock.firebaseID}.json`
+                `/portfolios/${currentUser.username}/${stock.firebaseID}.json`
               )
               .then(routeChange())
               .catch((error) => console.log(error));

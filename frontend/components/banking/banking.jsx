@@ -101,8 +101,8 @@ export default ({ currentUser, logout }) => {
     // const data = {
     //   Cash:cashBalance
     // }
-    axios.patch(
-      `./portfolios/${currentUser.username}/Cash.json`,
+    firebaseApi.patch(
+      `/portfolios/${currentUser.username}/Cash.json`,
       {
         cashBalance,
       }
