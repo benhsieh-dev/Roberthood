@@ -9,6 +9,21 @@ module.exports = {
     publicPath: "/assets/javascripts/", // Adjust path for proper asset resolution
     sourceMapFilename: "[file].map", // Ensure correct location for source maps
   },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        default: false,
+        vendors: false,
+        // Force everything into a single bundle
+        bundle: {
+          name: "bundle",
+          chunks: "all",
+          enforce: true
+        }
+      }
+    }
+  },
   module: {
     rules: [
       // Babel loader to transpile JS/JSX
