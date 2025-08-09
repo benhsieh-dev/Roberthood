@@ -2,6 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
+// Debug: Check if environment variables are available
+console.log('Environment variables check:', {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY ? 'SET' : 'MISSING',
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID ? 'SET' : 'MISSING',
+  appId: process.env.REACT_APP_FIREBASE_APP_ID ? 'SET' : 'MISSING',
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID ? 'SET' : 'MISSING'
+});
+
 // Firebase configuration - using environment variables
 const firebaseConfig = {
   databaseURL: "https://roberthood-edcdd.firebaseio.com",
@@ -13,6 +21,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
+
+console.log('Final Firebase config:', firebaseConfig);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
