@@ -1,4 +1,5 @@
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -49,6 +50,14 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", "*"],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
+      FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
+      FIREBASE_APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
+      FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+    }),
+  ],
   devServer: {
     contentBase: path.join(__dirname, "app", "assets", "javascripts"), // Serve the static files
     compress: true,
