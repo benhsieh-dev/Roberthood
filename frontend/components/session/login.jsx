@@ -57,20 +57,22 @@ class Login extends React.Component {
     e.preventDefault();
     const isValid = this.validate(); 
     if (isValid) {
-      this.props.login(this.state)
-      .then(() => this.props.history.push('/dashboard'))
+      this.props.login(this.state.username, this.state.password)
+        .then(() => this.props.history.push('/dashboard'))
+        .catch(() => {
+          this.setState({ credentialsError: "Unable to login with provided credentials" });
+        });
     }
   }
 
   handleDemo(e) {
     e.preventDefault();
     this.props
-      .login(
-        this.state = {
-          username: "bqh5026",
-          password: 'password',
-        })
-      .then(() => this.props.history.push("/dashboard"));
+      .login("bqh5026", "password")
+      .then(() => this.props.history.push("/dashboard"))
+      .catch(() => {
+        this.setState({ credentialsError: "Unable to login with demo credentials" });
+      });
   }
 
   render() {

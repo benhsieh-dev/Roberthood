@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, YAxis } from "recharts";
 
-import { api, firebaseApi } from '../../utils/api'; 
+import { externalApi } from '../../utils/firebaseApi'; 
+import { portfolioApi, watchlistApi } from '../../utils/firebaseApi'; 
 
 import { TickerSymbols } from '../../../public/tickers.js';
 
@@ -43,7 +44,7 @@ export default ({ currentUser, logout }) => {
     let isMounted = true; // Track if the component is still mounted
 
     if (news.length < 1) {
-      api.get("/api/news/new")
+      externalApi.get("/api/news/new")
         .then((response) => {
           if (isMounted) { // Only update state if the component is still mounted
             setNews(prevNews => prevNews.concat(response.data.articles));
@@ -61,13 +62,13 @@ export default ({ currentUser, logout }) => {
     let isMounted = true;
 
     // Load default 'qqq' quote data on mount
-    api.get(`/api/stocks/chart/qqq`)
+    externalApi.get(`/api/stocks/chart/qqq`)
       .then((response) => {
         if (isMounted) setChartData(response.data);
       })
       .catch(error => console.log(error));
 
-    api.get(`/api/stocks/quote/qqq`)
+    externalApi.get(`/api/stocks/quote/qqq`)
       .then((response) => {
         if (isMounted) {
           // API returns an array, get the first element and map to expected format
@@ -91,22 +92,18 @@ export default ({ currentUser, logout }) => {
     useEffect(() => {
       let isMounted = true;
 
-      if (!currentUser || !currentUser.username) {
+      if (!currentUser || !currentUser.id) {
         return;
       }
 
-      firebaseApi.get(`/portfolios/${currentUser.username}.json`)
-        .then((res) => {
-          if (isMounted && res.data) {
-            const total = [];
-            // fetches portfolio information from firebase 
-            for (let stock in res.data) {
-              total.push({ ...res.data[stock], firebaseID: stock });
-            }
-            setPortfolioValue(total);
+      portfolioApi.getPortfolio(currentUser.id)
+        .then((portfolio) => {
+          if (isMounted) {
+            setPortfolioValue(portfolio);
           }
         })
         .catch((error) => console.log(error));
+        
         return () => {
           isMounted = false; 
         }
@@ -116,19 +113,14 @@ export default ({ currentUser, logout }) => {
   useEffect(() => {
     let isMounted = true;
 
-    if (!currentUser || !currentUser.username) {
+    if (!currentUser || !currentUser.id) {
       return;
     }
 
-    firebaseApi.get(`/${currentUser.username}.json`)
-    .then(res => { 
-      // console.log(res); 
-      if (isMounted && res.data) {
-          const watchlist = [];
-          for (let stock in res.data) {
-            watchlist.push({ ...res.data[stock], firebaseID: stock });
-          }
-          setStock(watchlist);
+    watchlistApi.getWatchlist(currentUser.id)
+    .then((watchlist) => { 
+      if (isMounted) {
+        setStock(watchlist);
       }
     }) 
     .catch(error => console.log(error));  
@@ -139,7 +131,7 @@ export default ({ currentUser, logout }) => {
   }, [currentUser]); // should change when currentUser changes
 
   const dashboardSearch = () => {
-    api.get(`/api/stocks/quote/${searchValue}`)
+    externalApi.get(`/api/stocks/quote/${searchValue}`)
       .then(response => {
         if (!isMountedRef.current) return; // Prevent state update on unmounted component
         
@@ -159,7 +151,7 @@ export default ({ currentUser, logout }) => {
         console.error('Failed to fetch quote data', error);
       });
 
-    api.get(`/api/stocks/chart/${searchValue}`)
+    externalApi.get(`/api/stocks/chart/${searchValue}`)
       .then(response => {
         if (!isMountedRef.current) return; // Prevent state update on unmounted component
         setChartData(response.data);
@@ -193,12 +185,16 @@ export default ({ currentUser, logout }) => {
   }
 
 const postDataHandler = () => {
-  if (!currentUser || !currentUser.username) return;
+  if (!currentUser || !currentUser.id) return;
   
-  firebaseApi.post(`./${currentUser.username}.json`, quote)
-    .then(response => {
+  watchlistApi.addStock(quote, currentUser.id)
+    .then(() => {
       document.querySelector('.watchlist_btn')
         .textContent = "Added to Watchlist";
+      // Refresh watchlist
+      watchlistApi.getWatchlist(currentUser.id)
+        .then(setStock)
+        .catch(console.log);
     })
     .catch(error => console.log(error)); 
 }
@@ -238,10 +234,16 @@ const deleteWatchlistItemHandler = (watchlistItem) => {
   return (
     (event) => {
       event.preventDefault();
-      if (!currentUser || !currentUser.username) return;
+      if (!currentUser || !currentUser.id) return;
       
-      firebaseApi
-        .delete(`./${currentUser.username}/${watchlistItem.firebaseID}.json`)
+      watchlistApi
+        .removeStock(watchlistItem.firebaseID, currentUser.id)
+        .then(() => {
+          // Refresh watchlist
+          watchlistApi.getWatchlist(currentUser.id)
+            .then(setStock)
+            .catch(console.log);
+        })
         .catch((error) => console.log(error)); 
     } 
   )
