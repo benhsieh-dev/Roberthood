@@ -101,14 +101,11 @@ export default ({ currentUser, logout }) => {
     // const data = {
     //   Cash:cashBalance
     // }
-    firebaseApi.patch(
-      `/portfolios/${currentUser.username}/Cash.json`,
-      {
-        cashBalance,
-      }
-    ).then(
-      console.log(`State: ${cashBalance}`) 
-    );
+    if (!currentUser || !currentUser.id) return;
+    
+    // Note: This would need to be implemented with a proper cash management system
+    // For now, we'll just log the action
+    console.log(`Cash balance update for user ${currentUser.id}: ${cashBalance}`);
   } 
 
   return (

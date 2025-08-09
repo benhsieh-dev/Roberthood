@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useParams, useHistory, NavLink } from 'react-router-dom';
 
-import { firebaseApi } from '../../utils/api';
+import { externalApi, portfolioApi } from '../../utils/firebaseApi';
 
 import { TickerSymbols } from '../../../public/tickers';
 
@@ -22,30 +22,14 @@ export default ({ currentUser, logout }) => {
   })
 
   useEffect(() => {
-    firebaseApi.get(`/portfolios/${currentUser.username}.json`)
-      .then((res) => {
-        const total = [];
-        for (let stock in res.data) {
-          total.push({ ...res.data[stock], firebaseID: stock })
-        }
-        setPortfolioValue(total);
-        // console.log(res.data);
+    if (!currentUser || !currentUser.id) return;
+    
+    portfolioApi.getPortfolio(currentUser.id)
+      .then((portfolio) => {
+        setPortfolioValue(portfolio);
       })
       .catch((error) => console.log(error));
-  }, [portfolioValue]);
-
-  useEffect(() => {
-    firebaseApi.get(`/${currentUser.username}.json`)
-      .then((res) => {
-        const watchlist = [];
-        for (let stock in res.data) {
-          watchlist.push({ ...res.data[stock], firebaseID: stock });
-        }
-        setStock(watchlist);
-        // console.log(res.data);
-      })
-      .catch((error) => console.log(error));
-  });
+  }, [currentUser]);
 
   const accountSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done((res) => {
@@ -91,27 +75,45 @@ export default ({ currentUser, logout }) => {
   }; 
 
   const buyStockHandler = () => {
+    if (!currentUser || !currentUser.id) return;
+    
     const total = shares * quote.latest_price; 
-    for (const stock of portfolioValue) {
-        if (stock.Company.symbol === quote.symbol) {
-          firebaseApi
-            .patch(`/portfolios/${currentUser.username}/${stock.firebaseID}.json`, {
-              Quantity: parseInt(stock.Quantity) + parseInt(shares),
-            })
-            .then((document.querySelector(".buy-stock").textContent = "Bought"))
-            .then((document.querySelector(".buy-stock").disabled = true));
-          return
-        } 
+    
+    // Check if stock already exists in portfolio
+    const existingStock = portfolioValue.find(stock => stock.Company?.symbol === quote.symbol);
+    
+    if (existingStock) {
+      // Update existing stock quantity
+      portfolioApi
+        .updateStock(existingStock.firebaseID, {
+          Quantity: parseInt(existingStock.Quantity) + parseInt(shares),
+          Total: (parseInt(existingStock.Quantity) + parseInt(shares)) * quote.latest_price
+        }, currentUser.id)
+        .then(() => {
+          document.querySelector(".buy-stock").textContent = "Bought";
+          document.querySelector(".buy-stock").disabled = true;
+          // Refresh portfolio
+          portfolioApi.getPortfolio(currentUser.id).then(setPortfolioValue).catch(console.log);
+        })
+        .catch(console.log);
+      return;
     }
 
     if (shares >= 1) {
-      firebaseApi
-        .post(`/portfolios/${currentUser.username}.json`, {Company: quote, Quantity: shares, Total: total})
-        // .then(response => console.log(response))
-        .then(document.querySelector(".buy-stock").textContent = "Bought")
-        .then(setSharesError(null))
-        .then(document.querySelector(".buy-stock").disabled=true)
-        // .then(routeChange())
+      // Add new stock to portfolio
+      portfolioApi
+        .addStock({
+          Company: quote,
+          Quantity: shares,
+          Total: total,
+        }, currentUser.id)
+        .then(() => {
+          document.querySelector(".buy-stock").textContent = "Bought";
+          document.querySelector(".buy-stock").disabled = true;
+          setSharesError(null);
+          // Refresh portfolio
+          portfolioApi.getPortfolio(currentUser.id).then(setPortfolioValue).catch(console.log);
+        })
         .catch((error) => console.log(error));
     } else {
       setSharesError("Please enter valid number of shares.");
@@ -121,10 +123,16 @@ export default ({ currentUser, logout }) => {
   const sellStockHandler = (stock) => {
     return (
       (event) => {
-      event.preventDefault();
-      firebaseApi
-        .delete(`/portfolios/${currentUser.username}/${stock.firebaseID}.json`)
-        .catch((error) => console.log(error));
+        event.preventDefault();
+        if (!currentUser || !currentUser.id) return;
+        
+        portfolioApi
+          .removeStock(stock.firebaseID, currentUser.id)
+          .then(() => {
+            // Refresh portfolio
+            portfolioApi.getPortfolio(currentUser.id).then(setPortfolioValue).catch(console.log);
+          })
+          .catch((error) => console.log(error));
       }
     )
   };

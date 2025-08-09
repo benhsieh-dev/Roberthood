@@ -8,11 +8,12 @@ const firebaseConfig = {
   projectId: "roberthood-edcdd",
   // TODO: You'll need to get these values from Firebase Console > Project Settings > General > Your Apps
   // Go to https://console.firebase.google.com/project/roberthood-edcdd/settings/general/web
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyCRlwXcWC02pF3AjOybon_VELIDf2R2UgU",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "roberthood-edcdd.firebaseapp.com",
-  storageBucket: "roberthood-edcdd.appspot.com",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "123456789012",
-  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:123456789012:web:abcdefghijklmnop123456"
+  storageBucket: "roberthood-edcdd.firebasestorage.app",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
