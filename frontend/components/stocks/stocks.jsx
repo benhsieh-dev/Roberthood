@@ -331,7 +331,7 @@ export default ({currentUser, logout}) => {
             <div className="header">
               <div className="navbar-left">
                 <div>
-                  <Link to="/dashboard">
+                  <Link to="/portfolio">
                     <img
                       className="dashboard-roberthood-hat"
                       src={roberthoodHatURL}
@@ -402,7 +402,7 @@ export default ({currentUser, logout}) => {
                   >
                     <span className="nav-menu-item">Linkedin</span>{" "}
                   </a>
-                  <Link to="/dashboard">
+                  <Link to="/portfolio">
                     <span className="nav-menu-item">Portfolio</span>
                   </Link>
                   <div className="dropdown">

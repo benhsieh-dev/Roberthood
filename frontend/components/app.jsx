@@ -9,6 +9,7 @@ const DashboardContainer = lazy(() =>
 );
 const AccountContainer = lazy(() => import("./account/account_container"));
 const BankingContainer = lazy(() => import("./banking/banking_container"));
+const PortfolioContainer = lazy(() => import("./portfolio/portfolio_container"));
 const StocksContainer = lazy(() => import("./stocks/stocks_container"));
 const Home = lazy(() => import("./home/home"));
 
@@ -20,6 +21,7 @@ export default () => (
           <AuthRoute path="/signup" component={SignupContainer} />
           <AuthRoute path="/login" component={LoginContainer} />
           <ProtectedRoute path="/dashboard" component={DashboardContainer} />
+          <ProtectedRoute path="/portfolio" component={PortfolioContainer} />
           <ProtectedRoute exact path="/account" component={AccountContainer} />
           <ProtectedRoute path="/account/banking" component={BankingContainer} />
           <ProtectedRoute path="/stocks/:ticker" component={StocksContainer} />

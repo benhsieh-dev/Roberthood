@@ -105,6 +105,89 @@ export const userApi = {
   }
 };
 
+// Cash balance operations
+export const cashBalanceApi = {
+  // Get user's cash balance
+  getCashBalance: async (userId = null) => {
+    const uid = userId || getCurrentUserId();
+    const balanceRef = ref(database, `cashBalances/${uid}/balance`);
+    const snapshot = await get(balanceRef);
+    
+    if (snapshot.exists()) {
+      return parseFloat(snapshot.val());
+    }
+    // Return default balance for new users
+    return 1000.00;
+  },
+
+  // Set user's cash balance
+  setCashBalance: async (amount, userId = null) => {
+    const uid = userId || getCurrentUserId();
+    const balanceRef = ref(database, `cashBalances/${uid}/balance`);
+    await set(balanceRef, parseFloat(amount));
+  },
+
+  // Add to cash balance (deposits)
+  addCash: async (amount, userId = null) => {
+    const uid = userId || getCurrentUserId();
+    const currentBalance = await cashBalanceApi.getCashBalance(uid);
+    const newBalance = currentBalance + parseFloat(amount);
+    await cashBalanceApi.setCashBalance(newBalance, uid);
+    
+    // Log the transaction
+    await cashBalanceApi.logTransaction(uid, 'deposit', amount, `Deposit from external account`);
+    return newBalance;
+  },
+
+  // Subtract from cash balance (withdrawals)
+  subtractCash: async (amount, userId = null) => {
+    const uid = userId || getCurrentUserId();
+    const currentBalance = await cashBalanceApi.getCashBalance(uid);
+    const newBalance = currentBalance - parseFloat(amount);
+    
+    if (newBalance < 0) {
+      throw new Error('Insufficient funds');
+    }
+    
+    await cashBalanceApi.setCashBalance(newBalance, uid);
+    
+    // Log the transaction
+    await cashBalanceApi.logTransaction(uid, 'withdrawal', amount, `Withdrawal to external account`);
+    return newBalance;
+  },
+
+  // Log transaction history
+  logTransaction: async (userId, type, amount, description) => {
+    const uid = userId || getCurrentUserId();
+    const transactionsRef = ref(database, `cashBalances/${uid}/transactions`);
+    const newTransactionRef = push(transactionsRef);
+    
+    await set(newTransactionRef, {
+      type: type, // 'deposit', 'withdrawal', 'stock_purchase', 'stock_sale'
+      amount: parseFloat(amount),
+      description: description,
+      timestamp: new Date().toISOString(),
+      date: new Date().toDateString()
+    });
+  },
+
+  // Get transaction history
+  getTransactionHistory: async (userId = null) => {
+    const uid = userId || getCurrentUserId();
+    const transactionsRef = ref(database, `cashBalances/${uid}/transactions`);
+    const snapshot = await get(transactionsRef);
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      return Object.keys(data).map(key => ({
+        ...data[key],
+        id: key
+      })).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    }
+    return [];
+  }
+};
+
 // Keep the original axios-based API for external services (stock data, news)
 import axios from 'axios';
 
@@ -135,4 +218,4 @@ externalApi.interceptors.response.use(
   }
 );
 
-export default { portfolioApi, watchlistApi, userApi, externalApi };
+export default { portfolioApi, watchlistApi, userApi, cashBalanceApi, externalApi };

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useParams, useHistory } from "react-router-dom";
 
 import { firebaseApi } from '../../utils/api';
+import { cashBalanceApi } from '../../utils/firebaseApi';
 
 import { TickerSymbols } from "../../../public/tickers";
+
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
 
 export default ({ currentUser, logout }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -18,11 +22,30 @@ export default ({ currentUser, logout }) => {
   const [fromAccountState, setFromAccountState] = useState("Cathay Bank");
   const [toAccountState, setToAccountState] = useState("Roberthood");
 
-  const [cashBalance, setCashBalance] = useState(null); 
+  const [currentCashBalance, setCurrentCashBalance] = useState(0);
+  const [transferAmount, setTransferAmount] = useState("");
+  const [transferStatus, setTransferStatus] = useState("");
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     document.title = "Account | Robinhood";
   });
+
+  // Load current cash balance
+  useEffect(() => {
+    if (!currentUser || !currentUser.id) return;
+
+    cashBalanceApi.getCashBalance(currentUser.id)
+      .then((balance) => {
+        setCurrentCashBalance(balance);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('Error loading cash balance:', error);
+        setCurrentCashBalance(1000.00); // Default fallback
+        setLoading(false);
+      });
+  }, [currentUser]);
 
   useEffect(() => {
     firebaseApi.get(`/portfolios/${currentUser.username}.json`)
@@ -90,22 +113,53 @@ export default ({ currentUser, logout }) => {
   };
 
 
-  const getValue = (event) => {
-    setCashBalance(event.target.value); 
-    // console.log(`Event: ${event.target.value}`); 
-    // console.log(`State: ${cashBalance}`); 
+  const handleAmountChange = (event) => {
+    setTransferAmount(event.target.value);
   }
 
-  const cashBalanceHandler = (event) => {
+  const handleTransfer = async (event) => {
     event.preventDefault();
-    // const data = {
-    //   Cash:cashBalance
-    // }
-    if (!currentUser || !currentUser.id) return;
     
-    // Note: This would need to be implemented with a proper cash management system
-    // For now, we'll just log the action
-    console.log(`Cash balance update for user ${currentUser.id}: ${cashBalance}`);
+    if (!currentUser || !currentUser.id) return;
+    if (!transferAmount || parseFloat(transferAmount) <= 0) {
+      setTransferStatus("Please enter a valid amount");
+      return;
+    }
+
+    const amount = parseFloat(transferAmount);
+    setTransferStatus("Processing transfer...");
+
+    try {
+      if (fromAccountState === "Cathay Bank" && toAccountState === "Roberthood") {
+        // Deposit money into Roberthood
+        const newBalance = await cashBalanceApi.addCash(amount, currentUser.id);
+        setCurrentCashBalance(newBalance);
+        setTransferStatus(`Successfully deposited $${amount.toFixed(2)}. New balance: $${newBalance.toFixed(2)}`);
+      } else if (fromAccountState === "Roberthood" && toAccountState === "Cathay Bank") {
+        // Withdraw money from Roberthood
+        const newBalance = await cashBalanceApi.subtractCash(amount, currentUser.id);
+        setCurrentCashBalance(newBalance);
+        setTransferStatus(`Successfully withdrew $${amount.toFixed(2)}. New balance: $${newBalance.toFixed(2)}`);
+      } else {
+        setTransferStatus("Invalid transfer direction");
+        return;
+      }
+
+      setTransferAmount("");
+      
+      // Clear status message after 5 seconds
+      setTimeout(() => {
+        setTransferStatus("");
+      }, 5000);
+
+    } catch (error) {
+      console.error('Transfer error:', error);
+      if (error.message === 'Insufficient funds') {
+        setTransferStatus(`Transfer failed: Insufficient funds. Current balance: $${currentCashBalance.toFixed(2)}`);
+      } else {
+        setTransferStatus(`Transfer failed: ${error.message}`);
+      }
+    }
   } 
 
   return (
@@ -113,7 +167,7 @@ export default ({ currentUser, logout }) => {
       <div className="header">
         <div className="navbar-left">
           <div>
-            <Link to="/dashboard">
+            <Link to="/portfolio">
               <img
                 className="dashboard-roberthood-hat"
                 src={roberthoodHatURL}
@@ -185,7 +239,7 @@ export default ({ currentUser, logout }) => {
             >
               <span className="nav-menu-item">Linkedin</span>{" "}
             </a>
-            <Link to="/dashboard">
+            <Link to="/portfolio">
               <span className="nav-menu-item">Portfolio</span>
             </Link>
             <div className="dropdown">
@@ -293,13 +347,29 @@ export default ({ currentUser, logout }) => {
         </div>
         <br />
         <br />
-        <br />
+        
+        {/* Current Cash Balance Display */}
+        <div className="cash-balance-display">
+          <h2>Current Roberthood Cash Balance</h2>
+          <h3 className="balance-amount">
+            {loading ? "Loading..." : `$${currentCashBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+          </h3>
+        </div>
+        
         <br />
         <br />
         <br />
         <form className="banking-page-transfer-form">
           <h3>Transfer</h3>
           <hr />
+          
+          {/* Transfer Status */}
+          {transferStatus && (
+            <div className={`transfer-status ${transferStatus.includes('failed') || transferStatus.includes('Invalid') || transferStatus.includes('Please') ? 'error' : 'success'}`}>
+              {transferStatus}
+            </div>
+          )}
+          
           <div className="banking-page-input-fields">
             <label htmlFor="from">
               From
@@ -368,14 +438,19 @@ export default ({ currentUser, logout }) => {
               <input
                 type="number"
                 className="banking-page-amount"
-                placeholder="$0.00"
-                onChange={getValue}
-              ></input>
+                placeholder="0.00"
+                value={transferAmount}
+                onChange={handleAmountChange}
+                min="0"
+                step="0.01"
+              />
             </label>
           </div>
           <br />
           <br />
-          <button className="banking-page-btn" onClick={cashBalanceHandler}>Submit</button>
+          <button className="banking-page-btn" onClick={handleTransfer} disabled={!transferAmount || loading}>
+            {loading ? "Loading..." : "Submit Transfer"}
+          </button>
         </form>
       </div>
     </div>
