@@ -66,15 +66,24 @@ export const loginUser = async (username, password) => {
         email: user.email
       };
     } catch (signInError) {
+      console.log('Firebase auth error:', signInError.code, signInError.message);
+      
       // If user doesn't exist and it's the demo user, create it
-      if (signInError.code === 'auth/user-not-found' && username === 'bqh5026') {
-        const demoUser = await createUser({
-          first_name: 'Demo',
-          last_name: 'User', 
-          username: 'bqh5026',
-          password: 'password'
-        });
-        return demoUser;
+      if ((signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') && username === 'bqh5026') {
+        console.log('Creating demo user in Firebase Auth...');
+        try {
+          const demoUser = await createUser({
+            first_name: 'Demo',
+            last_name: 'User', 
+            username: 'bqh5026',
+            password: 'password'
+          });
+          console.log('Demo user created successfully');
+          return demoUser;
+        } catch (createError) {
+          console.log('Error creating demo user:', createError.message);
+          throw createError;
+        }
       }
       throw signInError;
     }
