@@ -67,10 +67,16 @@ class Login extends React.Component {
 
   handleDemo(e) {
     e.preventDefault();
+    console.log('Demo login clicked, starting authentication...');
     this.props
       .login("bqh5026", "password")
-      .then(() => this.props.history.push("/dashboard"))
-      .catch(() => {
+      .then((user) => {
+        console.log('Demo login successful, user:', user);
+        console.log('Navigating to dashboard...');
+        this.props.history.push("/dashboard");
+      })
+      .catch((error) => {
+        console.log('Demo login failed:', error);
         this.setState({ credentialsError: "Unable to login with demo credentials" });
       });
   }
