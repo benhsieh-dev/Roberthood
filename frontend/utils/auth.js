@@ -48,21 +48,36 @@ export const createUser = async (userData) => {
 export const loginUser = async (username, password) => {
   try {
     const email = `${username}@roberthood.local`;
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
     
-    // Get additional user data from database
-    const userDataRef = ref(database, 'users/' + user.uid);
-    const snapshot = await get(userDataRef);
-    const userData = snapshot.val();
-    
-    return {
-      id: user.uid,
-      username: userData && userData.username ? userData.username : username,
-      first_name: userData && userData.firstName ? userData.firstName : '',
-      last_name: userData && userData.lastName ? userData.lastName : '',
-      email: user.email
-    };
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Get additional user data from database
+      const userDataRef = ref(database, 'users/' + user.uid);
+      const snapshot = await get(userDataRef);
+      const userData = snapshot.val();
+      
+      return {
+        id: user.uid,
+        username: userData && userData.username ? userData.username : username,
+        first_name: userData && userData.firstName ? userData.firstName : '',
+        last_name: userData && userData.lastName ? userData.lastName : '',
+        email: user.email
+      };
+    } catch (signInError) {
+      // If user doesn't exist and it's the demo user, create it
+      if (signInError.code === 'auth/user-not-found' && username === 'bqh5026') {
+        const demoUser = await createUser({
+          first_name: 'Demo',
+          last_name: 'User', 
+          username: 'bqh5026',
+          password: 'password'
+        });
+        return demoUser;
+      }
+      throw signInError;
+    }
   } catch (error) {
     throw new Error(error.message);
   }
