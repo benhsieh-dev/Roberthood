@@ -35,7 +35,7 @@ export default ({ currentUser, logout }) => {
         // console.log(res.data);
       })
       .catch((error) => console.log(error));
-  }, [portfolioValue]);
+  }, [currentUser.username]);
 
   useEffect(() => {
     firebaseApi.get(`/${currentUser.username}.json`)
@@ -48,7 +48,7 @@ export default ({ currentUser, logout }) => {
         // console.log(res.data);
       })
       .catch((error) => console.log(error));
-  });
+  }, [currentUser.username]);
 
   const accountSearch = () => {
     $.ajax(`/api/stocks/quote/${searchValue}`).done((res) => {

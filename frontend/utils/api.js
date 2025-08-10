@@ -31,7 +31,7 @@ api.interceptors.request.use(
 
 firebaseApi.interceptors.request.use(
   config => {
-    console.log(`Making Firebase ${config.method ? config.method.toUpperCase() : 'UNKNOWN'} request to ${config.url}`);
+    // Removed debug logging to prevent console spam
     return config;
   },
   error => Promise.reject(error)
