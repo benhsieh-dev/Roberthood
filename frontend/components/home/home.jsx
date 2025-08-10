@@ -194,26 +194,26 @@ useEffect(() => {
           */}
         <div className="social-media">
           <a
-            class="sm-icon"
+            className="sm-icon"
             href="https://angel.co/u/ben-hsieh-6"
             target="_blank"
           >
-            <i class="fab fa-angellist fa-5x"></i>
+            <i className="fab fa-angellist fa-5x"></i>
           </a>
           <a
-            class="sm-icon"
+            className="sm-icon"
             href="https://github.com/benhsieh-dev"
             target="_blank"
           >
             {/* <i class="fab fa-facebook-f fa-5x"></i> */}
-            <i class="fab fa-github fa-5x"></i>
+            <i className="fab fa-github fa-5x"></i>
           </a>
           <a
-            class="sm-icon"
+            className="sm-icon"
             href="https://www.linkedin.com/in/ben-hsieh-05522542/"
             target="_blank"
           >
-            <i class="fab fa-linkedin-in fa-5x"></i>
+            <i className="fab fa-linkedin-in fa-5x"></i>
           </a>
         </div>
 

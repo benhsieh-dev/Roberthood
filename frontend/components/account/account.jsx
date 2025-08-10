@@ -286,19 +286,19 @@ export default ({ currentUser, logout }) => {
                       <hr className="horizontal-bar" />
                     </li>
                     <li className="dropdown-list">
-                      <i class="fab fa-angellist menu-icon"></i>
+                      <i className="fab fa-angellist menu-icon"></i>
                       <a href="https://angel.co/u/ben-hsieh-6" target="_blank">
                         <span className="dropdown-menu-item">AngelList</span>
                       </a>
                     </li>
                     <li className="dropdown-list">
-                      <i class="fab fa-github menu-icon"></i>
+                      <i className="fab fa-github menu-icon"></i>
                       <a href="https://github.com/benhsieh-dev" target="_blank">
                         <span className="dropdown-menu-item">GitHub</span>
                       </a>
                     </li>
                     <li className="dropdown-list">
-                      <i class="fab fa-linkedin-in menu-icon"></i>
+                      <i className="fab fa-linkedin-in menu-icon"></i>
                       <a
                         href="https://www.linkedin.com/in/ben-hsieh-05522542/"
                         target="_blank"
@@ -313,7 +313,7 @@ export default ({ currentUser, logout }) => {
                       </Link>
                     </li>
                     <li className="dropdown-list">
-                      <i class="fas fa-university menu-icon"></i>
+                      <i className="fas fa-university menu-icon"></i>
                       <Link to="/account/banking">
                         <span className="dropdown-menu-item">Banking</span>
                       </Link>
@@ -423,37 +423,43 @@ export default ({ currentUser, logout }) => {
                 <br />
                 <div className="portfolio">
                   <table className="portfolio-item">
-                    <tr className="portfolio-header">
-                      <td>Name</td>
-                      <td>Symbol</td>
-                      <td>Shares</td>
-                      <td>Price</td>
-                      <td>Day's Percentge Change</td>
-                    </tr>
-                    <hr />
-                    {portfolioValue.map((item, idx) => (
-                      <div key={idx} className="shares-information">
-                        <Link to={`/stocks/${item.Company.symbol}`}>
-                          <tr className="company-details">
-                            <td>
+                    <thead>
+                      <tr className="portfolio-header">
+                        <td>Name</td>
+                        <td>Symbol</td>
+                        <td>Shares</td>
+                        <td>Price</td>
+                        <td>Day's Percentge Change</td>
+                        <td>Actions</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {portfolioValue.map((item, idx) => (
+                        <tr key={idx} className="company-details shares-information">
+                          <td>
+                            <Link to={`/stocks/${item.Company.symbol}`}>
                               <strong>{item.Company.company_name}</strong>
-                            </td>
-                            <td>{item.Company.symbol}</td>
-                            <td>{item.Quantity}</td>
-                            <td>${item.Company.latest_price.toFixed(2)}</td>
-                            <td>{item.Company.change_percent_s}</td>
-                          </tr>
-                        </Link>
-
-                        <button
-                          className="sell-stock"
-                          onClick={sellStockHandler(item)}
-                        >
-                          Sell All
-                        </button>
-                        <br />
-                      </div>
-                    ))}
+                            </Link>
+                          </td>
+                          <td>
+                            <Link to={`/stocks/${item.Company.symbol}`}>
+                              {item.Company.symbol}
+                            </Link>
+                          </td>
+                          <td>{item.Quantity}</td>
+                          <td>${item.Company.latest_price.toFixed(2)}</td>
+                          <td>{item.Company.change_percent_s}</td>
+                          <td>
+                            <button
+                              className="sell-stock"
+                              onClick={sellStockHandler(item)}
+                            >
+                              Sell All
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
               </div>

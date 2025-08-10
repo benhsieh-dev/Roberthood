@@ -253,19 +253,19 @@ export default ({ currentUser, logout }) => {
                     <hr className="horizontal-bar" />
                   </li>
                   <li className="dropdown-list">
-                    <i class="fab fa-angellist menu-icon"></i>
+                    <i className="fab fa-angellist menu-icon"></i>
                     <a href="https://angel.co/u/ben-hsieh-6" target="_blank">
                       <span className="dropdown-menu-item">AngelList</span>
                     </a>
                   </li>
                   <li className="dropdown-list">
-                    <i class="fab fa-github menu-icon"></i>
+                    <i className="fab fa-github menu-icon"></i>
                     <a href="https://github.com/benhsieh-dev" target="_blank">
                       <span className="dropdown-menu-item">GitHub</span>
                     </a>
                   </li>
                   <li className="dropdown-list">
-                    <i class="fab fa-linkedin-in menu-icon"></i>
+                    <i className="fab fa-linkedin-in menu-icon"></i>
                     <a
                       href="https://www.linkedin.com/in/ben-hsieh-05522542/"
                       target="_blank"
@@ -280,7 +280,7 @@ export default ({ currentUser, logout }) => {
                     </Link>
                   </li>
                   <li className="dropdown-list">
-                    <i class="fas fa-university menu-icon"></i>
+                    <i className="fas fa-university menu-icon"></i>
                     <Link to="/account/banking">
                       <span className="dropdown-menu-item">Banking</span>
                     </Link>
