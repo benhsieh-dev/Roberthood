@@ -20,6 +20,12 @@ When creating your Render service, add these environment variables:
 - `NODE_VERSION`: `18.17.0`
 - `RUBY_VERSION`: `3.2.2`
 
+**Firebase Configuration (Required):**
+- `REACT_APP_FIREBASE_API_KEY`: Your Firebase API key
+- `REACT_APP_FIREBASE_MESSAGING_SENDER_ID`: Firebase messaging sender ID
+- `REACT_APP_FIREBASE_APP_ID`: Firebase app ID
+- `REACT_APP_FIREBASE_MEASUREMENT_ID`: Firebase measurement ID
+
 **Optional:**
 - `NEWS_API_KEY`: If using News API
 - `WEB_CONCURRENCY`: `1` (for free tier)
@@ -123,9 +129,35 @@ Monitor deployment at: Render Dashboard → Your Service → Logs
 
 After successful deployment:
 1. Visit your Render URL to verify the app loads
-2. Test key functionality (login, stock search, etc.)
+2. Test key functionality:
+   - **Authentication**: Login with demo user (Demo User button)
+   - **Stock Search**: Search for stocks on dashboard
+   - **Portfolio**: View portfolio page at `/portfolio`
+   - **Banking**: Transfer cash between accounts at `/account/banking`
+   - **Firebase Integration**: Verify user data persistence
 3. Monitor logs for any runtime errors
 4. Set up custom domain (optional)
+
+## Features Available After Deployment
+
+### 🎯 **Core Functionality**
+- **User Authentication**: Firebase-based login/signup system
+- **Stock Data**: Real-time quotes from Financial Modeling Prep API
+- **Dashboard**: Stock search and watchlist management
+- **Portfolio Page**: View cash balance and stock holdings
+- **Banking**: Transfer money between accounts with live balance updates
+
+### 💰 **Cash Management System**
+- **Real-time cash balance** stored in Firebase Realtime Database
+- **Transfer functionality** between external bank and Roberthood account
+- **Transaction history** logging with timestamps
+- **Insufficient funds protection** for withdrawals
+
+### 📊 **Stock Features**
+- **Real-time stock quotes** with proper YTD calculation
+- **Buy/sell functionality** with portfolio integration
+- **Watchlist management** for favorite stocks
+- **Stock price charts** and company information
 
 ## Free Tier Limitations
 
