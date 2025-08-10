@@ -12,7 +12,8 @@ import { auth, database } from './firebase';
 export const createUser = async (userData) => {
   try {
     const { first_name, last_name, username, password } = userData;
-    const email = `${username}@roberthood.local`; // Use username as email
+    // Use gmail.com for demo user, roberthood.local for others
+    const email = username === 'bqh5026' ? 'bqh5026@gmail.com' : `${username}@roberthood.local`;
     
     // Create user in Firebase Auth
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -47,7 +48,8 @@ export const createUser = async (userData) => {
 // Sign in user
 export const loginUser = async (username, password) => {
   try {
-    const email = `${username}@roberthood.local`;
+    // Use gmail.com for demo user, roberthood.local for others
+    const email = username === 'bqh5026' ? 'bqh5026@gmail.com' : `${username}@roberthood.local`;
     
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
