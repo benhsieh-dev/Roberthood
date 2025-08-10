@@ -1,9 +1,8 @@
  
- # To run your app locally if using rvm:
+ # After the environment is setup correctly:
 
 Terminal 1 (start this first):
-source ~/.rvm/scripts/rvm && rvm use 3.1.7
-BUNDLE_GEMFILE= bundle exec rails server
+bundle exec rails server
 
 Terminal 2 (for frontend):
 npm start

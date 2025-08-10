@@ -1,6 +1,9 @@
 var path = require("path");
 var webpack = require("webpack");
 
+// Load environment variables from .env file
+require('dotenv').config();
+
 module.exports = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
   entry: "./frontend/roberthood.jsx",
