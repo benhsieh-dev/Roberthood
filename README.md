@@ -1,4 +1,12 @@
-Depending on the environment setup, may use bundle exec rails s to run the application
+ 
+ # To run your app locally if using rvm:
+
+Terminal 1 (start this first):
+source ~/.rvm/scripts/rvm && rvm use 3.1.7
+BUNDLE_GEMFILE= bundle exec rails server
+
+Terminal 2 (for frontend):
+npm start
 
 # Roberthood
 

@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useParams, useHistory, NavLink } from 'react-router-dom';
 
-import { externalApi, portfolioApi } from '../../utils/firebaseApi';
+import { externalApi, portfolioApi, cashBalanceApi } from '../../utils/firebaseApi';
 
 import { TickerSymbols } from '../../../public/tickers';
+
+// Import the image asset
+const roberthoodHatURL = '/assets/roberthood_hat.png';
 
 export default ({ currentUser, logout }) => {
     const [searchValue, setSearchValue] = useState("");
@@ -11,6 +14,7 @@ export default ({ currentUser, logout }) => {
     // console.log("currentUser", currentUser); 
     const [show, setShow] = useState(false); 
     const [portfolioValue, setPortfolioValue] = useState([]);
+    const [cashBalance, setCashBalance] = useState(0);
     const [stock, setStock] = useState([]);
     const [shares, setShares] = useState(0); 
     const [sharesError, setSharesError] = useState(null);
@@ -24,9 +28,14 @@ export default ({ currentUser, logout }) => {
   useEffect(() => {
     if (!currentUser || !currentUser.id) return;
     
-    portfolioApi.getPortfolio(currentUser.id)
-      .then((portfolio) => {
+    // Load both portfolio and cash balance
+    Promise.all([
+      portfolioApi.getPortfolio(currentUser.id),
+      cashBalanceApi.getCashBalance(currentUser.id)
+    ])
+      .then(([portfolio, cash]) => {
         setPortfolioValue(portfolio);
+        setCashBalance(cash);
       })
       .catch((error) => console.log(error));
   }, [currentUser]);
@@ -92,8 +101,14 @@ export default ({ currentUser, logout }) => {
         .then(() => {
           document.querySelector(".buy-stock").textContent = "Bought";
           document.querySelector(".buy-stock").disabled = true;
-          // Refresh portfolio
-          portfolioApi.getPortfolio(currentUser.id).then(setPortfolioValue).catch(console.log);
+          // Refresh portfolio and cash balance
+          Promise.all([
+            portfolioApi.getPortfolio(currentUser.id),
+            cashBalanceApi.getCashBalance(currentUser.id)
+          ]).then(([portfolio, cash]) => {
+            setPortfolioValue(portfolio);
+            setCashBalance(cash);
+          }).catch(console.log);
         })
         .catch(console.log);
       return;
@@ -111,8 +126,14 @@ export default ({ currentUser, logout }) => {
           document.querySelector(".buy-stock").textContent = "Bought";
           document.querySelector(".buy-stock").disabled = true;
           setSharesError(null);
-          // Refresh portfolio
-          portfolioApi.getPortfolio(currentUser.id).then(setPortfolioValue).catch(console.log);
+          // Refresh portfolio and cash balance
+          Promise.all([
+            portfolioApi.getPortfolio(currentUser.id),
+            cashBalanceApi.getCashBalance(currentUser.id)
+          ]).then(([portfolio, cash]) => {
+            setPortfolioValue(portfolio);
+            setCashBalance(cash);
+          }).catch(console.log);
         })
         .catch((error) => console.log(error));
     } else {
@@ -367,12 +388,31 @@ export default ({ currentUser, logout }) => {
                 <br />
                 <div className="total-portfolio-value">
                   $
-                  {portfolioValue
+                  {(portfolioValue
                     .map((a) => a.Total)
-                    .reduce((a, b) => a + b, 0)
+                    .reduce((a, b) => a + b, 0) + cashBalance)
                     .toFixed(2)
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </div>
+                
+                <div className="portfolio-breakdown">
+                  <div className="cash-balance">
+                    Cash: $
+                    {cashBalance
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </div>
+                  <div className="stock-value">
+                    Stocks: $
+                    {portfolioValue
+                      .map((a) => a.Total)
+                      .reduce((a, b) => a + b, 0)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </div>
                 </div>
 
                 <br />
