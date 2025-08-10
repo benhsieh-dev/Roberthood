@@ -52,10 +52,10 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
-      FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
-      FIREBASE_APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
-      FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+      FIREBASE_API_KEY: JSON.stringify(process.env.REACT_APP_FIREBASE_API_KEY || 'undefined'),
+      FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || 'undefined'),
+      FIREBASE_APP_ID: JSON.stringify(process.env.REACT_APP_FIREBASE_APP_ID || 'undefined'), 
+      FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || 'undefined'),
     }),
   ],
   devServer: {
