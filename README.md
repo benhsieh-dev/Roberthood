@@ -1,17 +1,21 @@
  
  # After the environment is setup correctly:
 
-Terminal 1 (start this first):
+Terminal 1 (Backend - start this first):
+source ~/.zshrc
+bundle install
+rails db:create db:migrate
 bundle exec rails server
 
-Terminal 2 (for frontend):
+Terminal 2 (Frontend):
+npm install
 npm start
 
 # Roberthood
 
 Users can read up on latest business news, check stock quotes, add ticker to watchlist, and buy and sell stocks in a portfolio.
 
-[Live Site](https://roberthood-trading-platform.herokuapp.com/)
+[Live Site](https://roberthood.onrender.com/)
 
 ## Technologies Used
 
