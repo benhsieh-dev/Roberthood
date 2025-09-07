@@ -7,12 +7,20 @@ if Rails.env.production?
   # Disable automatic schema dumping
   Rails.application.config.active_record.schema_format = :ruby
   
-  # Override db:migrate task
-  Rake::Task.define_task('db:migrate') do
-    puts "Using Firebase for data storage - skipping migrations"
-  end
-  
-  Rake::Task.define_task('db:seed') do  
-    puts "Using Firebase for data storage - skipping seeds"
+  # Override db:migrate task after Rake is loaded
+  Rails.application.config.after_initialize do
+    begin
+      require 'rake'
+      
+      Rake::Task.define_task('db:migrate') do
+        puts "Using Firebase for data storage - skipping migrations"
+      end
+      
+      Rake::Task.define_task('db:seed') do  
+        puts "Using Firebase for data storage - skipping seeds"
+      end
+    rescue LoadError
+      # Rake not available, which is fine for web server startup
+    end
   end
 end
