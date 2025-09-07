@@ -5,7 +5,7 @@ ruby '3.4.4'
 
 gem 'rails', '~> 6.1.7'  # Current stable 6.x version
 
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'activerecord-nulldb-adapter'
 
 # ✅ Updated Puma to be compatible with Ruby 3.x
 gem 'puma', '~> 5.6'

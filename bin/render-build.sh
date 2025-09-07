@@ -20,10 +20,9 @@ RAILS_ENV=production bundle exec rails assets:clean
 
 # Debug environment variables
 echo "=== BUILD PHASE DEBUG INFO ==="
-echo "DATABASE_URL: ${DATABASE_URL:-"NOT SET"}"
 echo "RAILS_ENV: ${RAILS_ENV:-"NOT SET"}"
 echo "RENDER: ${RENDER:-"NOT SET"}"
+echo "Firebase configuration present"
 echo "==============================="
 
-# Skip migrations during build - they will run in preDeployCommand when database is available
-echo "Build complete - migrations will run in preDeployCommand phase"
+echo "Build complete - using Firebase for data storage, no migrations needed"

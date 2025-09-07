@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
-# Post-build release script for database setup
+# Post-build release script for Firebase-only setup
 set -o errexit
 
 echo "==> Starting release process"
 
-# Ensure database is set up
-echo "==> Setting up database (if needed)"
-RAILS_ENV=production bundle exec rails db:migrate
-RAILS_ENV=production bundle exec rails db:seed
+echo "==> Using Firebase for data storage - no database migrations needed"
 
 echo "==> Release process completed successfully"
