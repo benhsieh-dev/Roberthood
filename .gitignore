@@ -33,3 +33,5 @@ yarn-debug.log*
 # Ignore .env file (environment variables)
 .env
 db/migrate_backup/
+
+# macOS System files
