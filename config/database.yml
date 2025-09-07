@@ -4,7 +4,6 @@
 
 default: &default
   adapter: nulldb
-  schema_search_path: public
 
 development:
   <<: *default
