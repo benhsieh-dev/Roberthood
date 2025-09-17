@@ -17,13 +17,14 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-@import "landing.scss";
-@import "signup.scss";
-@import "signin.scss";
-@import "dashboard.scss"; 
 @import "account.scss";
-@import "stocks.scss";
 @import "banking.scss";
+@import "dashboard.scss"; 
+@import "landing.scss";
+@import "portfolio.scss";
+@import "signin.scss";
+@import "signup.scss";
+@import "stocks.scss";
 
 
 a {
