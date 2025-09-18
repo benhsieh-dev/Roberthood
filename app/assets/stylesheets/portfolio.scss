@@ -27,3 +27,54 @@
      }
  }
 
+.holdings-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    border: 1px solid #ddd;
+    
+    .holdings-header {
+        display: contents;
+        
+        > div {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            padding: 12px 8px;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        > div:last-child {
+            border-right: 1px solid #ddd;
+        }
+    }
+    
+    .holdings-row {
+        display: contents;
+        
+        > div {
+            background-color: white;
+            padding: 12px 8px;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        > div:last-child {
+            border-right: 1px solid #ddd;
+        }
+        
+        &:hover > div {
+            background-color: #f0f0f0;
+        }
+    }
+    
+    .stock-symbol a {
+        color: black;
+        text-decoration: none;
+        font-size: inherit;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+

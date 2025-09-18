@@ -138,7 +138,6 @@ export default ({ currentUser, logout }) => {
 
         {/* Stock Holdings */}
 
-
         <div className="holdings-section">
           <h2>Stock Holdings</h2>
           {portfolioValue.length > 0 ? (
@@ -171,10 +170,8 @@ export default ({ currentUser, logout }) => {
                   </div>
                 </div>
               ))}
-
-
-              
             </div>
+            
           ) : (
             <div className="no-holdings">
               <p>You don't have any stock holdings yet.</p>
