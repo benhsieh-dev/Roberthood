@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolioApi, cashBalanceApi } from '../../utils/firebaseApi';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+// import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const roberthoodHatURL = '/assets/roberthood_hat.png';
 
@@ -236,67 +236,10 @@ export default ({ currentUser, logout }) => {
           </div>
         </div>
 
-        {/* Portfolio Visualization Charts */}
+        {/* Portfolio Visualization Charts - Temporarily disabled for production */}
         <div className="charts-section">
           <h2>Portfolio Breakdown</h2>
-          
-          <div className="charts-container">
-            {/* Asset Allocation Chart */}
-            <div className="chart-card">
-              <h3>Asset Allocation</h3>
-              <ResponsiveContainer width="100%" height={350}>
-                <PieChart>
-                  <Pie
-                    data={assetAllocationData}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={(entry) => `${entry.name}: ${entry.percentage}%`}
-                  >
-                    {assetAllocationData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => `$${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-
-            {/* Stock Holdings Breakdown Chart */}
-            {portfolioValue.length > 0 && (
-              <div className="chart-card">
-                <h3>Stock Holdings Distribution</h3>
-                <ResponsiveContainer width="100%" height={350}>
-                  <PieChart>
-                    <Pie
-                      data={stockHoldingsData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={100}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={(entry) => `${entry.name}: ${entry.percentage}%`}
-                    >
-                      {stockHoldingsData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      formatter={(value) => `$${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
-                      labelFormatter={(label, payload) => {
-                        const data = payload?.[0]?.payload;
-                        return data ? `${data.company} (${label})` : label;
-                      }}
-                    />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            )}
-          </div>
+          <p>Charts will be available soon - currently being optimized for production deployment.</p>
         </div>
 
         {/* Stock Holdings */}
