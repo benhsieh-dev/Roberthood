@@ -4,24 +4,45 @@ import { portfolioApi, cashBalanceApi } from '../../utils/firebaseApi';
 
 // Lazy load Recharts components for better production compatibility
 const ChartsContainer = lazy(() => {
-  console.log('Loading Recharts components...');
   return import('recharts').then(module => {
-    console.log('Recharts module loaded:', module);
     const { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } = module;
     
     return {
-      default: ({ assetAllocationData, stockHoldingsData, colors }) => {
-        console.log('Rendering charts with data:', { assetAllocationData, stockHoldingsData });
-        
-        return (
-          <div className="charts-container" style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-            {/* Asset Allocation Chart */}
+      default: ({ assetAllocationData, stockHoldingsData, colors }) => (
+        <div className="charts-container" style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+          {/* Asset Allocation Chart */}
+          <div className="chart-wrapper" style={{ flex: 1, minWidth: '400px' }}>
+            <h3>Asset Allocation</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={assetAllocationData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percentage }) => `${name}: ${percentage}%`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {assetAllocationData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Value']} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Stock Holdings Chart */}
+          {stockHoldingsData.length > 0 && (
             <div className="chart-wrapper" style={{ flex: 1, minWidth: '400px' }}>
-              <h3>Asset Allocation</h3>
+              <h3>Stock Holdings</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={assetAllocationData}
+                    data={stockHoldingsData}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
@@ -30,57 +51,21 @@ const ChartsContainer = lazy(() => {
                     fill="#8884d8"
                     dataKey="value"
                   >
-                    {assetAllocationData.map((entry, index) => (
+                    {stockHoldingsData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Value']} />
+                  <Tooltip 
+                    formatter={(value, name, props) => [
+                      `$${value.toFixed(2)}`, 
+                      props.payload.company
+                    ]} 
+                  />
                   <Legend />
                 </PieChart>
-              </ResponsiveContainer>
-            </div>
-
-            {/* Stock Holdings Chart */}
-            {stockHoldingsData.length > 0 && (
-              <div className="chart-wrapper" style={{ flex: 1, minWidth: '400px' }}>
-                <h3>Stock Holdings</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={stockHoldingsData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, percentage }) => `${name}: ${percentage}%`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {stockHoldingsData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      formatter={(value, name, props) => [
-                        `$${value.toFixed(2)}`, 
-                        props.payload.company
-                      ]} 
-                    />
-                    <Legend />
-                  </PieChart>
                 </ResponsiveContainer>
               </div>
             )}
-          </div>
-        );
-      }
-    };
-  }).catch(error => {
-    console.error('Failed to load Recharts:', error);
-    return {
-      default: () => (
-        <div style={{padding: '20px', textAlign: 'center', color: 'red'}}>
-          Failed to load charts. Error: {error.message}
         </div>
       )
     };
