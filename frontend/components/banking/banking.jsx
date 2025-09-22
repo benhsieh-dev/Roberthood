@@ -309,36 +309,36 @@ export default ({ currentUser, logout }) => {
             {currentUser.first_name} {currentUser.last_name}
           </h1>
           <nav className="user-nav-bar">
-            <Link to="/account" className="banking-page-link">
+            <NavLink to="/account" className="account-page-link" activeClassName="active" exact>
               Account
-            </Link>
-            <Link to="/account/banking" className="banking-page-link">
+            </NavLink>
+            <NavLink to="/account/banking" className="account-page-link" activeClassName="active" exact>
               Banking
-            </Link>
+            </NavLink>
             <a
               href="https://angel.co/u/ben-hsieh-6"
-              className="banking-page-link"
+              className="account-page-link"
               target="_blank"
             >
               Angel List
             </a>
             <a
               href="https://github.com/benhsieh-dev"
-              className="banking-page-link"
+              className="account-page-link"
               target="_blank"
             >
               GitHub
             </a>
             <a
               href="https://www.linkedin.com/in/ben-hsieh-05522542/"
-              className="banking-page-link"
+              className="account-page-link"
               target="_blank"
             >
               LinkedIn
             </a>
             <a
               href="https://benhsieh-dev.github.io/"
-              className="banking-page-link"
+              className="account-page-link"
               target="_blank"
             >
               Personal Site
@@ -448,7 +448,7 @@ export default ({ currentUser, logout }) => {
           </div>
           <br />
           <br />
-          <button className="banking-page-btn" onClick={handleTransfer} disabled={!transferAmount || loading}>
+          <button className="banking-page-btn" onClick={handleTransfer} disabled={loading}>
             {loading ? "Loading..." : "Submit Transfer"}
           </button>
         </form>

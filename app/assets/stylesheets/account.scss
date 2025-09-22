@@ -17,9 +17,11 @@
 .user-nav-bar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-inline-start: 0px;
     position: relative;
+    border-bottom: 2px solid #e9ecef;
+    gap: 0;
 }
 
 .user-nav-bar .user-nav-item {
@@ -71,21 +73,56 @@
 
 // account nav menu 
 
-.account-page-link > a {
-    color: #171718;
-    font-size: 16px;
-    font-weight: 700; 
-}
-
-.account-page-link:hover {
-  color: #00c806;
-}
-
 .account-page-link {
     color: #171718;
     font-size: 16px;
-    font-weight: 700; 
+    font-weight: 600; 
     list-style: none;
+    text-decoration: none;
+    padding: 12px 24px;
+    margin-right: 8px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    background: transparent;
+    border-radius: 8px 8px 0 0;
+    
+    &:hover {
+        color: #00c806;
+        background: rgba(0, 200, 6, 0.05);
+    }
+    
+    // Active state for NavLink
+    &.active {
+        color: #00c806;
+        font-weight: 700;
+        border-bottom: 3px solid #00c806;
+        background: rgba(0, 200, 6, 0.08);
+        
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #00c806;
+            border-radius: 2px 2px 0 0;
+        }
+    }
+}
+
+// Handle external links (non-NavLink)
+.account-page-link[href^="http"] {
+    margin-left: 16px;
+    opacity: 0.8;
+    font-weight: 600;
+    border-bottom: none;
+    
+    &:hover {
+        opacity: 1;
+        background: rgba(0, 200, 6, 0.03);
+    }
 }
 
 .portfolio-value-header {
@@ -99,15 +136,9 @@
 }
 
 .portfolio {
-    display: flex;
-    flex-direction: column;
-    width: 100rem; 
-}
-
-.portfolio-header {
-    width: 50rem;
-    display: flex;
-    justify-content: space-evenly;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .total-portfolio-value {
@@ -118,40 +149,139 @@
 .stocks-section {
     font-size: 22px;
     font-weight: 550;
+    margin-bottom: 20px;
 }
+
 .portfolio-item {
-    display: flex;
-    // justify-content: space-between;
-    flex-direction: column;
-    // padding-right: 30px; 
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    // Give Name column more space
+    td:first-child {
+        min-width: 250px;
+        white-space: nowrap;
+    }
+    
+    
+    thead {
+        background: #f8f9fa;
+        
+        .portfolio-header {
+            border-bottom: 2px solid #e9ecef;
+            
+            td {
+                padding: 16px 12px;
+                font-weight: 600;
+                font-size: 16px;
+                color: #495057;
+                text-align: left;
+                border-right: 1px solid #e9ecef;
+                
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+    
+    tbody {
+        .company-details.shares-information {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s ease;
+            
+            &:hover {
+                background-color: #f8f9fa;
+            }
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            td {
+                padding: 16px 12px;
+                font-size: 14px;
+                color: #212529;
+                border-right: 1px solid #f1f3f4;
+                vertical-align: middle;
+                
+                &:last-child {
+                    border-right: none;
+                    padding: 16px 12px;
+                    vertical-align: middle;
+                }
+                
+                a {
+                    color: #007bff;
+                    text-decoration: none;
+                    font-weight: 500;
+                    font-size: 16px;
+                    
+                    &:hover {
+                        color: #0056b3;
+                        text-decoration: underline;
+                    }
+                    
+                    strong {
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+                
+                strong {
+                    font-weight: 600;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
 }
 
-.shares-information {
-    width: 50rem;
-    display: flex;
-    // flex-direction: column;
-    justify-content: space-between;
+.action-button-wrapper {
+    text-align: center !important;
+    line-height: 1 !important;
+    padding: 20px 0 30px 0 !important;
+    display: block !important;
 }
 
-.company-details {
-    width: 40rem;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1rem; 
-    color: #000; 
+.sell-stock {
+    background-color: #00c806;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+    white-space: nowrap;
+    
+    &:hover {
+        background-color: #00b305;
+        transform: translateY(-1px);
+    }
+}
+
+.change-percent {
+    font-weight: 600;
+    
+    &.positive {
+        color: #28a745;
+    }
+    
+    &.negative {
+        color: #dc3545;
+    }
 }
 
 .company-details:hover {
     background-color: #f5f8fa;
 }
 
-.sell-stock {
-    color: #fff;
-    background: #01b403;
-    height: 1.25rem; 
-    border-radius: 5px;
-    width: 5rem;
-}
 
 .account-purchase-shares-error {
     color: #01b403; 

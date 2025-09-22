@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, YAxis } from "recharts";
 
 import { externalApi } from '../../utils/firebaseApi'; 
-import { portfolioApi, watchlistApi } from '../../utils/firebaseApi'; 
+import { portfolioApi, watchlistApi, cashBalanceApi } from '../../utils/firebaseApi'; 
 
 import { TickerSymbols } from '../../../public/tickers.js';
 
@@ -18,6 +18,7 @@ export default ({ currentUser, logout }) => {
     const [news, setNews] = useState([]);
     const [show, setShow] = useState(false); 
     const [portfolioValue, setPortfolioValue] = useState([]);
+    const [cashBalance, setCashBalance] = useState(0);
     const [stock, setStock] = useState([]); 
     const [shares, setShares] = useState(0);
     const [sharesError, setSharesError] = useState(null);
@@ -128,10 +129,14 @@ export default ({ currentUser, logout }) => {
         return;
       }
 
-      portfolioApi.getPortfolio(currentUser.id)
-        .then((portfolio) => {
+      Promise.all([
+        portfolioApi.getPortfolio(currentUser.id),
+        cashBalanceApi.getCashBalance(currentUser.id)
+      ])
+        .then(([portfolio, cash]) => {
           if (isMounted) {
             setPortfolioValue(portfolio);
+            setCashBalance(cash);
           }
         })
         .catch((error) => console.log(error));
@@ -388,14 +393,14 @@ const predictiveSearch = (item) => {
                        <div className="dropdown-portfolio-value">
                          <h4>
                            $
-                           {portfolioValue
+                           {(portfolioValue
                              .map((a) => a.Total)
-                             .reduce((a, b) => a + b, 0)
+                             .reduce((a, b) => a + b, 0) + cashBalance)
                              .toFixed(2)
                              .toString()
                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                          </h4>
-                         <span>Portfolio Value</span>
+                         <span>Total Account Value</span>
                        </div>
                      </div>
                      <hr />

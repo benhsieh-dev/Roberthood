@@ -36,3 +36,11 @@ db/migrate_backup/
 
 # macOS System files
 .DS_Store
+
+# Compiled assets (Rails asset pipeline)
+/public/assets/
+!/public/assets/.keep
+
+# Webpack bundles
+/app/assets/javascripts/*.bundle.js
+/app/assets/javascripts/*.bundle.js.map

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolioApi, cashBalanceApi } from '../../utils/firebaseApi';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const roberthoodHatURL = '/assets/roberthood_hat.png';
 
@@ -8,6 +9,8 @@ export default ({ currentUser, logout }) => {
   const [portfolioValue, setPortfolioValue] = useState([]);
   const [cashBalance, setCashBalance] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [showAccount, setShowAccount] = useState(false);
+  const [showPortfolio, setShowPortfolio] = useState(false);
 
   useEffect(() => {
     document.title = 'Portfolio | Roberthood';
@@ -44,6 +47,46 @@ export default ({ currentUser, logout }) => {
     .reduce((a, b) => a + b, 0);
 
   const totalAccountValue = totalPortfolioValue + cashBalance;
+
+  // Data for Cash vs Stocks pie chart
+  const assetAllocationData = [
+    {
+      name: 'Cash',
+      value: cashBalance,
+      percentage: totalAccountValue > 0 ? ((cashBalance / totalAccountValue) * 100).toFixed(2) : 0
+    },
+    {
+      name: 'Stocks',
+      value: totalPortfolioValue,
+      percentage: totalAccountValue > 0 ? ((totalPortfolioValue / totalAccountValue) * 100).toFixed(2) : 0
+    }
+  ];
+
+  // Data for individual stock holdings pie chart
+  const stockHoldingsData = portfolioValue.map(stock => ({
+    name: stock.Company?.symbol || 'Unknown',
+    value: stock.Total || 0,
+    percentage: totalPortfolioValue > 0 ? ((stock.Total / totalPortfolioValue) * 100).toFixed(2) : 0,
+    company: stock.Company?.company_name || 'Unknown Company'
+  }));
+
+  // Colors for the charts
+  const COLORS = ['#00C49F', '#FFBB28', '#FF8042', '#0088FE', '#8884D8', '#82CA9D', '#FFC658'];
+
+  const toggleAccountDropdown = () => {
+    setShowAccount(!showAccount);
+    setShowPortfolio(false); // Close portfolio dropdown
+  };
+
+  const togglePortfolioDropdown = () => {
+    setShowPortfolio(!showPortfolio);
+    setShowAccount(false); // Close account dropdown
+  };
+
+  const closeDropdowns = () => {
+    setShowAccount(false);
+    setShowPortfolio(false);
+  };
 
   if (loading) {
     return <div>Loading portfolio...</div>;
@@ -82,27 +125,84 @@ export default ({ currentUser, logout }) => {
             <Link to="/dashboard">
               <span className="nav-menu-item">Dashboard</span>
             </Link>
-            <Link to="/portfolio">
-              <span className="nav-menu-item active">Portfolio</span>
-            </Link>
             <div className="dropdown">
-              <button className="nav-menu-item dropdown">
+              <button className="nav-menu-item dropdown active" onClick={togglePortfolioDropdown}>
+                Portfolio
+              </button>
+              {showPortfolio && (
+                <ul className="dropdown-menu">
+                  <li className="dropdown-list">
+                    <i className="fas fa-chart-line menu-icon"></i>
+                    <Link to="/portfolio" onClick={closeDropdowns}>
+                      <span className="dropdown-menu-item">Portfolio</span>
+                    </Link>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fas fa-eye menu-icon"></i>
+                    <Link to="/dashboard" onClick={closeDropdowns}>
+                      <span className="dropdown-menu-item">Dashboard</span>
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+            <div className="dropdown">
+              <button className="nav-menu-item dropdown" onClick={toggleAccountDropdown}>
                 Account
               </button>
-              <div className="dropdown-menu">
-                <Link to="/account">
-                  <span className="dropdown-menu-item">Account</span>
-                </Link>
-                <Link to="/account/banking">
-                  <span className="dropdown-menu-item">Banking</span>
-                </Link>
-                <span
-                  className="dropdown-menu-item logout"
-                  onClick={logout}
-                >
-                  Log Out
-                </span>
-              </div>
+              {showAccount && (
+                <ul className="dropdown-menu">
+                  <li>
+                    <div>Ben Hsieh</div>
+                    <hr className="horizontal-bar" />
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fab fa-angellist menu-icon"></i>
+                    <a href="https://angel.co/u/ben-hsieh-6" target="_blank">
+                      <span className="dropdown-menu-item">AngelList</span>
+                    </a>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fab fa-github menu-icon"></i>
+                    <a href="https://github.com/benhsieh-dev" target="_blank">
+                      <span className="dropdown-menu-item">GitHub</span>
+                    </a>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fab fa-linkedin-in menu-icon"></i>
+                    <a
+                      href="https://www.linkedin.com/in/ben-hsieh-05522542/"
+                      target="_blank"
+                    >
+                      <span className="dropdown-menu-item">Linkedin</span>
+                    </a>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fas fa-briefcase menu-icon"></i>
+                    <Link to="/account" onClick={closeDropdowns}>
+                      <span className="dropdown-menu-item">Account</span>
+                    </Link>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fas fa-university menu-icon"></i>
+                    <Link to="/account/banking" onClick={closeDropdowns}>
+                      <span className="dropdown-menu-item">Banking</span>
+                    </Link>
+                  </li>
+                  <li className="dropdown-list">
+                    <i className="fas fa-sign-out-alt menu-icon"></i>
+                    <span
+                      className="dropdown-menu-item logout"
+                      onClick={() => {
+                        logout();
+                        closeDropdowns();
+                      }}
+                    >
+                      Log Out
+                    </span>
+                  </li>
+                </ul>
+              )}
             </div>
           </nav>
         </div>
@@ -122,17 +222,80 @@ export default ({ currentUser, logout }) => {
 
           <div className="balance-breakdown">
             <div className="balance-item">
-              <span className="label">Cash Balance:</span>
-              <span className="amount">
+              <div className="label">Cash Balance:</div>
+              <div className="amount">
                 ${cashBalance.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </span>
+              </div>
             </div>
             <div className="balance-item">
-              <span className="label">Stock Holdings:</span>
-              <span className="amount">
+              <div className="label">Stock Holdings:</div>
+              <div className="amount">
                 ${totalPortfolioValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </span>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Portfolio Visualization Charts */}
+        <div className="charts-section">
+          <h2>Portfolio Breakdown</h2>
+          
+          <div className="charts-container">
+            {/* Asset Allocation Chart */}
+            <div className="chart-card">
+              <h3>Asset Allocation</h3>
+              <ResponsiveContainer width="100%" height={350}>
+                <PieChart>
+                  <Pie
+                    data={assetAllocationData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={(entry) => `${entry.name}: ${entry.percentage}%`}
+                  >
+                    {assetAllocationData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => `$${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Stock Holdings Breakdown Chart */}
+            {portfolioValue.length > 0 && (
+              <div className="chart-card">
+                <h3>Stock Holdings Distribution</h3>
+                <ResponsiveContainer width="100%" height={350}>
+                  <PieChart>
+                    <Pie
+                      data={stockHoldingsData}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label={(entry) => `${entry.name}: ${entry.percentage}%`}
+                    >
+                      {stockHoldingsData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      formatter={(value) => `$${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`}
+                      labelFormatter={(label, payload) => {
+                        const data = payload?.[0]?.payload;
+                        return data ? `${data.company} (${label})` : label;
+                      }}
+                    />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            )}
           </div>
         </div>
 

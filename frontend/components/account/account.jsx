@@ -67,6 +67,10 @@ export default ({ currentUser, logout }) => {
       setShow(!show);
     };
 
+  const closeDropdown = () => {
+      setShow(false);
+    };
+
   const postDataHandler = () => {
     firebaseApi
       .post(`./${currentUser.username}.json`, quote)
@@ -308,13 +312,13 @@ export default ({ currentUser, logout }) => {
                     </li>
                     <li className="dropdown-list">
                       <i className="fas fa-briefcase menu-icon"></i>
-                      <Link to="/account">
+                      <Link to="/account" onClick={closeDropdown}>
                         <span className="dropdown-menu-item">Account</span>
                       </Link>
                     </li>
                     <li className="dropdown-list">
                       <i className="fas fa-university menu-icon"></i>
-                      <Link to="/account/banking">
+                      <Link to="/account/banking" onClick={closeDropdown}>
                         <span className="dropdown-menu-item">Banking</span>
                       </Link>
                     </li>
@@ -322,7 +326,10 @@ export default ({ currentUser, logout }) => {
                       <i className="fas fa-sign-out-alt menu-icon"></i>
                       <span
                         className="dropdown-menu-item logout"
-                        onClick={logout}
+                        onClick={() => {
+                          logout();
+                          closeDropdown();
+                        }}
                       >
                         Log Out
                       </span>
@@ -342,10 +349,10 @@ export default ({ currentUser, logout }) => {
               {currentUser.first_name} {currentUser.last_name}
             </h1>
             <nav className="user-nav-bar">
-              <NavLink to="/account" className="account-page-link">
+              <NavLink to="/account" className="account-page-link" activeClassName="active" exact>
                 Account
               </NavLink>
-              <NavLink to="/account/banking" className="account-page-link">
+              <NavLink to="/account/banking" className="account-page-link" activeClassName="active" exact>
                 Banking
               </NavLink>
               <a
@@ -448,14 +455,18 @@ export default ({ currentUser, logout }) => {
                           </td>
                           <td>{item.Quantity}</td>
                           <td>${item.Company.latest_price.toFixed(2)}</td>
-                          <td>{item.Company.change_percent_s}</td>
+                          <td className={`change-percent ${item.Company.change_percent_s && item.Company.change_percent_s.includes('-') ? 'negative' : 'positive'}`}>
+                            {item.Company.change_percent_s}
+                          </td>
                           <td>
-                            <button
-                              className="sell-stock"
-                              onClick={sellStockHandler(item)}
-                            >
-                              Sell All
-                            </button>
+                            <div className="action-button-wrapper">
+                              <button
+                                className="sell-stock"
+                                onClick={sellStockHandler(item)}
+                              >
+                                Sell All
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
