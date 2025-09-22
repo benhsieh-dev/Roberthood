@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { portfolioApi, cashBalanceApi } from '../../utils/firebaseApi';
-// import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+
+// Lazy load Recharts components for better production compatibility
+const PieChart = lazy(() => import('recharts').then(module => ({ default: module.PieChart })));
+const Pie = lazy(() => import('recharts').then(module => ({ default: module.Pie })));
+const Cell = lazy(() => import('recharts').then(module => ({ default: module.Cell })));
+const ResponsiveContainer = lazy(() => import('recharts').then(module => ({ default: module.ResponsiveContainer })));
+const Legend = lazy(() => import('recharts').then(module => ({ default: module.Legend })));
+const Tooltip = lazy(() => import('recharts').then(module => ({ default: module.Tooltip })));
 
 const roberthoodHatURL = '/assets/roberthood_hat.png';
 
@@ -236,10 +243,70 @@ export default ({ currentUser, logout }) => {
           </div>
         </div>
 
-        {/* Portfolio Visualization Charts - Temporarily disabled for production */}
+        {/* Portfolio Visualization Charts */}
         <div className="charts-section">
           <h2>Portfolio Breakdown</h2>
-          <p>Charts will be available soon - currently being optimized for production deployment.</p>
+          
+          <Suspense fallback={<div>Loading charts...</div>}>
+            <div className="charts-container" style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+              {/* Asset Allocation Chart */}
+              <div className="chart-wrapper" style={{ flex: 1, minWidth: '400px' }}>
+                <h3>Asset Allocation</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={assetAllocationData}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ name, percentage }) => `${name}: ${percentage}%`}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="value"
+                    >
+                      {assetAllocationData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => [`$${value.toFixed(2)}`, 'Value']} />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Stock Holdings Chart */}
+              {stockHoldingsData.length > 0 && (
+                <div className="chart-wrapper" style={{ flex: 1, minWidth: '400px' }}>
+                  <h3>Stock Holdings</h3>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={stockHoldingsData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percentage }) => `${name}: ${percentage}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {stockHoldingsData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        formatter={(value, name, props) => [
+                          `$${value.toFixed(2)}`, 
+                          props.payload.company
+                        ]} 
+                      />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+            </div>
+          </Suspense>
         </div>
 
         {/* Stock Holdings */}
